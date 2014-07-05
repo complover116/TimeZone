@@ -18,11 +18,11 @@ public class MainScreen extends JPanel {
 	  super.paintComponent(g);
 	  Graphics2D g2d = (Graphics2D) g;
 	  for(int i = 0; i < objects.size(); i++){
-	  if(objects.get(i).x > 500||objects.get(i).y > 500) {
+	  if(objects.get(i).x-CurGame.scrollX > 500||objects.get(i).y-CurGame.scrollY > 500) {
 		  
 	  } else {
-	  AffineTransform rt = AffineTransform.getRotateInstance(Math.toRadians(objects.get(i).rot),8,8);
-	  AffineTransform tr = AffineTransform.getTranslateInstance(objects.get(i).x, objects.get(i).y);
+	  AffineTransform rt = AffineTransform.getRotateInstance(Math.toRadians(objects.get(i).rot),objects.get(i).rotX,objects.get(i).rotY);
+	  AffineTransform tr = AffineTransform.getTranslateInstance(objects.get(i).x-CurGame.scrollX, objects.get(i).y-CurGame.scrollY);
 	  tr.concatenate(rt);
 	  g2d.drawImage(objects.get(i).img, tr, this);
 	  }

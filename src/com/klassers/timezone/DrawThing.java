@@ -6,5 +6,7 @@ public class DrawThing {
 	public double x;
 	public double y;
 	public double rot;
+	public double rotX;
+	public double rotY;
 	public BufferedImage img;
 }

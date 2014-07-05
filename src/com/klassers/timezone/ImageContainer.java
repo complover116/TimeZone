@@ -10,8 +10,8 @@ import javax.imageio.ImageIO;
 public class ImageContainer {
 	public static BufferedImage test = null;
 	public static HashMap<String, BufferedImage> images = new HashMap<String, BufferedImage>();
-	public static final String imagenames[] = {"test","ground_1","ground_2","ground_3"};
-	public static final String imagepaths[] = {"/img/terrain/test.png","/img/terrain/ground_1.png","/img/terrain/ground_2.png","/img/terrain/ground_3.png"};
+	public static final String imagenames[] = {"test","ground_1","ground_2","ground_3","sentry_1"};
+	public static final String imagepaths[] = {"/img/terrain/test.png","/img/terrain/ground_1.png","/img/terrain/ground_2.png","/img/terrain/ground_3.png","/img/entities/sentry_1.png"};
 	public static void load() {
 		for(int i = 0; i < imagenames.length; i++) {
 			InputStream is = GUI.class.getResourceAsStream(imagepaths[i]);

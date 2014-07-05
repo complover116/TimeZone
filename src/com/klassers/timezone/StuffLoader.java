@@ -17,6 +17,7 @@ public class StuffLoader {
 			System.out.println("DELAY ERROR");
 		}
 		Render.render();
+		WorldTicker.run();
 	}
 
 }

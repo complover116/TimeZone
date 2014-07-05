@@ -1,8 +1,12 @@
 package com.klassers.timezone;
 
-public class Entity {
-	public DrawThing model;
-	public double x = 20;
-	public double y = 20;
-	
+public abstract class Entity {
+	public DrawThing model = new DrawThing();
+	public abstract void construct();
+	public abstract void onTick();
+	//8.5
+	//11
+	public Entity(){
+		construct();
+	}
 }
