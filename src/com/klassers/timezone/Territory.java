@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.klassers.timezone.blocks.*;
 import com.klassers.timezone.entities.Sentry;
+import com.klassers.timezone.entities.TestTarget;
 
 public class Territory {
 	public Block[][] terrain = new Block[100][100];
@@ -21,5 +22,9 @@ public class Territory {
 		sentry.model.x = 50;
 		sentry.model.y = 50;
 		entities.add(sentry);
+		TestTarget ttarget = new TestTarget();
+		ttarget.model.x = 90;
+		ttarget.model.y = 90;
+		entities.add(ttarget);
 	}
 }
