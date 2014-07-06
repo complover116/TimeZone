@@ -1,0 +1,16 @@
+images:
+    - {file: /img/terrain/test.png, name: test}
+    - {file: /img/terrain/ground_1.png, name: ground_1}
+    - {file: /img/terrain/ground_2.png, name: ground_2}
+    - {file: /img/terrain/ground_3.png, name: ground_3}
+    - {file: /img/entities/sentry_1.png, name: sentry_1}
+    - {file: /img/entities/sentry_1_light1.png, name: sentry_1_light1}
+    - {file: /img/entities/sentry_1_light2.png, name: sentry_1_light2}
+    - {file: /img/entities/sentry_1_light3.png, name: sentry_1_light3}
+    - {file: /img/entities/testtarget.png, name: testtarget}
+    - {file: /img/entities/sentry_1_bullet.png, name: sentry_1_bullet}
+    - {file: /img/entities/smallexplosion1_1.png, name: smallexplosion1_1}
+    - {file: /img/entities/smallexplosion1_2.png, name: smallexplosion1_2}
+    - {file: /img/entities/smallexplosion1_3.png, name: smallexplosion1_3}
+    - {file: /img/entities/smallexplosion1_4.png, name: smallexplosion1_4}
+    - {file: /img/entities/smallexplosion1_5.png, name: smallexplosion1_5}

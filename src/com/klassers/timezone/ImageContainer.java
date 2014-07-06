@@ -3,18 +3,24 @@ package com.klassers.timezone;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.imageio.ImageIO;
 
+import org.yaml.snakeyaml.Yaml;
+
 public class ImageContainer {
 	public static BufferedImage test = null;
 	public static HashMap<String, BufferedImage> images = new HashMap<String, BufferedImage>();
-	public static final String imagenames[] = {"test","ground_1","ground_2","ground_3","sentry_1","sentry_1_light1","testtarget","sentry_1_light2","sentry_1_light3"};
-	public static final String imagepaths[] = {"/img/terrain/test.png","/img/terrain/ground_1.png","/img/terrain/ground_2.png","/img/terrain/ground_3.png","/img/entities/sentry_1.png","/img/entities/sentry_1_light1.png","/img/entities/testtarget.png","/img/entities/sentry_1_light2.png","/img/entities/sentry_1_light3.png"};
+	@SuppressWarnings("unchecked")
 	public static void load() {
-		for(int i = 0; i < imagenames.length; i++) {
-			InputStream is = GUI.class.getResourceAsStream(imagepaths[i]);
+		Yaml yaml = new Yaml();
+		InputStream stream = GUI.class.getResourceAsStream("/resources.yml");
+		HashMap<String, ArrayList<HashMap<String,String>>> test = (HashMap<String, ArrayList<HashMap<String, String>>>) yaml.load(stream);
+		ArrayList<HashMap<String,String>> imgs = test.get("images");
+		for(int i = 0; i < imgs.size(); i++) {
+			InputStream is = GUI.class.getResourceAsStream(imgs.get(i).get("file"));
 			BufferedImage img = null;
 			try {
 				img = ImageIO.read(is);
@@ -22,8 +28,8 @@ public class ImageContainer {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			images.put(imagenames[i], img);
-			System.out.println(imagepaths[i]+" loaded");
+			images.put(imgs.get(i).get("name"), img);
+			System.out.println(imgs.get(i).get("file")+" loaded");
 		}
 	}
 }

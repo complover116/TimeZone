@@ -1,7 +1,9 @@
 package com.klassers.timezone;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Shape;
 import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 
@@ -9,6 +11,7 @@ import javax.swing.JPanel;
 
 public class MainScreen extends JPanel {
 	public static ArrayList<DrawThing> objects = new ArrayList<DrawThing>();
+	public static ArrayList<Shape> shapes = new ArrayList<Shape>();
 	/**
 	 * 
 	 */
@@ -18,6 +21,7 @@ public class MainScreen extends JPanel {
 	  super.paintComponent(g);
 	  Graphics2D g2d = (Graphics2D) g;
 	  for(int i = 0; i < objects.size(); i++){
+	  try{
 	  if(objects.get(i).x-CurGame.scrollX > 500||objects.get(i).y-CurGame.scrollY > 500) {
 		  
 	  } else {
@@ -26,6 +30,13 @@ public class MainScreen extends JPanel {
 	  tr.concatenate(rt);
 	  g2d.drawImage(objects.get(i).img, tr, this);
 	  }
+	  }catch(NullPointerException e) {
+		  System.out.println("Nullpoiner in draw thread.");
+	  }
 	 }
+	  g2d.setColor(new Color(255,0,0,255));
+	  for(int i = 0; i < shapes.size(); i++){
+		  g2d.draw(shapes.get(i));
+	  }
 }
 }
