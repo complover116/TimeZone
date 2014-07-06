@@ -10,6 +10,8 @@ public abstract class Effect extends Entity {
 	int frametime = 1;
 	@Override
 	public void construct() {
+		this.model.rotX = 8.5;
+		this.model.rotY = 8.5;
 		frames = new ArrayList<BufferedImage>();
 		framenum = loadFrames();
 		this.model.img = frames.get(0);

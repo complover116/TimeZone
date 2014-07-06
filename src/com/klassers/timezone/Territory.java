@@ -26,15 +26,15 @@ public class Territory {
 		entities.add(sentry);
 		TestTarget ttarget = new TestTarget();
 		ttarget.model.x = 20;
-		ttarget.model.y = 90;
+		ttarget.model.y = 130;
 		entities.add(ttarget);
 		TestTarget ttarget2 = new TestTarget();
 		ttarget2.model.x = 60;
-		ttarget2.model.y = 90;
+		ttarget2.model.y = 130;
 		entities.add(ttarget2);
 		TestTarget ttarget3 = new TestTarget();
 		ttarget3.model.x = 90;
-		ttarget3.model.y = 90;
+		ttarget3.model.y = 130;
 		entities.add(ttarget3);
 	}
 	public void regEntity(Entity entity) {
