@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import com.klassers.timezone.blocks.Ground;
 import com.klassers.timezone.blocks.Test;
-import com.klassers.timezone.entities.Bullet;
 import com.klassers.timezone.entities.Sentry;
 import com.klassers.timezone.entities.TestTarget;
 
