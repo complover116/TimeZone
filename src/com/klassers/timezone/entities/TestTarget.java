@@ -1,10 +1,12 @@
 package com.klassers.timezone.entities;
 
+import com.klassers.timezone.CurGame;
 import com.klassers.timezone.EntityHurtable;
 import com.klassers.timezone.ImageContainer;
+import com.klassers.timezone.Pos;
 
 public class TestTarget extends EntityHurtable{
-
+	int time = 0;
 	@Override
 	public void construct() {
 		this.model.img = ImageContainer.images.get("testtarget");
@@ -21,6 +23,16 @@ public class TestTarget extends EntityHurtable{
 		if(this.model.rot == 360) {
 			this.model.rot = 0;
 		}*/
+		time ++;
+		if(time > 50) {
+		this.setPos(new Pos(Math.random()*500,Math.random()*500));
+		time = 0;
+		}
 	}
-
+	@Override
+	public void onDeath() {
+		MedExplosion1 bul = new MedExplosion1();
+		bul.setPos(this.getPos());
+		CurGame.terra.regEntity(bul);
+	}
 }

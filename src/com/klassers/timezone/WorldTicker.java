@@ -1,9 +1,11 @@
 package com.klassers.timezone;
 
 import java.awt.Rectangle;
+import java.time.Duration;
 
 public class WorldTicker {
 	public static void run() {
+		
 		try {
 			Thread.sleep(2000);
 		} catch (InterruptedException e1) {

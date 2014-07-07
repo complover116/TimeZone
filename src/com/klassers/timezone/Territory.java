@@ -23,6 +23,10 @@ public class Territory {
 		sentry.model.x = 70;
 		sentry.model.y = 60;
 		entities.add(sentry);
+		Sentry sentry2 = new Sentry();
+		sentry2.model.x = 300;
+		sentry2.model.y = 400;
+		entities.add(sentry2);
 		TestTarget ttarget = new TestTarget();
 		ttarget.model.x = 20;
 		ttarget.model.y = 130;

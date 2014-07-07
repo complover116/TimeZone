@@ -14,8 +14,11 @@ public class Bullet extends EntityObject{
 		this.collideY2 = 7;
 		direction = 0;
 		this.model.rot = direction;
+		SoundHandler.playSound("weapon/bullet/fire_1");
 	}
-
+	public void renderInfo2() {
+		
+	}
 	@Override
 	public void onTick() {
 		double newX = this.model.x + Math.cos(Math.toRadians(direction-90))*speed;

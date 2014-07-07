@@ -14,6 +14,7 @@ public class Sentry extends EntityHurtable{
 		this.collideX2 = 16;
 		this.collideY2 = 16;
 		this.health = 20;
+		this.readName = "Sentry gun";
 	}
 
 	@Override
@@ -30,14 +31,16 @@ public class Sentry extends EntityHurtable{
 				checkForTargets();
 			}
 		if(turningright) {
-			this.model.rot ++;
+			this.model.rot += 0.5;
 			if(this.model.rot > 180) {
 				this.turningright = false;
+				SoundHandler.playSound("sentry/seek_1");
 			}
 		} else {
-			this.model.rot --;
+			this.model.rot -= 0.5;
 			if(this.model.rot < 0) {
 				this.turningright = true;
+				SoundHandler.playSound("sentry/seek_1");
 			}
 		}
 	} else {
@@ -53,25 +56,27 @@ public class Sentry extends EntityHurtable{
 				this.model.rot -= 2;
 			}
 			if(this.model.rot < deg + 3&&this.model.rot > deg - 3) {
-				if(time >= 25) {
+				if(time >= 10) {
 					this.model.img = ImageContainer.images.get("sentry_1");
 					time = 0;
 				}
-				if(time == 12) {
+				if(time == 5) {
 					Bullet bul = new Bullet();
 					bul.attacker = this;
 					bul.setPos(this.getPos());
 					bul.direction = this.model.rot;
 					CurGame.terra.regEntity(bul);
 					this.model.img = ImageContainer.images.get("sentry_1_light3");
+					
 				}
 			} else {
-				if(time >= 50) {
+				if(time >= 20) {
 					this.model.img = ImageContainer.images.get("sentry_1");
 					time = 0;
 				}
-				if(time == 25) {
+				if(time == 10) {
 					this.model.img = ImageContainer.images.get("sentry_1_light2");
+					SoundHandler.playSound("sentry/alert_1");
 				}
 			}
 			if(this.target.isDead) {
@@ -81,12 +86,22 @@ public class Sentry extends EntityHurtable{
 	}
 
 	private void checkForTargets() {
+		boolean flag = false;
 		for(int i = 0; i < CurGame.terra.entities.size(); i ++) {
 			if(CurGame.terra.entities.get(i).getClass() == TestTarget.class) {
 				target = CurGame.terra.entities.get(i);
+				flag = true;
 			}
 		}
-		
+		if(flag) {;
+		}
+	}
+
+	@Override
+	public void onDeath() {
+		SmallExplosion1 bul = new SmallExplosion1();
+		bul.setPos(this.getPos());
+		CurGame.terra.regEntity(bul);
 	}
 	
 }

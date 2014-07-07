@@ -1,5 +1,7 @@
 package com.klassers.timezone;
 
+import java.time.Duration;
+
 public class StuffLoader {
 
 	public static void main(String[] args) {
@@ -17,6 +19,7 @@ public class StuffLoader {
 			System.out.println("DELAY ERROR");
 		}
 		Render.render();
+		CurGame.time = Duration.ofMinutes(5);
 		WorldTicker.run();
 	}
 

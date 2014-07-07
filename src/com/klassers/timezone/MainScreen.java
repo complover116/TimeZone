@@ -1,15 +1,18 @@
 package com.klassers.timezone;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Shape;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
-public class MainScreen extends JPanel {
+public class MainScreen extends JPanel implements MouseListener {
 	public static ArrayList<DrawThing> objects = new ArrayList<DrawThing>();
 	public static ArrayList<Shape> shapes = new ArrayList<Shape>();
 	/**
@@ -38,5 +41,47 @@ public class MainScreen extends JPanel {
 	  for(int i = 0; i < shapes.size(); i++){
 		  g2d.draw(shapes.get(i));
 	  }
+	  g2d.setColor(new Color(0,0,0,255));
+	  g2d.setFont(new Font("TimesRoman", Font.PLAIN, 30)); 
+	  g2d.drawString("TEST", 2, 20);
 }
+
+	@Override
+	public void mouseClicked(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		if(arg0.isShiftDown()) {
+			for(int i = 0; i < CurGame.terra.entities.size(); i++) {
+				if(arg0.getX() > CurGame.terra.entities.get(i).model.x&&arg0.getY() > CurGame.terra.entities.get(i).model.y&&arg0.getX() < CurGame.terra.entities.get(i).model.x+CurGame.terra.entities.get(i).model.img.getWidth()&&arg0.getY() < CurGame.terra.entities.get(i).model.y+CurGame.terra.entities.get(i).model.img.getHeight())
+				{
+					CurGame.terra.entities.get(i).drawInfo = true;
+				}
+			}
+		}
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent arg0) {
+			for(int i = 0; i < CurGame.terra.entities.size(); i++) {
+					CurGame.terra.entities.get(i).drawInfo = false;
+			}
+	}
 }

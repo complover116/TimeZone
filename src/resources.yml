@@ -14,3 +14,8 @@ images:
     - {file: /img/entities/smallexplosion1_3.png, name: smallexplosion1_3}
     - {file: /img/entities/smallexplosion1_4.png, name: smallexplosion1_4}
     - {file: /img/entities/smallexplosion1_5.png, name: smallexplosion1_5}
+    - {file: /img/entities/medexplosion1_1.png, name: medexplosion1_1}
+    - {file: /img/entities/medexplosion1_2.png, name: medexplosion1_2}
+    - {file: /img/entities/medexplosion1_3.png, name: medexplosion1_3}
+    - {file: /img/entities/medexplosion1_4.png, name: medexplosion1_4}
+    - {file: /img/entities/medexplosion1_5.png, name: medexplosion1_5}

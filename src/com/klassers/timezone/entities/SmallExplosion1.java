@@ -2,10 +2,12 @@ package com.klassers.timezone.entities;
 
 import com.klassers.timezone.Effect;
 import com.klassers.timezone.ImageContainer;
+import com.klassers.timezone.SoundHandler;
 
 public class SmallExplosion1 extends Effect {
 	@Override
 	public int loadFrames() {
+		SoundHandler.playSound("explosion/small_1");
 		frames.add(ImageContainer.images.get("smallexplosion1_1"));
 		frames.add(ImageContainer.images.get("smallexplosion1_2"));
 		frames.add(ImageContainer.images.get("smallexplosion1_3"));
@@ -13,5 +15,4 @@ public class SmallExplosion1 extends Effect {
 		frames.add(ImageContainer.images.get("smallexplosion1_5"));
 		return 5;
 	}
-
 }

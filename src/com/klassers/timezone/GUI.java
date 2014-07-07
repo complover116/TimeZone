@@ -1,5 +1,7 @@
 package com.klassers.timezone;
 
+import java.awt.event.MouseListener;
+
 import javax.swing.JFrame;
 
 
@@ -19,6 +21,7 @@ public class GUI implements Runnable {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.pack();
         frame.setVisible(true);
+        ms.addMouseListener(ms);
         for(int i = 0; i < 100; i ++) {
         	try {
 				Thread.sleep(100);
