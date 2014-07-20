@@ -17,11 +17,18 @@ public class GUI implements Runnable {
 		frame.setResizable(true);
 		frame.setSize(200, 200);
 		ms = new MainScreen();
+		ms.addMouseListener(ms);
+	    ms.addKeyListener(ms);
+	    ms.setFocusable(true);
+        ms.requestFocusInWindow();
 		frame.add(ms);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
 		frame.pack();
         frame.setVisible(true);
-        ms.addMouseListener(ms);
+        
+       
+
         for(int i = 0; i < 100; i ++) {
         	try {
 				Thread.sleep(100);

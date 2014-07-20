@@ -5,14 +5,19 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Shape;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
+import javafx.scene.input.KeyCode;
+
+import javafx.scene.input.KeyCode;
 
 import javax.swing.JPanel;
 
-public class MainScreen extends JPanel implements MouseListener {
+public class MainScreen extends JPanel implements MouseListener, KeyListener {
 	public static ArrayList<DrawThing> objects = new ArrayList<DrawThing>();
 	public static ArrayList<Shape> shapes = new ArrayList<Shape>();
 	/**
@@ -23,6 +28,7 @@ public class MainScreen extends JPanel implements MouseListener {
 	public void paintComponent(Graphics g) {
 	  super.paintComponent(g);
 	  Graphics2D g2d = (Graphics2D) g;
+	  
 	  for(int i = 0; i < objects.size(); i++){
 	  try{
 	  if(objects.get(i).x-CurGame.scrollX > 500||objects.get(i).y-CurGame.scrollY > 500) {
@@ -83,5 +89,32 @@ public class MainScreen extends JPanel implements MouseListener {
 			for(int i = 0; i < CurGame.terra.entities.size(); i++) {
 					CurGame.terra.entities.get(i).drawInfo = false;
 			}
+	}
+
+	@Override
+	public void keyPressed(KeyEvent arg0) {
+		System.out.println(arg0.getKeyCode());
+		if(arg0.getKeyCode() == 87){
+			CurGame.terra.controlledEnt.forward();
+		}
+		if(arg0.getKeyCode() == 83){
+			CurGame.terra.controlledEnt.backward();
+		}
+		if(arg0.getKeyCode() == 68){
+			
+		}
+		if(arg0.getKeyCode() == 65){
+			
+		}
+	}
+
+	@Override
+	public void keyReleased(KeyEvent arg0) {
+		System.out.println("KR");
+		CurGame.terra.controlledEnt.stop();
+	}
+
+	@Override
+	public void keyTyped(KeyEvent arg0) {
 	}
 }
