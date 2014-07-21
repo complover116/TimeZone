@@ -7,6 +7,11 @@ public abstract class EntityObject extends Entity {
 	public int collideY = 0;
 	public int collideX2;
 	public int collideY2;
+	public boolean checkBlockCollision(int blockX, int blockY) {
+		Rectangle2D.Double rec = new Rectangle2D.Double(this.model.x, this.model.y, this.collideX2,this.collideY2);
+		Rectangle2D.Double rec2 = new Rectangle2D.Double(blockX*16, blockY*16, 16, 16);
+		return rec.intersects(rec2);
+	}
 	public boolean checkCollision(EntityObject e) {
 		/*double point1[] = this.model.getPointPos(collideX, collideY);
 		double point2[] = this.model.getPointPos(collideX2, collideY2);

@@ -11,7 +11,8 @@ public class Test extends Block {
 
 	@Override
 	public void construct() {
-			this.drawthing.img = ImageContainer.images.get("test");		
+			this.drawthing.img = ImageContainer.images.get("test");	
+			solid = true;
 	}
 	
 }

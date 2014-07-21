@@ -13,6 +13,9 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
+import com.klassers.timezone.blocks.Ground;
+import com.klassers.timezone.blocks.Test;
+
 public class MainScreen extends JPanel implements MouseListener, KeyListener {
 	public static ArrayList<DrawThing> objects = new ArrayList<DrawThing>();
 	public static ArrayList<ShapeModel> shapes = new ArrayList<ShapeModel>();
@@ -24,14 +27,14 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 	public void paintComponent(Graphics g) {
 	  super.paintComponent(g);
 	  Graphics2D g2d = (Graphics2D) g;
-	  
+	  g2d.translate(-CurGame.scrollX, -CurGame.scrollY);
 	  for(int i = 0; i < objects.size(); i++){
 	  try{
 	  if(objects.get(i).x-CurGame.scrollX > 500||objects.get(i).y-CurGame.scrollY > 500) {
 		  
 	  } else {
 	  AffineTransform rt = AffineTransform.getRotateInstance(Math.toRadians(objects.get(i).rot),objects.get(i).rotX,objects.get(i).rotY);
-	  AffineTransform tr = AffineTransform.getTranslateInstance(objects.get(i).x-CurGame.scrollX, objects.get(i).y-CurGame.scrollY);
+	  AffineTransform tr = AffineTransform.getTranslateInstance(objects.get(i).x, objects.get(i).y);
 	  tr.concatenate(rt);
 	  g2d.drawImage(objects.get(i).img, tr, this);
 	  }
@@ -47,13 +50,20 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 	  }
 	  g2d.setColor(new Color(0,0,0,255));
 	  g2d.setFont(new Font("TimesRoman", Font.PLAIN, 30)); 
-	  g2d.drawString("TEST", 2, 20);
+	  g2d.drawString("TimeZone "+PermaConfig.version+", TPS:"+CurGame.TPS, 2, 20);
 }
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
+		if(arg0.getButton() == 1){
+			double x = arg0.getX() + CurGame.scrollX;
+			double y = arg0.getY() + CurGame.scrollY;
+			CurGame.terra.terrain[(int)x/16][(int)y/16] = new Test();
+		} else {
+			double x = arg0.getX() + CurGame.scrollX;
+			double y = arg0.getY() + CurGame.scrollY;
+			CurGame.terra.terrain[(int)x/16][(int)y/16] = new Ground();
+		}
 	}
 
 	@Override
@@ -123,5 +133,13 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 
 	@Override
 	public void keyTyped(KeyEvent arg0) {
+		System.out.println("Key:"+arg0.getKeyChar());
+		if(arg0.getKeyChar() == ' ') {
+			if(CurGame.gamego) {
+				CurGame.gamego = false;
+			} else {
+				CurGame.gamego = true;
+			}
+		}
 	}
 }
