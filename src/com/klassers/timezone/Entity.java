@@ -5,6 +5,9 @@ public abstract class Entity {
 	public DrawThing model = new DrawThing();
 	public abstract void construct();
 	public abstract void onTick();
+	public void renderStuff() {
+		
+	}
 	public boolean isDead = false;
 	public boolean drawInfo = false;
 	//8.5

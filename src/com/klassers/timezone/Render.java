@@ -1,5 +1,6 @@
 package com.klassers.timezone;
 
+import java.awt.Color;
 import java.awt.geom.Rectangle2D;
 
 public class Render {
@@ -24,7 +25,7 @@ public class Render {
 		//RENDER THE INFO BOXES
 		for(int i = 0;i < CurGame.terra.entities.size(); i++) {
 			if(CurGame.terra.entities.get(i).drawInfo) {
-				MainScreen.shapes.add(new Rectangle2D.Double(CurGame.terra.entities.get(i).model.x,CurGame.terra.entities.get(i).model.y,16,16));
+				MainScreen.shapes.add(new ShapeModel(new Rectangle2D.Double(CurGame.terra.entities.get(i).model.x,CurGame.terra.entities.get(i).model.y,16,16), new Color(255,0,0)));
 				CurGame.terra.entities.get(i).renderInfo();
 			}
 		}

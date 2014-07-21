@@ -1,7 +1,5 @@
 package com.klassers.timezone;
 
-import java.awt.Rectangle;
-import java.time.Duration;
 
 public class WorldTicker {
 	public static void run() {
@@ -15,14 +13,16 @@ public class WorldTicker {
 		while(true) {
 			//TICKING ENTITIES
 			MainScreen.shapes.clear();
-			MainScreen.shapes.add(new Rectangle(1,1,10,10));
 			for(int i = 0; i < CurGame.terra.entities.size(); i++) {
 				if(CurGame.terra.entities.get(i).isDead) {
 					CurGame.terra.entities.remove(i);
 				} else {
 				CurGame.terra.entities.get(i).onTick();
+				CurGame.terra.entities.get(i).renderStuff();
 				}
 			}
+			CurGame.scrollX = CurGame.terra.controlledEnt.getPos().x - 250;
+			CurGame.scrollY = CurGame.terra.controlledEnt.getPos().y - 250;
 			Render.render();
 			try {
 				Thread.sleep(10);

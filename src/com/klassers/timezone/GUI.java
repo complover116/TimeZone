@@ -1,7 +1,5 @@
 package com.klassers.timezone;
 
-import java.awt.event.MouseListener;
-
 import javax.swing.JFrame;
 
 

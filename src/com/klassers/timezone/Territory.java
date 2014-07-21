@@ -6,7 +6,6 @@ import com.klassers.timezone.blocks.Ground;
 import com.klassers.timezone.blocks.Test;
 import com.klassers.timezone.entities.BaseVehicle;
 import com.klassers.timezone.entities.Sentry;
-import com.klassers.timezone.entities.TestTarget;
 
 public class Territory {
 	public Block[][] terrain = new Block[100][100];
@@ -21,6 +20,15 @@ public class Territory {
 		for(int i = 0; i < 100; i ++) {
 				terrain[i][0] = new Test();
 		}
+		for(int i = 0; i < 100; i ++) {
+			terrain[0][i] = new Test();
+		}
+		for(int i = 0; i < 100; i ++) {
+			terrain[i][99] = new Test();
+		}
+		for(int i = 0; i < 100; i ++) {
+			terrain[99][i] = new Test();
+		}
 		Sentry sentry = new Sentry();
 		sentry.model.x = 70;
 		sentry.model.y = 60;
@@ -29,10 +37,6 @@ public class Territory {
 		sentry2.model.x = 300;
 		sentry2.model.y = 400;
 		entities.add(sentry2);
-		TestTarget ttarget = new TestTarget();
-		ttarget.model.x = 20;
-		ttarget.model.y = 130;
-		entities.add(ttarget);
 		BaseVehicle bv = new BaseVehicle();
 		bv.model.x = 20;
 		bv.model.y = 130;

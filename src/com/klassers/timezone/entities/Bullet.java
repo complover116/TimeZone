@@ -25,7 +25,7 @@ public class Bullet extends EntityObject{
 		double newY = this.model.y + Math.sin(Math.toRadians(direction-90))*speed;
 		this.model.x = newX;
 		this.model.y = newY;
-		if(this.model.x > 500||this.model.y > 500||this.model.x < 0||this.model.y < 0) {
+		if(this.model.x > 1600||this.model.y > 1600||this.model.x < 0||this.model.y < 0) {
 			this.remove();
 		}
 		for(int i = 0; i < CurGame.terra.entities.size(); i++) {
@@ -34,7 +34,7 @@ public class Bullet extends EntityObject{
 					if(CurGame.terra.entities.get(i)!=this){
 						if(((EntityObject)CurGame.terra.entities.get(i)).checkCollision(this)){
 							this.remove();
-							((EntityHurtable) CurGame.terra.entities.get(i)).takeDamage(attacker, 10);
+							((EntityHurtable) CurGame.terra.entities.get(i)).takeDamage(attacker, 1);
 							SmallExplosion1 bul = new SmallExplosion1();
 							bul.setPos(this.getPos());
 							CurGame.terra.regEntity(bul);

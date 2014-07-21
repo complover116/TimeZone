@@ -1,5 +1,6 @@
 package com.klassers.timezone;
 
+
 public abstract class EntityControllable extends EntityHurtable {
 	public double speedForward = 0;
 	public byte movDir = 0;
@@ -31,6 +32,16 @@ public abstract class EntityControllable extends EntityHurtable {
 		}
 		if(turn == -1) {
 			this.model.rot += turn*maxSpeedRight;
+		}
+		for(int i = 0; i < CurGame.terra.entities.size(); i++) {
+			if(EntityHurtable.class.isInstance(CurGame.terra.entities.get(i))) {
+					if(CurGame.terra.entities.get(i)!=this){
+						if(((EntityObject)CurGame.terra.entities.get(i)).checkCollision(this)){
+							this.speedForward = 0;
+							this.setPos(this.getPos().sub(CurGame.terra.entities.get(i).getPos().sub(this.getPos()).normal()));
+						}
+					}
+			}
 		}
 		double direction = this.model.rot;
 		double newX = this.getPos().x + Math.cos(Math.toRadians(direction-90))*speedForward;

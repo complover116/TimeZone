@@ -23,7 +23,7 @@ public class BaseVehicle extends EntityControllable {
 		this.collideY = 0;
 		this.collideX2 = 16;
 		this.collideY2 = 16;
-		this.health = 20;
+		this.health = 100;
 		this.readName = "Sentry vehicle";
 	}
 

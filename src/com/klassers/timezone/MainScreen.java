@@ -4,22 +4,18 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Shape;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
-import javafx.scene.input.KeyCode;
-
-import javafx.scene.input.KeyCode;
 
 import javax.swing.JPanel;
 
 public class MainScreen extends JPanel implements MouseListener, KeyListener {
 	public static ArrayList<DrawThing> objects = new ArrayList<DrawThing>();
-	public static ArrayList<Shape> shapes = new ArrayList<Shape>();
+	public static ArrayList<ShapeModel> shapes = new ArrayList<ShapeModel>();
 	/**
 	 * 
 	 */
@@ -45,7 +41,9 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 	 }
 	  g2d.setColor(new Color(255,0,0,255));
 	  for(int i = 0; i < shapes.size(); i++){
-		  g2d.draw(shapes.get(i));
+		  g2d.setColor(shapes.get(i).color);
+		  g2d.fill(shapes.get(i).shape);
+		  g2d.draw(shapes.get(i).shape);
 	  }
 	  g2d.setColor(new Color(0,0,0,255));
 	  g2d.setFont(new Font("TimesRoman", Font.PLAIN, 30)); 
@@ -93,7 +91,6 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 
 	@Override
 	public void keyPressed(KeyEvent arg0) {
-		System.out.println(arg0.getKeyCode());
 		if(arg0.getKeyCode() == 87){
 			CurGame.terra.controlledEnt.movDir = 1;
 		}
@@ -109,8 +106,7 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 	}
 
 	@Override
-	public void keyReleased(KeyEvent arg0) {
-		System.out.println("KR");
+	public void keyReleased(KeyEvent arg0) {;
 		if(arg0.getKeyCode() == 87&&CurGame.terra.controlledEnt.movDir == 1){
 			CurGame.terra.controlledEnt.movDir = 0;
 		}

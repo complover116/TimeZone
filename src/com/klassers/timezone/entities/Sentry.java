@@ -88,7 +88,7 @@ public class Sentry extends EntityHurtable{
 	private void checkForTargets() {
 		boolean flag = false;
 		for(int i = 0; i < CurGame.terra.entities.size(); i ++) {
-			if(CurGame.terra.entities.get(i).getClass() == BaseVehicle.class) {
+			if(CurGame.terra.entities.get(i).getClass() == BaseVehicle.class&&CurGame.terra.entities.get(i).getPos().distance(this.getPos())< 100) {
 				target = CurGame.terra.entities.get(i);
 				flag = true;
 			}
