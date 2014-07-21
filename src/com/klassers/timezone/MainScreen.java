@@ -95,23 +95,34 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 	public void keyPressed(KeyEvent arg0) {
 		System.out.println(arg0.getKeyCode());
 		if(arg0.getKeyCode() == 87){
-			CurGame.terra.controlledEnt.forward();
+			CurGame.terra.controlledEnt.movDir = 1;
 		}
 		if(arg0.getKeyCode() == 83){
-			CurGame.terra.controlledEnt.backward();
+			CurGame.terra.controlledEnt.movDir = -1;
 		}
 		if(arg0.getKeyCode() == 68){
-			
+			CurGame.terra.controlledEnt.turn = 1;
 		}
 		if(arg0.getKeyCode() == 65){
-			
+			CurGame.terra.controlledEnt.turn = -1;
 		}
 	}
 
 	@Override
 	public void keyReleased(KeyEvent arg0) {
 		System.out.println("KR");
-		CurGame.terra.controlledEnt.stop();
+		if(arg0.getKeyCode() == 87&&CurGame.terra.controlledEnt.movDir == 1){
+			CurGame.terra.controlledEnt.movDir = 0;
+		}
+		if(arg0.getKeyCode() == 83&&CurGame.terra.controlledEnt.movDir == -1){
+			CurGame.terra.controlledEnt.movDir = 0;
+		}
+		if(arg0.getKeyCode() == 68&&CurGame.terra.controlledEnt.turn == 1){
+			CurGame.terra.controlledEnt.turn = 0;
+		}
+		if(arg0.getKeyCode() == 65&&CurGame.terra.controlledEnt.turn == -1){
+			CurGame.terra.controlledEnt.turn = 0;
+		}
 	}
 
 	@Override
