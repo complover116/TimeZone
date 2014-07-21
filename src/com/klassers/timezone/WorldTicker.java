@@ -1,9 +1,11 @@
 package com.klassers.timezone;
 
 
+
 public class WorldTicker {
 	public static int waitedTicks = 0;
 	public static void tickWorld() {
+		CurGame.attackTime -= 0.01;
 		//TICKING ENTITIES
 		MainScreen.shapes.clear();
 		for(int i = 0; i < CurGame.terra.entities.size(); i++) {
@@ -24,18 +26,53 @@ public class WorldTicker {
 			e1.printStackTrace();
 		}
 		while(true) {
+			if(CurGame.status == 10){
+				if(CurGame.attackTime > 0) {
+				if(CurGame.timespeed < 5000) {
+					CurGame.timespeed +=50;
+					if(CurGame.timespeed == 500)SoundHandler.playSound("effects/attackhsgo");
+					if(CurGame.timespeed < 500)
+					SoundHandler.playSound("effects/timetick");
+				}
+				for(int i = 0; i < CurGame.timespeed/100; i++) {
+					tickWorld();
+				}
+				} else {
+					if(CurGame.timespeed > 0) {
+					if(CurGame.timespeed > 100) {
+						CurGame.timespeed -=50;
+					} else {
+						CurGame.timespeed -=1;
+					}
+						if(CurGame.timespeed == 4950)SoundHandler.playSound("effects/attackhsend");
+						if(CurGame.timespeed < 500)
+						SoundHandler.playSound("effects/timetick");
+					}
+				}
+				
+				
+			}
 			if(CurGame.status == 0){
+			if(CurGame.terra.controlledEnt.isDead&&CurGame.timespeed==100){
+				CurGame.status = 10;
+			}
+			if(CurGame.gamego == false && CurGame.timespeed > 0){
+				CurGame.timespeed --;
+				if(CurGame.timespeed == 99)SoundHandler.playSound("effects/attackend");
+				
+				if(CurGame.timespeed < 50)
+				SoundHandler.playSound("effects/timetick");
+			}
+			if(CurGame.gamego == true && CurGame.timespeed < 100) {
+				CurGame.timespeed ++;
+				if(CurGame.timespeed == 25)SoundHandler.playSound("effects/attackgo");
+				if(CurGame.timespeed < 50)
+				SoundHandler.playSound("effects/timetick");
+			}
 			if(waitedTicks == CurGame.TPS){
 				waitedTicks = 0;
 				tickWorld();
-				if(CurGame.gamego == false && CurGame.timespeed > 0){
-					CurGame.timespeed --;
-					SoundHandler.playSound("effects/timetick");
-				}
-				if(CurGame.gamego == true && CurGame.timespeed < 100) {
-					CurGame.timespeed ++;
-					SoundHandler.playSound("effects/timetick");
-				}
+				
 					if(CurGame.timespeed < 50) {
 						if(CurGame.timespeed < 25) {
 							if(CurGame.timespeed < 13) {
@@ -64,13 +101,33 @@ public class WorldTicker {
 				waitedTicks++;
 			}
 			
-			CurGame.scrollX = CurGame.terra.controlledEnt.getPos().x - 250;
-			CurGame.scrollY = CurGame.terra.controlledEnt.getPos().y - 250;
+			CurGame.scrollX = CurGame.terra.controlledEnt.getPos().x - MainScreen.width/2;
+			CurGame.scrollY = CurGame.terra.controlledEnt.getPos().y - MainScreen.height/2;
 			}
 			if(CurGame.status == 1) {
 				CurGame.scrollX += CurGame.scrollingX;
 				CurGame.scrollY += CurGame.scrollingY;
 			}
+			if(CurGame.status == -11) {
+				if(waitedTicks == 0){
+				}
+				if(waitedTicks == 1) {
+					//load stuff
+					CurGame.status = 0;
+					waitedTicks = -1;
+				}
+				waitedTicks ++;
+			}
+			if(CurGame.status == -10) {
+				if(waitedTicks == 0){
+				}
+				if(waitedTicks == 1) {
+					CurGame.status = -11;
+					waitedTicks = -1;
+				}
+				waitedTicks ++;
+			}
+			
 			Render.render();
 			try {
 				Thread.sleep(10);

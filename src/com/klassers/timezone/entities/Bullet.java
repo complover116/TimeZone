@@ -3,7 +3,7 @@ import com.klassers.timezone.*;
 public class Bullet extends EntityObject{
 	int time;
 	double direction;
-	double speed = 4;
+	double speed = 8;
 	Entity attacker;
 	@Override
 	public void construct() {

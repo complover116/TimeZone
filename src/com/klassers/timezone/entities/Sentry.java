@@ -85,10 +85,10 @@ public class Sentry extends EntityHurtable {
 				if (time == 10) {
 					this.model.img = ImageContainer.images
 							.get("sentry_1_light2");
-					SoundHandler.playSound("sentry/alert_1",0);
+					SoundHandler.playSound("sentry/alert_1");
 				}
 			}
-			if (this.target.isDead||this.target.getPos().distance(this.getPos())>100) {
+			if (this.target.isDead||this.target.getPos().distance(this.getPos())>800) {
 				this.target = null;
 			}
 		}
@@ -99,7 +99,7 @@ public class Sentry extends EntityHurtable {
 		for (int i = 0; i < CurGame.terra.entities.size(); i++) {
 			if (CurGame.terra.entities.get(i) instanceof EntityHurtable
 					&& CurGame.terra.entities.get(i).getPos()
-							.distance(this.getPos()) < 100) {
+							.distance(this.getPos()) < 500) {
 				if (((EntityHurtable) CurGame.terra.entities.get(i)).team != this.team) {
 					target = CurGame.terra.entities.get(i);
 					flag = true;

@@ -1,15 +1,19 @@
 package com.klassers.timezone;
 
-import java.time.Duration;
 
 public class StuffLoader {
 
 	public static void main(String[] args) {
-		System.out.println("=====Loading=====");
+		System.out.println("=====Loading resources=====");
 		ImageContainer.load();
-		CurGame.terra = new Territory();
-		CurGame.terra.fill();
+		System.out.println("=====Preparing teams and their zones=====");
+		for(int i = 0; i<CurGame.teams.length; i++) {
+			CurGame.teams[i] = new TeamData();
+			CurGame.teams[i].zone = new Territory(i);
+		}
+		CurGame.terra=CurGame.teams[1].zone;
 		System.out.println("=====Displaying=====");
+		CurGame.status = -10;
 		GUI gui = new GUI();
 		Thread uiThread = new Thread(gui, "UI Thread");
 		uiThread.start();
@@ -19,7 +23,6 @@ public class StuffLoader {
 			System.out.println("DELAY ERROR");
 		}
 		Render.render();
-		CurGame.time = Duration.ofMinutes(5);
 		WorldTicker.run();
 	}
 

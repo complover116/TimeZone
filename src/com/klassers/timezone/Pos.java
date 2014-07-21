@@ -25,10 +25,8 @@ public class Pos {
 		return new Pos(this.x + pos2.x,this.y + pos2.y);
 	}
 	public Pos normal() {
-		System.out.println("oX:"+this.x+" oY:"+this.y);
 		double newX = Math.cos(Math.atan2(this.x, this.y));
 		double newY = Math.sin(Math.atan2(this.x, this.y));
-		System.out.println("X:"+newX+" Y:"+newY);
 		return new Pos(newX, newY);
 	}
 }

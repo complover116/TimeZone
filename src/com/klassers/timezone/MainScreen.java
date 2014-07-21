@@ -13,25 +13,28 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
-import com.klassers.timezone.blocks.Ground;
-import com.klassers.timezone.blocks.Test;
-
 public class MainScreen extends JPanel implements MouseListener, KeyListener {
 	public static ArrayList<DrawThing> objects = new ArrayList<DrawThing>();
 	public static ArrayList<ShapeModel> shapes = new ArrayList<ShapeModel>();
-	static int pTPS = 0;
+	public static int width = 0;
+	public static int height = 0;
+	public static double shear = 0;
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -2355840993291782784L;
 
 	public void paintComponent(Graphics g) {
+	
 	  super.paintComponent(g);
+	  width = this.getWidth();
+	  height = this.getHeight();
 	  Graphics2D g2d = (Graphics2D) g;
 	  g2d.translate(-CurGame.scrollX, -CurGame.scrollY);
+	  g2d.transform(AffineTransform.getScaleInstance(1 - shear/100, 1 - shear/100));
 	  for(int i = 0; i < objects.size(); i++){
 	  try{
-	  if(objects.get(i).x-CurGame.scrollX > 500||objects.get(i).y-CurGame.scrollY > 500) {
+	  if(objects.get(i).x-CurGame.scrollX > width||objects.get(i).y-CurGame.scrollY > height) {
 		  
 	  } else {
 	  AffineTransform rt = AffineTransform.getRotateInstance(Math.toRadians(objects.get(i).rot),objects.get(i).rotX,objects.get(i).rotY);
@@ -50,11 +53,14 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 		  g2d.fill(shapes.get(i).shape);
 		  g2d.draw(shapes.get(i).shape);
 	  }
+	  shapes.clear();
+	  if(CurGame.terra != null){
 	  g2d.setColor(new Color(0,0,0,255));
 	  g2d.setFont(new Font("TimesRoman", Font.PLAIN, 30)); 
-	  g2d.drawString("TimeZone "+PermaConfig.version+", Status:"+CurGame.status, 2, 20);
-	  
+	  g2d.drawString("Zone of team "+CurGame.terra.owner, 2, 20);
+	  }
 	  g2d.translate(CurGame.scrollX, CurGame.scrollY);
+	  g2d.drawString("Time left:"+Metrics.timeFromSeconds((int)CurGame.attackTime), 0, 20);
 		  if(CurGame.timespeed == 0){
 			  g2d.setColor(new Color(255,0,0,255));
 			  g2d.drawString("Time stopped", 0, 450);
@@ -66,7 +72,7 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		if(arg0.getButton() == 1){
+		/*if(arg0.getButton() == 1){
 			double x = arg0.getX() + CurGame.scrollX;
 			double y = arg0.getY() + CurGame.scrollY;
 			CurGame.terra.terrain[(int)x/16][(int)y/16] = new Test();
@@ -74,7 +80,7 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 			double x = arg0.getX() + CurGame.scrollX;
 			double y = arg0.getY() + CurGame.scrollY;
 			CurGame.terra.terrain[(int)x/16][(int)y/16] = new Ground();
-		}
+		}*/
 	}
 
 	@Override
@@ -175,10 +181,12 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 	@Override
 	public void keyTyped(KeyEvent arg0) {
 		if(arg0.getKeyChar() == ' ') {
-			if(CurGame.gamego) {
+			if(CurGame.status==0) {
 				CurGame.gamego = false;
-			} else {
+			}
+			if(CurGame.status==1) {
 				CurGame.gamego = true;
+				CurGame.status = 0;
 			}
 		}
 	}

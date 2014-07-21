@@ -11,6 +11,13 @@ public class Territory {
 	public Block[][] terrain = new Block[100][100];
 	public ArrayList<Entity> entities = new ArrayList<Entity>();
 	public EntityControllable controlledEnt;
+	public int owner;
+	public Territory(int own) {
+		owner = own;
+		System.out.println("Territory of team "+owner+" is now preparing");
+		fill();
+		System.out.println("Territory of team "+owner+" is ready");
+	}
 	public void fill() {
 		for(int i = 0; i < 100; i ++) {
 			for(int j = 0; j < 100; j ++) {
@@ -29,10 +36,6 @@ public class Territory {
 		for(int i = 0; i < 100; i ++) {
 			terrain[99][i] = new Test();
 		}
-		Sentry sentry = new Sentry();
-		sentry.model.x = 70;
-		sentry.model.y = 60;
-		entities.add(sentry);
 		Sentry sentry2 = new Sentry();
 		sentry2.model.x = 300;
 		sentry2.model.y = 400;
