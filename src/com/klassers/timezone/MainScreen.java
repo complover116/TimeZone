@@ -52,7 +52,7 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 	  }
 	  g2d.setColor(new Color(0,0,0,255));
 	  g2d.setFont(new Font("TimesRoman", Font.PLAIN, 30)); 
-	  g2d.drawString("TimeZone "+PermaConfig.version+", TPS:"+CurGame.TPS, 2, 20);
+	  g2d.drawString("TimeZone "+PermaConfig.version+", Status:"+CurGame.status, 2, 20);
 	  
 	  g2d.translate(CurGame.scrollX, CurGame.scrollY);
 		  if(CurGame.timespeed == 0){
@@ -112,6 +112,7 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 
 	@Override
 	public void keyPressed(KeyEvent arg0) {
+		if(CurGame.status == 0){
 		if(arg0.getKeyCode() == 87){
 			CurGame.terra.controlledEnt.movDir = 1;
 		}
@@ -124,10 +125,25 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 		if(arg0.getKeyCode() == 65){
 			CurGame.terra.controlledEnt.turn = -1;
 		}
+		} else if(CurGame.status == 1) {
+			if(arg0.getKeyCode() == 87){
+				CurGame.scrollingY = -1;
+			}
+			if(arg0.getKeyCode() == 83){
+				CurGame.scrollingY = 1;
+			}
+			if(arg0.getKeyCode() == 68){
+				CurGame.scrollingX = 1;
+			}
+			if(arg0.getKeyCode() == 65){
+				CurGame.scrollingX = -1;
+			}
+		}
 	}
 
 	@Override
-	public void keyReleased(KeyEvent arg0) {;
+	public void keyReleased(KeyEvent arg0) {
+		if(CurGame.status == 0){
 		if(arg0.getKeyCode() == 87&&CurGame.terra.controlledEnt.movDir == 1){
 			CurGame.terra.controlledEnt.movDir = 0;
 		}
@@ -139,6 +155,20 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 		}
 		if(arg0.getKeyCode() == 65&&CurGame.terra.controlledEnt.turn == -1){
 			CurGame.terra.controlledEnt.turn = 0;
+		}
+		} else if(CurGame.status == 1) {
+			if(arg0.getKeyCode() == 87&&CurGame.scrollingY == -1){
+				CurGame.scrollingY = 0;
+			}
+			if(arg0.getKeyCode() == 83&&CurGame.scrollingY == 1){
+				CurGame.scrollingY = 0;
+			}
+			if(arg0.getKeyCode() == 68&&CurGame.scrollingX == 1){
+				CurGame.scrollingX = 0;
+			}
+			if(arg0.getKeyCode() == 65&&CurGame.scrollingX == -1){
+				CurGame.scrollingX = 0;
+			}
 		}
 	}
 
