@@ -27,16 +27,16 @@ public abstract class EntityHurtable extends EntityObject {
 		displayHealth --;
 		Rectangle rec1 = new Rectangle((int)this.model.x, (int)this.model.y - 5, (int)this.model.rotX*2, 3);
 		if(displayHealth > 255){
-		MainScreen.shapes.add(new ShapeModel(rec1, new Color(150,255,150,255)));
+		MainScreen.shapes.add(new ShapeModel(rec1, new Color(150,255,150,255), true));
 		}else {
-			MainScreen.shapes.add(new ShapeModel(rec1, new Color(150,255,150,displayHealth)));
+			MainScreen.shapes.add(new ShapeModel(rec1, new Color(150,255,150,displayHealth),true));
 		}
 		Rectangle rec = new Rectangle((int)this.model.x, (int)this.model.y - 5, (int)(this.model.rotX*2*((double)health/(double)maxhealth)), 3);
 		ShapeModel sh;
 		if(displayHealth > 255){
-			sh = new ShapeModel(rec, new Color((int) (255-((double)health/(double)maxhealth)*255),(int) (((double)health/(double)maxhealth)*255),0));
+			sh = new ShapeModel(rec, new Color((int) (255-((double)health/(double)maxhealth)*255),(int) (((double)health/(double)maxhealth)*255),0),true);
 		} else {
-			sh = new ShapeModel(rec, new Color((int) (255-((double)health/(double)maxhealth)*255),(int) (((double)health/(double)maxhealth)*255),0,displayHealth));
+			sh = new ShapeModel(rec, new Color((int) (255-((double)health/(double)maxhealth)*255),(int) (((double)health/(double)maxhealth)*255),0,displayHealth),true);
 		}
 		MainScreen.shapes.add(sh);
 		}

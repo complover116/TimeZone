@@ -6,8 +6,10 @@ import java.awt.Shape;
 public class ShapeModel {
 	public Shape shape;
 	public Color color;
-	public ShapeModel(Shape sha, Color col){
+	public boolean fill;
+	public ShapeModel(Shape sha, Color col, boolean fil){
 		shape = sha;
 		color = col;
+		fill = fil;
 	}
 }

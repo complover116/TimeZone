@@ -19,6 +19,7 @@ import com.klassers.timezone.blocks.Test;
 public class MainScreen extends JPanel implements MouseListener, KeyListener {
 	public static ArrayList<DrawThing> objects = new ArrayList<DrawThing>();
 	public static ArrayList<ShapeModel> shapes = new ArrayList<ShapeModel>();
+	static int pTPS = 0;
 	/**
 	 * 
 	 */
@@ -45,12 +46,22 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 	  g2d.setColor(new Color(255,0,0,255));
 	  for(int i = 0; i < shapes.size(); i++){
 		  g2d.setColor(shapes.get(i).color);
+		  if(shapes.get(i).fill)
 		  g2d.fill(shapes.get(i).shape);
 		  g2d.draw(shapes.get(i).shape);
 	  }
 	  g2d.setColor(new Color(0,0,0,255));
 	  g2d.setFont(new Font("TimesRoman", Font.PLAIN, 30)); 
 	  g2d.drawString("TimeZone "+PermaConfig.version+", TPS:"+CurGame.TPS, 2, 20);
+	  
+	  g2d.translate(CurGame.scrollX, CurGame.scrollY);
+		  if(CurGame.timespeed == 0){
+			  g2d.setColor(new Color(255,0,0,255));
+			  g2d.drawString("Time stopped", 0, 450);
+		  }else {
+			  g2d.setColor(new Color(0,255,0,255));
+			  g2d.drawString("Time speed:"+CurGame.timespeed+"%", 0, 450);
+		  }
 }
 
 	@Override
@@ -133,7 +144,6 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 
 	@Override
 	public void keyTyped(KeyEvent arg0) {
-		System.out.println("Key:"+arg0.getKeyChar());
 		if(arg0.getKeyChar() == ' ') {
 			if(CurGame.gamego) {
 				CurGame.gamego = false;

@@ -36,6 +36,7 @@ public class Territory {
 		Sentry sentry2 = new Sentry();
 		sentry2.model.x = 300;
 		sentry2.model.y = 400;
+		sentry2.team = 1;
 		entities.add(sentry2);
 		BaseVehicle bv = new BaseVehicle();
 		bv.model.x = 20;
