@@ -1,6 +1,7 @@
 package com.klassers.timezone;
 
 import javax.swing.JFrame;
+import javax.swing.RepaintManager;
 
 
 public class GUI implements Runnable {
@@ -19,6 +20,9 @@ public class GUI implements Runnable {
 	    ms.addKeyListener(ms);
 	    ms.setFocusable(true);
         ms.requestFocusInWindow();
+        RepaintManager rmg = RepaintManager.currentManager(ms);
+        rmg.markCompletelyClean(ms);
+        ms.setIgnoreRepaint(true);
 		frame.add(ms);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		

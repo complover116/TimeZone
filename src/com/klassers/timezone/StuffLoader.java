@@ -11,6 +11,8 @@ public class StuffLoader {
 			CurGame.teams[i] = new TeamData();
 			CurGame.teams[i].zone = new Territory(i);
 		}
+		CurGame.teams[0].dataname = "blue";
+		CurGame.teams[1].dataname = "red";
 		CurGame.terra=CurGame.teams[1].zone;
 		System.out.println("=====Displaying=====");
 		CurGame.status = -10;

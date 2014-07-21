@@ -7,6 +7,7 @@ public class Render {
 	public static void render() {
 		//RENDER THE TERRAIN
 		MainScreen.objects.clear();
+		MainScreen.indepobjects.clear();
 		for(int i = 0; i < 100; i ++) {
 			for(int j = 0; j < 100; j ++) {
 				if(CurGame.terra.terrain[i][j] != null){
@@ -29,6 +30,12 @@ public class Render {
 				CurGame.terra.entities.get(i).renderInfo();
 			}
 		}
+		//RENDER THE CURRENT TEAM
+		DrawThing logo = new DrawThing();
+		logo.img = ImageContainer.images.get(CurGame.teams[CurGame.controllingTeam].dataname+"_logo");
+		logo.x = MainScreen.width - 64;
+		logo.y = 0;
+		MainScreen.indepobjects.add(logo);
 		//CALL THE REDRAW
 		GUI.redraw();
 	}

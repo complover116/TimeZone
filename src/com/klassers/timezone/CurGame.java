@@ -3,10 +3,11 @@ package com.klassers.timezone;
 import java.time.Duration;
 
 public class CurGame {
-	public static double attackTime = 300;
+	public static double attackTime = 10;
 	public static TeamData teams[] = new TeamData[2];
 	public static int status = -1;
-	public static byte controllingTeam = 1;
+	public static int teamtoload = 0;
+	public static byte controllingTeam = 0;
 	public static int TPS = 0;
 	public static int timespeed = 100;
 	public static boolean gamego = true;

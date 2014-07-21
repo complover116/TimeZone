@@ -12,9 +12,11 @@ import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
+import javax.swing.RepaintManager;
 
 public class MainScreen extends JPanel implements MouseListener, KeyListener {
-	public static ArrayList<DrawThing> objects = new ArrayList<DrawThing>();
+	public static volatile ArrayList<DrawThing> objects = new ArrayList<DrawThing>();
+	public static ArrayList<DrawThing> indepobjects = new ArrayList<DrawThing>();
 	public static ArrayList<ShapeModel> shapes = new ArrayList<ShapeModel>();
 	public static int width = 0;
 	public static int height = 0;
@@ -27,24 +29,31 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 	public void paintComponent(Graphics g) {
 	
 	  super.paintComponent(g);
+	  RepaintManager rmg = RepaintManager.currentManager(this);
+      rmg.markCompletelyClean(this);
 	  width = this.getWidth();
 	  height = this.getHeight();
 	  Graphics2D g2d = (Graphics2D) g;
 	  g2d.translate(-CurGame.scrollX, -CurGame.scrollY);
 	  g2d.transform(AffineTransform.getScaleInstance(1 - shear/100, 1 - shear/100));
-	  for(int i = 0; i < objects.size(); i++){
-	  try{
-	  if(objects.get(i).x-CurGame.scrollX > width||objects.get(i).y-CurGame.scrollY > height) {
+	  int sizebefore = objects.size();
+	  for(int ser = 0; ser < objects.size(); ser++){
+      try{
+    	  //objects.get(i).x-CurGame.scrollX > width||objects.get(i).y-CurGame.scrollY > height
+	  if(objects.get(ser)==null) {
 		  
 	  } else {
-	  AffineTransform rt = AffineTransform.getRotateInstance(Math.toRadians(objects.get(i).rot),objects.get(i).rotX,objects.get(i).rotY);
-	  AffineTransform tr = AffineTransform.getTranslateInstance(objects.get(i).x, objects.get(i).y);
+	  AffineTransform rt = AffineTransform.getRotateInstance(Math.toRadians(objects.get(ser).rot),objects.get(ser).rotX,objects.get(ser).rotY);
+	  AffineTransform tr = AffineTransform.getTranslateInstance(objects.get(ser).x, objects.get(ser).y);
 	  tr.concatenate(rt);
-	  g2d.drawImage(objects.get(i).img, tr, this);
+	  g2d.drawImage(objects.get(ser).img, tr, this);
 	  }
-	  }catch(NullPointerException e) {
-		  System.out.println("Nullpoiner in draw thread.");
-	  }
+      } catch (NullPointerException e) {
+    	  System.out.println("======");
+    	  System.out.println(ser);
+    	  System.out.println(sizebefore);
+    	  System.out.println(objects.size());
+      }
 	 }
 	  g2d.setColor(new Color(255,0,0,255));
 	  for(int i = 0; i < shapes.size(); i++){
@@ -68,6 +77,20 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 			  g2d.setColor(new Color(0,255,0,255));
 			  g2d.drawString("Time speed:"+CurGame.timespeed+"%", 0, 450);
 		  }
+		  for(int i = 0; i < indepobjects.size(); i++){
+			  try{
+			  if(false) {
+				  
+			  } else {
+			  AffineTransform rt = AffineTransform.getRotateInstance(Math.toRadians(indepobjects.get(i).rot),indepobjects.get(i).rotX,indepobjects.get(i).rotY);
+			  AffineTransform tr = AffineTransform.getTranslateInstance(indepobjects.get(i).x, indepobjects.get(i).y);
+			  tr.concatenate(rt);
+			  g2d.drawImage(indepobjects.get(i).img, tr, this);
+			  }
+			  }catch(NullPointerException e) {
+				  System.out.println("NP2");
+			  }
+			 }
 }
 
 	@Override

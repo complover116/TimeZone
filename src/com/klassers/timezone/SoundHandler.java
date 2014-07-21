@@ -37,8 +37,9 @@ public class SoundHandler {
 		return true;
 	}
 	public static boolean playSound(String filename, double pitch) {
-		try {
-		// Open an audio input stream.
+		/*try {
+		
+			// Open an audio input stream.
         URL url = GUI.class.getResource("/sound/"+filename+".wav");
         AudioInputStream audioIn = AudioSystem.getAudioInputStream(url);
         int ch = audioIn.getFormat().getChannels();
@@ -61,7 +62,7 @@ public class SoundHandler {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return false;
-		}
+		}*/
 		return true;
 	}
 }

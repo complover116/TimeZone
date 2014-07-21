@@ -4,6 +4,7 @@ package com.klassers.timezone;
 
 public class WorldTicker {
 	public static int waitedTicks = 0;
+	public static boolean randomflag = false;
 	public static void tickWorld() {
 		CurGame.attackTime -= 0.01;
 		//TICKING ENTITIES
@@ -38,23 +39,34 @@ public class WorldTicker {
 					tickWorld();
 				}
 				} else {
+					if(!randomflag){
+						randomflag = true;
+						SoundHandler.playSound("effects/attackhsend");
+					}
 					if(CurGame.timespeed > 0) {
 					if(CurGame.timespeed > 100) {
 						CurGame.timespeed -=50;
 					} else {
 						CurGame.timespeed -=1;
 					}
-						if(CurGame.timespeed == 4950)SoundHandler.playSound("effects/attackhsend");
 						if(CurGame.timespeed < 500)
 						SoundHandler.playSound("effects/timetick");
+					} else {
+						if(CurGame.terra.owner == 0){
+						CurGame.teamtoload = 1;
+						} else {
+							CurGame.teamtoload = 0;
+						}
+						CurGame.status = -10;
 					}
 				}
 				
 				
 			}
 			if(CurGame.status == 0){
-			if(CurGame.terra.controlledEnt.isDead&&CurGame.timespeed==100){
+			if((CurGame.terra.controlledEnt.isDead||CurGame.attackTime < 0.01)&&CurGame.timespeed==100){
 				CurGame.status = 10;
+				randomflag = false;
 			}
 			if(CurGame.gamego == false && CurGame.timespeed > 0){
 				CurGame.timespeed --;
@@ -112,7 +124,13 @@ public class WorldTicker {
 				if(waitedTicks == 0){
 				}
 				if(waitedTicks == 1) {
-					//load stuff
+					CurGame.terra = CurGame.teams[CurGame.teamtoload].zone;
+					CurGame.attackTime = 300;
+					if(CurGame.teamtoload == 0){
+						CurGame.controllingTeam = 1;
+					} else {
+						CurGame.controllingTeam = 0;
+					}
 					CurGame.status = 0;
 					waitedTicks = -1;
 				}

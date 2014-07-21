@@ -19,3 +19,5 @@ images:
     - {file: /img/entities/medexplosion1_3.png, name: medexplosion1_3}
     - {file: /img/entities/medexplosion1_4.png, name: medexplosion1_4}
     - {file: /img/entities/medexplosion1_5.png, name: medexplosion1_5}
+    - {file: /img/gui/blue.png, name: blue_logo}
+    - {file: /img/gui/red.png, name: red_logo}
