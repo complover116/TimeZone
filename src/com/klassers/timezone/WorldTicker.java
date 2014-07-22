@@ -21,7 +21,7 @@ public class WorldTicker {
 	public static void run() {
 		
 		try {
-			Thread.sleep(2000);
+			Thread.sleep(200);
 		} catch (InterruptedException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -122,6 +122,9 @@ public class WorldTicker {
 			}
 			if(CurGame.status == 2){
 				CurGame.controllingTeam = (byte) CurGame.terra.owner;
+				if(CurGame.terra.preview.tool != null){
+				CurGame.terra.preview.tool.setPos(CurGame.terra.preview.getPos());
+				}
 			}
 			if(CurGame.status == -11) {
 				if(waitedTicks == 0){

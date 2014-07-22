@@ -39,7 +39,7 @@ public class Territory {
 		for(int i = 0; i < 100; i ++) {
 			terrain[99][i] = new Border();
 		}
-		Sentry sentry2 = new Sentry();
+		Sentry sentry2 = new Sentry(0);
 		sentry2.model.x = 300;
 		sentry2.model.y = 400;
 		sentry2.team = 0;
@@ -53,7 +53,7 @@ public class Territory {
 		Preview pv = new Preview();
 		pv.model.x = 16;
 		pv.model.y = 16;
-		entities.add(pv);
+		//entities.add(pv);
 		preview = pv;
 		preview.model.img = TeamData.getTeamImage("cursor", this.owner);
 	}

@@ -1,4 +1,8 @@
 package com.klassers.timezone;
+
+import java.awt.Color;
+import java.awt.Rectangle;
+
 /**
  * Class representing a 2D Vector
  * @author complover116
@@ -24,9 +28,28 @@ public class Pos {
 	public Pos add(Pos pos2) {
 		return new Pos(this.x + pos2.x,this.y + pos2.y);
 	}
+	public Pos add2(Pos pos2) {
+		return new Pos(this.x + pos2.y,this.y + pos2.x);
+	}
+	public Pos mul(double i ) {
+		return new Pos(this.x*i,this.y*i);
+	}
 	public Pos normal() {
 		double newX = Math.cos(Math.atan2(this.x, this.y));
 		double newY = Math.sin(Math.atan2(this.x, this.y));
 		return new Pos(newX, newY);
+	}
+	public boolean LOS(Pos pos2) {
+		for(int i = 0; i < distance(pos2); i++) {
+			int posX = (int)(this.add2(pos2.sub(this).normal().mul(i)).x/16);
+			int posY = (int)(this.add2(pos2.sub(this).normal().mul(i)).y/16);
+			if(CurGame.terra.terrain[posX][posY].solid) {
+				//MainScreen.shapes.add(new ShapeModel(new Rectangle(posX*16,posY*16,16,16),new Color(255,0,0),false));
+				return false;
+			}else {
+				//MainScreen.shapes.add(new ShapeModel(new Rectangle(posX*16,posY*16,16,16),new Color(0,255,0),false));
+			}
+		}
+		return true;
 	}
 }

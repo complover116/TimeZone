@@ -3,6 +3,7 @@ package com.klassers.timezone;
 
 public abstract class Block {
 	public boolean solid;
+	public boolean shootthrough;
 	public DrawThing drawthing = new DrawThing();
 	public Block() {
 		drawthing.rotX = 8.5;

@@ -1,9 +1,10 @@
 package com.klassers.timezone.entities;
 
 import com.klassers.timezone.Entity;
+import com.klassers.timezone.Tool;
 
 public class Preview extends Entity {
-
+	public Tool tool;
 	@Override
 	public void construct() {
 		this.model.rotX = 7.5;

@@ -2,8 +2,8 @@ package com.klassers.timezone.entities;
 import com.klassers.timezone.Block;
 import com.klassers.timezone.CurGame;
 import com.klassers.timezone.EntityHurtable;
-public class BlockBuilder extends EntityHurtable {
-	public Block btc;
+public class Constructor extends EntityHurtable {
+	public EntityHurtable btc;
 	public int owner;
 	public int wt = 0;
 	public String unbuiltim;
@@ -17,21 +17,21 @@ public class BlockBuilder extends EntityHurtable {
 		this.collideX2 = 16;
 		this.collideY2 = 16;
 		this.health = 1;
-		this.readName = "Wall (In construction)";
+		this.readName = "Object (In construction)";
 	}
-	public BlockBuilder(Block bttc, byte team, int mh, String unbuiltimg, int cst){
+	public Constructor(EntityHurtable bttc, byte team, String ubm, int cst){
 		btc = bttc;
 		owner = team;
 		cost = cst;
-		this.model.setModel(unbuiltimg);
-		this.maxhealth = mh;
-		this.unbuiltim = unbuiltimg;
+		this.model.setModel(ubm);
+		this.maxhealth = btc.maxhealth;
+		this.unbuiltim = ubm;
 		
 	}
-	public BlockBuilder copy() {
-		BlockBuilder build = null;
+	public Constructor copy() {
+		Constructor build = null;
 		try {
-			build = new BlockBuilder(btc.getClass().newInstance(), (byte) owner, maxhealth, unbuiltim, cost);
+			build = new Constructor(btc.getClass().newInstance(), (byte) owner, unbuiltim, cost);
 			build.setPos(this.getPos());
 			return build;
 		} catch (InstantiationException e) {
@@ -59,8 +59,6 @@ public class BlockBuilder extends EntityHurtable {
 			this.health++;
 			CurGame.teams[owner].metal-= cost;
 			if(this.health==this.maxhealth) {
-				CurGame.terra.terrain[(int) (this.getPos().x/16)]
-				[(int) (this.getPos().y/16)] = btc;
 				this.remove();
 			}
 		}

@@ -30,6 +30,7 @@ public class Render {
 				CurGame.terra.entities.get(i).renderInfo();
 			}
 		}
+		if(CurGame.status == 2)
 		MainScreen.objects.add(CurGame.terra.preview.model);
 		//RENDER THE CURRENT TEAM
 		DrawThing logo = new DrawThing();

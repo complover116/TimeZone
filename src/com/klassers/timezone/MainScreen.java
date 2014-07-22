@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
+import com.klassers.timezone.blocks.Ground;
 import com.klassers.timezone.blocks.Wall;
 import com.klassers.timezone.entities.BlockBuilder;
 
@@ -203,10 +204,19 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 	public void keyTyped(KeyEvent arg0) {
 		if(CurGame.status == 21) {
 			if(arg0.getKeyChar() == 'g') {
-				BlockBuilder bb = new BlockBuilder(new Wall(), CurGame.controllingTeam, 20, "wall_unbuilt");
+				BlockBuildTool bb = new BlockBuildTool(new Wall(), CurGame.controllingTeam, 20, "wall_unbuilt", 1);
 				bb.setPos(CurGame.terra.preview.getPos());
 				CurGame.terra.regEntity(bb);
 				CurGame.status = 2;
+				CurGame.terra.preview.tool = bb;
+				SoundHandler.playSound("sentry/seek_1");
+			}
+			if(arg0.getKeyChar() == 'x') {
+				BlockBuildTool bb = new BlockBuildTool(new Ground(), CurGame.controllingTeam, 5, "delete", 0);
+				bb.setPos(CurGame.terra.preview.getPos());
+				CurGame.terra.regEntity(bb);
+				CurGame.status = 2;
+				CurGame.terra.preview.tool = bb;
 				SoundHandler.playSound("sentry/seek_1");
 			}
 		}
@@ -234,11 +244,36 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 				SoundHandler.playSound("sentry/seek_1");
 				CurGame.status = 2;
 			}
+			if(CurGame.status==2) {
+				
+				if(CurGame.terra.preview.tool == null) {
+					try {
+					SoundHandler.playSound("sentry/seek_1");
+					Thread.sleep(100);
+					SoundHandler.playSound("sentry/seek_1");
+					Thread.sleep(100);
+					SoundHandler.playSound("sentry/seek_1");
+				}catch(InterruptedException e){
+					
+				}
+				} else {
+					
+					if(CurGame.terra.preview.tool.use()) {
+						SoundHandler.playSound("sentry/seek_1");
+					}
+				}
+			}
 		}
 		if(arg0.getKeyChar() == 'b') {
 			if(CurGame.status==2) {
 				SoundHandler.playSound("sentry/seek_1");
+				if(CurGame.terra.preview.tool == null) {
+					CurGame.terra.preview.model.img = TeamData.getTeamImage("cursor2", CurGame.terra.owner);
 				CurGame.status = 21;
+				} else {
+					CurGame.terra.preview.tool = null;
+					CurGame.terra.preview.model.img = TeamData.getTeamImage("cursor", CurGame.terra.owner);
+				}
 			}
 		}
 		if(arg0.getKeyChar() == ' ') {
@@ -251,6 +286,10 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 			}
 			if(CurGame.status == 2) {
 				SoundHandler.playSound("sentry/seek_1");
+				if(CurGame.terra.preview.tool!= null)
+				CurGame.terra.preview.tool.remove();
+				CurGame.terra.preview.tool = null;
+				CurGame.terra.preview.model.img = TeamData.getTeamImage("cursor", CurGame.terra.owner);
 				if(CurGame.terra.owner == 0){
 					CurGame.controllingTeam = 1;
 				} else {

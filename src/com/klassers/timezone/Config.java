@@ -1,5 +1,5 @@
 package com.klassers.timezone;
 
 public class Config {
-	public static int attacklength = 30;
+	public static int attacklength = 300;
 }

@@ -9,16 +9,16 @@ images:
     - {file: /img/entities/sentry_1_light3.png, name: sentry_1_light3}
     - {file: /img/entities/testtarget.png, name: testtarget}
     - {file: /img/entities/sentry_1_bullet.png, name: sentry_1_bullet}
-    - {file: /img/entities/smallexplosion1_1.png, name: smallexplosion1_1}
-    - {file: /img/entities/smallexplosion1_2.png, name: smallexplosion1_2}
-    - {file: /img/entities/smallexplosion1_3.png, name: smallexplosion1_3}
-    - {file: /img/entities/smallexplosion1_4.png, name: smallexplosion1_4}
-    - {file: /img/entities/smallexplosion1_5.png, name: smallexplosion1_5}
-    - {file: /img/entities/medexplosion1_1.png, name: medexplosion1_1}
-    - {file: /img/entities/medexplosion1_2.png, name: medexplosion1_2}
-    - {file: /img/entities/medexplosion1_3.png, name: medexplosion1_3}
-    - {file: /img/entities/medexplosion1_4.png, name: medexplosion1_4}
-    - {file: /img/entities/medexplosion1_5.png, name: medexplosion1_5}
+    - {file: /img/entities/effects/smallexplosion1_1.png, name: smallexplosion1_1}
+    - {file: /img/entities/effects/smallexplosion1_2.png, name: smallexplosion1_2}
+    - {file: /img/entities/effects/smallexplosion1_3.png, name: smallexplosion1_3}
+    - {file: /img/entities/effects/smallexplosion1_4.png, name: smallexplosion1_4}
+    - {file: /img/entities/effects/smallexplosion1_5.png, name: smallexplosion1_5}
+    - {file: /img/entities/effects/medexplosion1_1.png, name: medexplosion1_1}
+    - {file: /img/entities/effects/medexplosion1_2.png, name: medexplosion1_2}
+    - {file: /img/entities/effects/medexplosion1_3.png, name: medexplosion1_3}
+    - {file: /img/entities/effects/medexplosion1_4.png, name: medexplosion1_4}
+    - {file: /img/entities/effects/medexplosion1_5.png, name: medexplosion1_5}
     - {file: /img/entities/notexture.png, name: notexture}
     - {file: /img/gui/blue.png, name: blue_logo}
     - {file: /img/gui/red.png, name: red_logo}
@@ -27,3 +27,18 @@ images:
     - {file: /img/terrain/wall.png, name: wall}
     - {file: /img/terrain/wall_unbuilt.png, name: wall_unbuilt}
     - {file: /img/terrain/border.png, name: border}
+    - {file: /img/gui/delete.png, name: delete}
+    - {file: /img/gui/cursor2_blue.png, name: cursor2_blue}
+    - {file: /img/gui/cursor2_red.png, name: cursor2_red}
+    - {file: /img/entities/sentry/sentry_1/off.png, name: sentry_1_off_blue}
+    - {file: /img/entities/sentry/sentry_1/toggle_1.png, name: sentry_1_toggle1_blue}
+    - {file: /img/entities/sentry/sentry_1/toggle_2.png, name: sentry_1_toggle2_blue}
+    - {file: /img/entities/sentry/sentry_1/toggle_3.png, name: sentry_1_toggle3_blue}
+    - {file: /img/entities/sentry/sentry_1/toggle_4.png, name: sentry_1_toggle4_blue}
+    - {file: /img/entities/sentry/sentry_1/toggle_5.png, name: sentry_1_toggle5_blue}
+    - {file: /img/entities/sentry/sentry_1/toggle_6.png, name: sentry_1_toggle6_blue}
+    - {file: /img/entities/sentry/sentry_1/on.png, name: sentry_1_on_blue}
+    - {file: /img/entities/sentry/sentry_1/alert.png, name: sentry_1_alert_blue}
+    - {file: /img/entities/sentry/sentry_1/shoot_1.png, name: sentry_1_shoot1_blue}
+    - {file: /img/entities/sentry/sentry_1/shoot_2.png, name: sentry_1_shoot2_blue}
+    - {file: /img/entities/sentry/sentry_1/shoot_3.png, name: sentry_1_shoot3_blue}
