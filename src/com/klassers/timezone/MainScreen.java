@@ -12,7 +12,9 @@ import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
-import javax.swing.RepaintManager;
+
+import com.klassers.timezone.blocks.Wall;
+import com.klassers.timezone.entities.BlockBuilder;
 
 public class MainScreen extends JPanel implements MouseListener, KeyListener {
 	public static volatile ArrayList<DrawThing> objects = new ArrayList<DrawThing>();
@@ -29,8 +31,6 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 	public void paintComponent(Graphics g) {
 	
 	  super.paintComponent(g);
-	  RepaintManager rmg = RepaintManager.currentManager(this);
-      rmg.markCompletelyClean(this);
 	  width = this.getWidth();
 	  height = this.getHeight();
 	  Graphics2D g2d = (Graphics2D) g;
@@ -40,7 +40,7 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 	  for(int ser = 0; ser < objects.size(); ser++){
       try{
     	  //objects.get(i).x-CurGame.scrollX > width||objects.get(i).y-CurGame.scrollY > height
-	  if(objects.get(ser)==null) {
+	  if(objects.get(ser)==null&&objects.get(ser).draw) {
 		  
 	  } else {
 	  AffineTransform rt = AffineTransform.getRotateInstance(Math.toRadians(objects.get(ser).rot),objects.get(ser).rotX,objects.get(ser).rotY);
@@ -48,19 +48,20 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 	  tr.concatenate(rt);
 	  g2d.drawImage(objects.get(ser).img, tr, this);
 	  }
-      } catch (NullPointerException e) {
-    	  System.out.println("======");
-    	  System.out.println(ser);
-    	  System.out.println(sizebefore);
-    	  System.out.println(objects.size());
+      } catch (Exception e) {
+    	  
       }
 	 }
 	  g2d.setColor(new Color(255,0,0,255));
 	  for(int i = 0; i < shapes.size(); i++){
+		  try{
 		  g2d.setColor(shapes.get(i).color);
 		  if(shapes.get(i).fill)
 		  g2d.fill(shapes.get(i).shape);
 		  g2d.draw(shapes.get(i).shape);
+		  }catch(Exception e) {
+			  
+		  }
 	  }
 	  shapes.clear();
 	  if(CurGame.terra != null){
@@ -77,6 +78,12 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 			  g2d.setColor(new Color(0,255,0,255));
 			  g2d.drawString("Time speed:"+CurGame.timespeed+"%", 0, 450);
 		  }
+		  g2d.setColor(new Color(185,185,185,255));
+		  g2d.drawString("Metal:"+CurGame.teams[CurGame.terra.owner].metal, 200, 20);
+		  if(CurGame.status == 21){
+		  g2d.setColor(new Color(235,235,235,255));
+		  	g2d.drawString("G - Wall", 200, height - 20);
+		  }
 		  for(int i = 0; i < indepobjects.size(); i++){
 			  try{
 			  if(false) {
@@ -87,23 +94,15 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 			  tr.concatenate(rt);
 			  g2d.drawImage(indepobjects.get(i).img, tr, this);
 			  }
-			  }catch(NullPointerException e) {
-				  System.out.println("NP2");
+			  }catch(Exception e) {
+				  
 			  }
 			 }
 }
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		/*if(arg0.getButton() == 1){
-			double x = arg0.getX() + CurGame.scrollX;
-			double y = arg0.getY() + CurGame.scrollY;
-			CurGame.terra.terrain[(int)x/16][(int)y/16] = new Test();
-		} else {
-			double x = arg0.getX() + CurGame.scrollX;
-			double y = arg0.getY() + CurGame.scrollY;
-			CurGame.terra.terrain[(int)x/16][(int)y/16] = new Ground();
-		}*/
+	
 	}
 
 	@Override
@@ -115,7 +114,6 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 	@Override
 	public void mouseExited(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -154,7 +152,7 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 		if(arg0.getKeyCode() == 65){
 			CurGame.terra.controlledEnt.turn = -1;
 		}
-		} else if(CurGame.status == 1) {
+		} else if(CurGame.status > 0&&CurGame.status < 5&&!arg0.isShiftDown()) {
 			if(arg0.getKeyCode() == 87){
 				CurGame.scrollingY = -1;
 			}
@@ -185,7 +183,7 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 		if(arg0.getKeyCode() == 65&&CurGame.terra.controlledEnt.turn == -1){
 			CurGame.terra.controlledEnt.turn = 0;
 		}
-		} else if(CurGame.status == 1) {
+		} else if(CurGame.status > 0&&CurGame.status < 5) {
 			if(arg0.getKeyCode() == 87&&CurGame.scrollingY == -1){
 				CurGame.scrollingY = 0;
 			}
@@ -203,6 +201,46 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 
 	@Override
 	public void keyTyped(KeyEvent arg0) {
+		if(CurGame.status == 21) {
+			if(arg0.getKeyChar() == 'g') {
+				BlockBuilder bb = new BlockBuilder(new Wall(), CurGame.controllingTeam, 20, "wall_unbuilt");
+				bb.setPos(CurGame.terra.preview.getPos());
+				CurGame.terra.regEntity(bb);
+				CurGame.status = 2;
+				SoundHandler.playSound("sentry/seek_1");
+			}
+		}
+		if(CurGame.status == 2) {
+			if(arg0.getKeyChar() == 'W') {
+				CurGame.terra.preview.model.y -= 16;
+				SoundHandler.playSound("ui/click1");
+			}
+			if(arg0.getKeyChar() == 'S') {
+				CurGame.terra.preview.model.y += 16;
+				SoundHandler.playSound("ui/click1");
+			}
+			if(arg0.getKeyChar() == 'A') {
+				CurGame.terra.preview.model.x -= 16;
+				SoundHandler.playSound("ui/click1");
+			}
+			if(arg0.getKeyChar() == 'D') {
+				CurGame.terra.preview.model.x += 16;
+				SoundHandler.playSound("ui/click1");
+			}
+			//char russianChars[] = {'ö','ô','û','â'};
+		}
+		if(arg0.getKeyChar() == '\n') {
+			if(CurGame.status==1) {
+				SoundHandler.playSound("sentry/seek_1");
+				CurGame.status = 2;
+			}
+		}
+		if(arg0.getKeyChar() == 'b') {
+			if(CurGame.status==2) {
+				SoundHandler.playSound("sentry/seek_1");
+				CurGame.status = 21;
+			}
+		}
 		if(arg0.getKeyChar() == ' ') {
 			if(CurGame.status==0) {
 				CurGame.gamego = false;
@@ -210,6 +248,15 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 			if(CurGame.status==1) {
 				CurGame.gamego = true;
 				CurGame.status = 0;
+			}
+			if(CurGame.status == 2) {
+				SoundHandler.playSound("sentry/seek_1");
+				if(CurGame.terra.owner == 0){
+					CurGame.controllingTeam = 1;
+				} else {
+					CurGame.controllingTeam = 0;
+				}
+				CurGame.status = 1;
 			}
 		}
 	}

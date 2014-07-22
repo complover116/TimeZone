@@ -29,17 +29,5 @@ public class GUI implements Runnable {
 		frame.pack();
         frame.setVisible(true);
         
-       
-
-        for(int i = 0; i < 100; i ++) {
-        	try {
-				Thread.sleep(100);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-        	rot = rot + 5;
-        	frame.repaint();
-        }
 	}
 }

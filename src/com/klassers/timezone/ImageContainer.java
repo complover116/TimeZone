@@ -24,12 +24,15 @@ public class ImageContainer {
 			BufferedImage img = null;
 			try {
 				img = ImageIO.read(is);
+				images.put(imgs.get(i).get("name"), img);
+				System.out.println(imgs.get(i).get("file")+" loaded");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				System.err.println(imgs.get(i).get("file")+" failed to load!");
+			} catch (IllegalArgumentException e1) {
+				System.err.println(imgs.get(i).get("file")+" failed to load!");
 			}
-			images.put(imgs.get(i).get("name"), img);
-			System.out.println(imgs.get(i).get("file")+" loaded");
+			
 		}
 	}
 }

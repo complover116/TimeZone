@@ -19,5 +19,11 @@ images:
     - {file: /img/entities/medexplosion1_3.png, name: medexplosion1_3}
     - {file: /img/entities/medexplosion1_4.png, name: medexplosion1_4}
     - {file: /img/entities/medexplosion1_5.png, name: medexplosion1_5}
+    - {file: /img/entities/notexture.png, name: notexture}
     - {file: /img/gui/blue.png, name: blue_logo}
     - {file: /img/gui/red.png, name: red_logo}
+    - {file: /img/gui/cursor_blue.png, name: cursor_blue}
+    - {file: /img/gui/cursor_red.png, name: cursor_red}
+    - {file: /img/terrain/wall.png, name: wall}
+    - {file: /img/terrain/wall_unbuilt.png, name: wall_unbuilt}
+    - {file: /img/terrain/border.png, name: border}

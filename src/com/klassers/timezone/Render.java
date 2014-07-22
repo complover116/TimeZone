@@ -30,6 +30,7 @@ public class Render {
 				CurGame.terra.entities.get(i).renderInfo();
 			}
 		}
+		MainScreen.objects.add(CurGame.terra.preview.model);
 		//RENDER THE CURRENT TEAM
 		DrawThing logo = new DrawThing();
 		logo.img = ImageContainer.images.get(CurGame.teams[CurGame.controllingTeam].dataname+"_logo");

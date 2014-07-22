@@ -116,22 +116,21 @@ public class WorldTicker {
 			CurGame.scrollX = CurGame.terra.controlledEnt.getPos().x - MainScreen.width/2;
 			CurGame.scrollY = CurGame.terra.controlledEnt.getPos().y - MainScreen.height/2;
 			}
-			if(CurGame.status == 1) {
+			if(CurGame.status > 0&&CurGame.status < 5) {
 				CurGame.scrollX += CurGame.scrollingX;
 				CurGame.scrollY += CurGame.scrollingY;
+			}
+			if(CurGame.status == 2){
+				CurGame.controllingTeam = (byte) CurGame.terra.owner;
 			}
 			if(CurGame.status == -11) {
 				if(waitedTicks == 0){
 				}
 				if(waitedTicks == 1) {
 					CurGame.terra = CurGame.teams[CurGame.teamtoload].zone;
-					CurGame.attackTime = 300;
-					if(CurGame.teamtoload == 0){
-						CurGame.controllingTeam = 1;
-					} else {
-						CurGame.controllingTeam = 0;
-					}
-					CurGame.status = 0;
+					CurGame.attackTime = Config.attacklength;
+					CurGame.status = 2;
+					CurGame.timespeed=0;
 					waitedTicks = -1;
 				}
 				waitedTicks ++;

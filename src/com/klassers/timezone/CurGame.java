@@ -4,11 +4,13 @@ import java.time.Duration;
 
 public class CurGame {
 	public static double attackTime = 10;
+	public static int curmenu = 0;
 	public static TeamData teams[] = new TeamData[2];
 	public static int status = -1;
 	public static int teamtoload = 0;
 	public static byte controllingTeam = 0;
 	public static int TPS = 0;
+	public static int tool = 0;
 	public static int timespeed = 100;
 	public static boolean gamego = true;
 	public static Territory terra;
