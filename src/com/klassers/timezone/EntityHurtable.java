@@ -4,11 +4,13 @@ import java.awt.Color;
 import java.awt.Rectangle;
 
 public abstract class EntityHurtable extends EntityObject {
+	public AnimationSet anim;
 	public int health;
 	public int maxhealth = 100;
 	public String readName;
 	public int displayHealth = 0;
 	public byte team;
+	public static String animname;
 	public void takeDamage(Entity attacker, int damage) {
 		this.health = this.health - damage;
 		displayHealth = 400;
@@ -18,6 +20,9 @@ public abstract class EntityHurtable extends EntityObject {
 		}
 	}
 	public void renderInfo2() {
+		
+	}
+	public void instantiate(byte team) {
 		
 	}
 	public abstract void onDeath();

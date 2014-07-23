@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 
 import com.klassers.timezone.blocks.Ground;
 import com.klassers.timezone.blocks.Wall;
-import com.klassers.timezone.entities.BlockBuilder;
+import com.klassers.timezone.entities.Sentry;
 
 public class MainScreen extends JPanel implements MouseListener, KeyListener {
 	public static volatile ArrayList<DrawThing> objects = new ArrayList<DrawThing>();
@@ -220,6 +220,24 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 				SoundHandler.playSound("sentry/seek_1");
 			}
 		}
+		if(CurGame.status == 22) {
+			if(arg0.getKeyChar() == 'g') {
+				ConstructionTool bb = new ConstructionTool(new Sentry(CurGame.controllingTeam), CurGame.controllingTeam, 20);
+				bb.setPos(CurGame.terra.preview.getPos());
+				CurGame.terra.regEntity(bb);
+				CurGame.status = 2;
+				CurGame.terra.preview.tool = bb;
+				SoundHandler.playSound("sentry/seek_1");
+			}
+			if(arg0.getKeyChar() == 'x') {
+				BlockBuildTool bb = new BlockBuildTool(new Ground(), CurGame.controllingTeam, 5, "delete", 0);
+				bb.setPos(CurGame.terra.preview.getPos());
+				CurGame.terra.regEntity(bb);
+				CurGame.status = 2;
+				CurGame.terra.preview.tool = bb;
+				SoundHandler.playSound("sentry/seek_1");
+			}
+		}
 		if(CurGame.status == 2) {
 			if(arg0.getKeyChar() == 'W') {
 				CurGame.terra.preview.model.y -= 16;
@@ -271,6 +289,20 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 					CurGame.terra.preview.model.img = TeamData.getTeamImage("cursor2", CurGame.terra.owner);
 				CurGame.status = 21;
 				} else {
+					CurGame.terra.preview.tool.remove();
+					CurGame.terra.preview.tool = null;
+					CurGame.terra.preview.model.img = TeamData.getTeamImage("cursor", CurGame.terra.owner);
+				}
+			}
+		}
+		if(arg0.getKeyChar() == 'c') {
+			if(CurGame.status==2) {
+				SoundHandler.playSound("sentry/seek_1");
+				if(CurGame.terra.preview.tool == null) {
+					CurGame.terra.preview.model.img = TeamData.getTeamImage("cursor2", CurGame.terra.owner);
+				CurGame.status = 22;
+				} else {
+					CurGame.terra.preview.tool.remove();
 					CurGame.terra.preview.tool = null;
 					CurGame.terra.preview.model.img = TeamData.getTeamImage("cursor", CurGame.terra.owner);
 				}

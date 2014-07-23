@@ -42,3 +42,9 @@ images:
     - {file: /img/entities/sentry/sentry_1/shoot_1.png, name: sentry_1_shoot1_blue}
     - {file: /img/entities/sentry/sentry_1/shoot_2.png, name: sentry_1_shoot2_blue}
     - {file: /img/entities/sentry/sentry_1/shoot_3.png, name: sentry_1_shoot3_blue}
+    - {file: /img/entities/sentry/sentry_1/unbuilt.png, name: sentry_1_unbuilt_blue}
+    - {file: /img/entities/effects/spark1_1.png, name: spark1_1}
+    - {file: /img/entities/effects/spark1_2.png, name: spark1_2}
+    - {file: /img/entities/effects/spark1_3.png, name: spark1_3}
+    - {file: /img/entities/effects/spark1_4.png, name: spark1_4}
+    - {file: /img/entities/effects/spark1_5.png, name: spark1_5}

@@ -42,4 +42,18 @@ public class AnimationSet {
 			return this.setname+"_"+this.animations.get(this.curAnim).name+"_"+CurGame.teams[this.team].dataname;
 		}
 	}
+	public String getFrame(int anim, int frame) {
+		if(this.animations.get(anim).length > 1){
+			return this.setname+"_"+this.animations.get(anim).name+frame+"_"+CurGame.teams[this.team].dataname;
+			} else {
+				return this.setname+"_"+this.animations.get(anim).name+"_"+CurGame.teams[this.team].dataname;
+			}
+	}
+	public String getFrame(String anim, int frame) {
+		if(frame>0){
+			return this.setname+"_"+anim+frame+"_"+CurGame.teams[this.team].dataname;
+			} else {
+				return this.setname+"_"+anim+"_"+CurGame.teams[this.team].dataname;
+			}
+	}
 }

@@ -11,7 +11,7 @@ import com.klassers.timezone.SoundHandler;
 public class Sentry extends EntityHurtable {
 	boolean turningright;
 	boolean enabled;
-	public AnimationSet anim;
+	
 	int time;
 	Entity target;
 	public static int cost = 1;
@@ -37,22 +37,34 @@ public class Sentry extends EntityHurtable {
 		anim.animations.add(new Animation("on", 1, 1, -1));
 		anim.animations.add(new Animation("alert", 1, 10, 2));
 		anim.animations.add(new Animation("shoot", 3, 8, 2));
+		anim.animations.add(new Animation("unbuilt", 3, 8, 2));
+		this.model.setModel(anim.getFrame());
+	}
+	public Sentry() {
+		this.team = 0;
 		
+	}
+	@Override
+	public void instantiate(byte team) {
+		this.team = team;
+		anim = new AnimationSet("sentry_1", team);
+		anim.animations.add(new Animation("off", 1, 1, -1));
+		anim.animations.add(new Animation("toggle", 6, 8, 2));
+		anim.animations.add(new Animation("on", 1, 1, -1));
+		anim.animations.add(new Animation("alert", 1, 10, 2));
+		anim.animations.add(new Animation("shoot", 3, 8, 2));
+		anim.animations.add(new Animation("unbuilt", 3, 8, 2));
 		this.model.setModel(anim.getFrame());
 	}
 	@Override
 	public void onTick() {
+		time++;
+		if(this.anim.curAnim == 5){
+			
+		}else {
 		anim.animTick();
 		this.model.setModel(anim.getFrame());
-		time++;
-		if(anim.curAnim == 0||anim.curAnim == 1) {
-			if(anim.curAnim == 0) {
-				checkForTargets();
-				if(this.getPos().distance(this.target.getPos())< 100) {
-					anim.setAnim(1);
-				}
-			}
-		} else {
+		
 		checkForTargets();
 		if (target == null) {
 			if (turningright) {

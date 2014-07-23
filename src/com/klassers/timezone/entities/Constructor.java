@@ -1,7 +1,7 @@
 package com.klassers.timezone.entities;
-import com.klassers.timezone.Block;
 import com.klassers.timezone.CurGame;
 import com.klassers.timezone.EntityHurtable;
+import com.klassers.timezone.Pos;
 public class Constructor extends EntityHurtable {
 	public EntityHurtable btc;
 	public int owner;
@@ -19,19 +19,21 @@ public class Constructor extends EntityHurtable {
 		this.health = 1;
 		this.readName = "Object (In construction)";
 	}
-	public Constructor(EntityHurtable bttc, byte team, String ubm, int cst){
+	public Constructor(EntityHurtable bttc, byte team, int cst){
 		btc = bttc;
 		owner = team;
 		cost = cst;
-		this.model.setModel(ubm);
+		this.model.setModel(btc.anim.getFrame("unbuilt", 0));
 		this.maxhealth = btc.maxhealth;
-		this.unbuiltim = ubm;
+		//this.unbuiltim = ubm;
 		
 	}
 	public Constructor copy() {
 		Constructor build = null;
 		try {
-			build = new Constructor(btc.getClass().newInstance(), (byte) owner, unbuiltim, cost);
+			EntityHurtable soos = btc.getClass().newInstance();
+			soos.instantiate((byte)owner);
+			build = new Constructor(soos, (byte) owner, cost);
 			build.setPos(this.getPos());
 			return build;
 		} catch (InstantiationException e) {
@@ -52,14 +54,19 @@ public class Constructor extends EntityHurtable {
 	public void onTick() {
 		this.displayHealth = 300;
 		if(CurGame.teams[owner].metal>0){
-		
 		wt++;
 		if(wt == 100){
 			wt = 0;
 			this.health++;
+			Spark1 spark = new Spark1();
+			spark.setPos(this.getPos().add(new Pos(Math.random()*10-5,Math.random()*10-5)));
+			CurGame.terra.regEntity(spark);
 			CurGame.teams[owner].metal-= cost;
 			if(this.health==this.maxhealth) {
 				this.remove();
+				btc.setPos(this.getPos());
+				btc.model.rot= this.model.rot;
+				CurGame.terra.regEntity(btc);
 			}
 		}
 		}
