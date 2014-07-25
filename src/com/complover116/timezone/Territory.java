@@ -39,15 +39,19 @@ public class Territory {
 		for(int i = 0; i < 100; i ++) {
 			terrain[99][i] = new Border();
 		}
-		Sentry sentry2 = new Sentry(0);
-		sentry2.model.x = 300;
-		sentry2.model.y = 400;
-		sentry2.team = 0;
+		Sentry sentry2 = new Sentry(this.owner);
+		sentry2.model.x = 256;
+		sentry2.model.y = 256;
 		entities.add(sentry2);
-		BaseVehicle bv = new BaseVehicle();
+		byte tm;
+		if(this.owner == 0) {
+			tm = 1;
+		} else {
+			tm = 0;
+		}
+		BaseVehicle bv = new BaseVehicle(tm);
 		bv.model.x = 20;
 		bv.model.y = 130;
-		bv.team = 1;
 		entities.add(bv);
 		controlledEnt = bv;
 		Preview pv = new Preview();

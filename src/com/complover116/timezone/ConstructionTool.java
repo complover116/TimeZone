@@ -4,21 +4,20 @@ package com.complover116.timezone;
 public class ConstructionTool extends Tool {
 	int cost = 1;
 	int maxhealth = 0;
-	private byte owner;
-	private EntityHurtable btc;
-	public ConstructionTool(EntityHurtable bttc, byte team, int cst) {
-		
+	public EntityHurtable btc;
+	public ConstructionTool(EntityHurtable bttc) {
+		this.model.setModel(bttc.anim.getFrame("unbuilt", 0));
+		this.model.rotX = bttc.model.rotX;
+		this.model.rotY = bttc.model.rotY;
 		btc = bttc;
-		this.model.rotX = btc.model.rotX;
-		this.model.rotY = btc.model.rotY;
-		owner = team;
-		cost = cst;
-		this.model.setModel(btc.anim.getFrame("unbuilt", 0));
-		this.maxhealth = btc.maxhealth;
 	}
 	@Override
 	public boolean use() {
-		place();
+		btc.setPos(this.getPos());
+		CurGame.terra.regEntity(btc);
+		CurGame.terra.preview.tool.remove();
+		CurGame.terra.preview.tool = null;
+		CurGame.terra.preview.model.img = TeamData.getTeamImage("cursor", CurGame.terra.owner);
 		return true;
 	}
 

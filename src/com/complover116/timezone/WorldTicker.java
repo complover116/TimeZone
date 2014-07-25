@@ -77,7 +77,7 @@ public class WorldTicker {
 			}
 			if(CurGame.gamego == true && CurGame.timespeed < 100) {
 				CurGame.timespeed ++;
-				if(CurGame.timespeed == 25)SoundHandler.playSound("effects/attackgo");
+				if(CurGame.timespeed == 1)SoundHandler.playSound("effects/attackgo");
 				if(CurGame.timespeed < 50)
 				SoundHandler.playSound("effects/timetick");
 			}

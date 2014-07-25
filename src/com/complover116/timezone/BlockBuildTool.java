@@ -38,6 +38,10 @@ public class BlockBuildTool extends Tool {
 	public void construct() {
 		this.model.rotX = 7.5;
 		this.model.rotY = 7.5;
+		this.collideX = 0;
+		this.collideY = 0;
+		this.collideX2 = 16;
+		this.collideY2 = 16;
 	}
 	public BlockBuildTool(Block bttc, byte team, int mh, String unbuiltimg, int cst){
 		btc = bttc;

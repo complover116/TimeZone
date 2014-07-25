@@ -12,6 +12,8 @@ public class Spark1 extends Effect {
 		frames.add(ImageContainer.images.get("spark1_4"));
 		frames.add(ImageContainer.images.get("spark1_5"));
 		this.frametime = 3;
+		this.model.rotX = 8.5;
+		this.model.rotY = 8.5;
 		return 5;
 	}
 }

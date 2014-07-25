@@ -35,6 +35,7 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 	  width = this.getWidth();
 	  height = this.getHeight();
 	  Graphics2D g2d = (Graphics2D) g;
+	  if(CurGame.status >-1){
 	  g2d.translate(-CurGame.scrollX, -CurGame.scrollY);
 	  g2d.transform(AffineTransform.getScaleInstance(1 - shear/100, 1 - shear/100));
 	  int sizebefore = objects.size();
@@ -85,6 +86,12 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 		  g2d.setColor(new Color(235,235,235,255));
 		  	g2d.drawString("G - Wall", 200, height - 20);
 		  }
+	  }
+		  if(CurGame.status == -5){
+			  g2d.setColor(new Color(0,255,0,255));
+			  	g2d.drawString("LOADING", width/2, height/2);
+			  	System.out.println("XX");
+			  }
 		  for(int i = 0; i < indepobjects.size(); i++){
 			  try{
 			  if(false) {
@@ -222,15 +229,7 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 		}
 		if(CurGame.status == 22) {
 			if(arg0.getKeyChar() == 'g') {
-				ConstructionTool bb = new ConstructionTool(new Sentry(CurGame.controllingTeam), CurGame.controllingTeam, 20);
-				bb.setPos(CurGame.terra.preview.getPos());
-				CurGame.terra.regEntity(bb);
-				CurGame.status = 2;
-				CurGame.terra.preview.tool = bb;
-				SoundHandler.playSound("sentry/seek_1");
-			}
-			if(arg0.getKeyChar() == 'x') {
-				BlockBuildTool bb = new BlockBuildTool(new Ground(), CurGame.controllingTeam, 5, "delete", 0);
+				ConstructionTool bb = new ConstructionTool(new Sentry(CurGame.controllingTeam));
 				bb.setPos(CurGame.terra.preview.getPos());
 				CurGame.terra.regEntity(bb);
 				CurGame.status = 2;
@@ -282,6 +281,11 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 				}
 			}
 		}
+		if(arg0.getKeyChar() == 'q') {
+			if(CurGame.status == 0&&CurGame.terra.controlledEnt != null) {
+				CurGame.terra.controlledEnt.fire1();
+			}
+		}
 		if(arg0.getKeyChar() == 'b') {
 			if(CurGame.status==2) {
 				SoundHandler.playSound("sentry/seek_1");
@@ -309,8 +313,14 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 			}
 		}
 		if(arg0.getKeyChar() == ' ') {
+			
 			if(CurGame.status==0) {
+				if(!arg0.isShiftDown()) {
 				CurGame.gamego = false;
+				} else {
+					CurGame.status = 10;
+					WorldTicker.randomflag = false;
+				}
 			}
 			if(CurGame.status==1) {
 				CurGame.gamego = true;

@@ -1,33 +1,73 @@
 package com.complover116.timezone;
 
+import javax.swing.BoxLayout;
+import javax.swing.JFormattedTextField;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+
 
 public class StuffLoader {
 
 	public static void main(String[] args) {
-		System.out.println("=====Loading resources=====");
-		ImageContainer.load();
-		System.out.println("=====Preparing teams and their zones=====");
-		for(int i = 0; i<CurGame.teams.length; i++) {
-			CurGame.teams[i] = new TeamData();
+		
+		
+		try{
+			CurGame.status = -5;
+			System.out.println("=====Preparing teams=====");
+			for(int i = 0; i<CurGame.teams.length; i++) {
+				CurGame.teams[i] = new TeamData();
+				
+			}
+			CurGame.teams[0].dataname = "blue";
+			CurGame.teams[1].dataname = "red";
+			System.out.println("=====Displaying=====");
+			CurGame.status = -10;
+			GUI gui = new GUI();
+			Thread uiThread = new Thread(gui, "UI Thread");
+			uiThread.start();
+			Thread.sleep(2000);
+			System.out.println("=====Loading resources=====");
 			
-		}
-		CurGame.teams[0].dataname = "blue";
-		CurGame.teams[1].dataname = "red";
-		CurGame.teams[0].zone = new Territory(0);
-		CurGame.teams[1].zone = new Territory(1);
-		CurGame.terra=CurGame.teams[1].zone;
-		System.out.println("=====Displaying=====");
-		CurGame.status = -10;
-		GUI gui = new GUI();
-		Thread uiThread = new Thread(gui, "UI Thread");
-		uiThread.start();
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			System.out.println("DELAY ERROR");
-		}
-		Render.render();
+			ImageContainer.load();
+			
+
+			System.out.println("=====Preparing zones=====");
+			CurGame.teams[0].zone = new Territory(0);
+			CurGame.teams[1].zone = new Territory(1);
+			CurGame.terra=CurGame.teams[1].zone;
+			CurGame.status = 2;
+			Render.render();
+			System.out.println("=====Launching games=====");
 		WorldTicker.run();
+		} catch (Exception e) {
+			e.printStackTrace();
+			GUI.shutDown();
+			JFrame frame = new JFrame("Crash report");
+			frame.setResizable(false);
+			frame.setSize(200, 200);
+			JTextArea label = new JTextArea();
+			JPanel pn = new JPanel();
+			pn.setLayout(new BoxLayout(pn, BoxLayout.Y_AXIS));
+			frame.add(pn);
+			pn.add(label);
+			label.setEditable(false);
+			label.setText("The game has encountered a fatal error and was unable to recover.\nIf you understand the cause of the error - feel free to email me at complover116@gmail.com\nIt will help me deal with the problem");
+			JFormattedTextField divider = new JFormattedTextField();
+			pn.add(divider);
+			divider.setText("TECHNICAL DETAILS:");
+			JTextArea details = new JTextArea();
+			details.setEditable(false);
+			pn.add(details);
+			String dt = "Exception: "+e.getClass().getName() +"\nStackTrace:\n";
+			for(StackTraceElement sttr:e.getStackTrace()) {
+				dt = dt + sttr.toString()+"\n";
+			}
+			details.setText(dt);
+			frame.pack();
+			frame.setVisible(true);
+			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		}
 	}
 
 }

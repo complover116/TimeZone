@@ -4,10 +4,11 @@ public class Bullet extends EntityObject{
 	int time;
 	double direction;
 	double speed = 8;
+	byte team;
 	Entity attacker;
 	@Override
 	public void construct() {
-		this.model.img = ImageContainer.images.get("sentry_1_bullet");
+		
 		this.model.rotX = 3.5;
 		this.model.rotY = 3.5;
 		this.collideX2 = 7;
@@ -18,6 +19,10 @@ public class Bullet extends EntityObject{
 	}
 	public void renderInfo2() {
 		
+	}
+	public Bullet(byte team) {
+		this.team = team;
+		this.model.img = TeamData.getTeamImage("sentry_1_bullet", team);
 	}
 	@Override
 	public void onTick() {
@@ -52,7 +57,7 @@ public class Bullet extends EntityObject{
 			if(EntityHurtable.class.isInstance(CurGame.terra.entities.get(i))) {
 				if(CurGame.terra.entities.get(i)!=attacker){
 					if(CurGame.terra.entities.get(i)!=this){
-						if(((EntityObject)CurGame.terra.entities.get(i)).checkCollision(this)){
+						if(((EntityHurtable)CurGame.terra.entities.get(i)).checkCollision(this)&&((EntityHurtable)CurGame.terra.entities.get(i)).team != this.team){
 							this.remove();
 							((EntityHurtable) CurGame.terra.entities.get(i)).takeDamage(attacker, 1);
 							SmallExplosion1 bul = new SmallExplosion1();

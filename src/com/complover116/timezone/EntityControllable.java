@@ -19,7 +19,7 @@ public abstract class EntityControllable extends EntityHurtable {
 	}
 	
 	public abstract void think();
-	
+	public abstract void fire1();
 	public void processMovement() {
 		if(movDir == 0) {
 			speedForward = speedForward / 1.05;

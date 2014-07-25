@@ -3,7 +3,7 @@ package com.complover116.timezone;
 import java.time.Duration;
 
 public class CurGame {
-	public static double attackTime = 10;
+	public static double attackTime = 300;
 	public static int curmenu = 0;
 	public static TeamData teams[] = new TeamData[2];
 	public static int status = -1;

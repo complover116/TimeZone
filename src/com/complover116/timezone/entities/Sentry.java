@@ -4,30 +4,27 @@ import com.complover116.timezone.Animation;
 import com.complover116.timezone.AnimationSet;
 import com.complover116.timezone.CurGame;
 import com.complover116.timezone.Entity;
+import com.complover116.timezone.EntityBuildable;
 import com.complover116.timezone.EntityHurtable;
 import com.complover116.timezone.ImageContainer;
 import com.complover116.timezone.SoundHandler;
 
-public class Sentry extends EntityHurtable {
+public class Sentry extends EntityBuildable {
 	boolean turningright;
 	boolean enabled;
-	
+	int initrot = 0;
 	int time;
 	Entity target;
 	public static String UnbuiltImage = "sentry_1_unbuilt";
 	@Override
 	public void construct() {
 		this.model.img = ImageContainer.images.get("sentry_1");
-		this.model.rotX = 7.5;
-		this.model.rotY = 15.5;
-		this.collideX = 0;
-		this.collideY = 0;
-		this.collideX2 = 16;
-		this.collideY2 = 16;
-		this.health = 20;
-		this.readName = "Sentry gun";
+		
 	}
 	public Sentry(int team) {
+		this.buildinghealth = 20;
+		this.tph = 1;
+		this.costPerHealth = 100;
 		this.team = (byte) team;
 		anim = new AnimationSet("sentry_1", team);
 		anim.animations.add(new Animation("off", 1, 1, -1));
@@ -37,13 +34,21 @@ public class Sentry extends EntityHurtable {
 		anim.animations.add(new Animation("shoot", 3, 8, 2));
 		anim.animations.add(new Animation("unbuilt", 3, 8, 2));
 		this.model.setModel(anim.getFrame());
+		this.model.rotX = 7.5;
+		this.model.rotY = 15.5;
+		this.collideX = 0;
+		this.collideY = 0;
+		this.collideX2 = 16;
+		this.collideY2 = 16;
+		this.mmaxhealth = 20;
+		this.readName = "Sentry gun";
 	}
 	public Sentry() {
 		this.team = 0;
 		
 	}
 	@Override
-	public void onTick() {
+	public void Think() {
 		time++;
 		if(this.anim.curAnim == 5){
 			
@@ -55,13 +60,13 @@ public class Sentry extends EntityHurtable {
 		if (target == null) {
 			if (turningright) {
 				this.model.rot += 0.5;
-				if (this.model.rot > 180) {
+				if (this.model.rot > 180+this.initrot) {
 					this.turningright = false;
 					SoundHandler.playSound("sentry/seek_1");
 				}
 			} else {
 				this.model.rot -= 0.5;
-				if (this.model.rot < 0) {
+				if (this.model.rot < 0+this.initrot) {
 					this.turningright = true;
 					SoundHandler.playSound("sentry/seek_1");
 				}
@@ -72,11 +77,27 @@ public class Sentry extends EntityHurtable {
 			double deg = Math.atan2(deltaY, deltaX);
 			deg = Math.toDegrees(deg);
 			deg += 90;
+			
 			if (this.model.rot < deg) {
+				if(deg - this.model.rot > 180) {
+					this.model.rot -= 2;
+				}else{
 				this.model.rot += 2;
+				}
 			}
 			if (this.model.rot > deg) {
+				if(this.model.rot - deg > 180) {
+					
+					this.model.rot += 2;
+				} else {
 				this.model.rot -= 2;
+				}
+			}
+			if(this.model.rot > 270) {
+				this.model.rot -= 360;
+			}
+			if(this.model.rot < -90) {
+				this.model.rot += 360;
 			}
 			if (this.model.rot < deg + 3 && this.model.rot > deg - 3) {
 				if (time >= 26) {
@@ -84,7 +105,7 @@ public class Sentry extends EntityHurtable {
 					time = 0;
 				}
 				if (time == 25) {
-					Bullet bul = new Bullet();
+					Bullet bul = new Bullet(this.team);
 					bul.attacker = this;
 					bul.setPos(this.getPos());
 					bul.direction = this.model.rot;
@@ -135,6 +156,11 @@ public class Sentry extends EntityHurtable {
 		MedExplosion1 bul = new MedExplosion1();
 		bul.setPos(this.getPos());
 		CurGame.terra.regEntity(bul);
+	}
+	@Override
+	public void onConstructed() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -22,6 +22,7 @@ public class BlockBuilder extends EntityHurtable {
 	public BlockBuilder(Block bttc, byte team, int mh, String unbuiltimg, int cst){
 		btc = bttc;
 		owner = team;
+		this.team = (byte) owner;
 		cost = cst;
 		this.model.setModel(unbuiltimg);
 		this.maxhealth = mh;
