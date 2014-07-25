@@ -1,10 +1,7 @@
 package com.complover116.timezone;
 
 import java.awt.Dimension;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemListener;
 
-import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -14,12 +11,16 @@ import javax.swing.RepaintManager;
 
 public class GUI implements Runnable {
 	public static MainScreen ms;
+	public static JDialog dialog;
 	public static double rot = 45;
 	public static void redraw() {
 		ms.repaint();
 	}
 	public static void shutDown() {
 		//ms.setVisible(false);
+	}
+	public static void hideDialogs() {
+		dialog.hide();
 	}
 	public static String getSavePath() {
 		JFileChooser fc = new JFileChooser();
@@ -35,14 +36,15 @@ public class GUI implements Runnable {
 		d.show();
 	}
 	public static void infoDialog(String title, String text) {
-		JDialog d = new JDialog();
-		d.setTitle(title);
+		dialog = new JDialog();
+		dialog.setTitle(title);
 		JLabel txt = new JLabel();
 		txt.setText(text);
-		d.add(txt);
-		d.setResizable(false);
-		d.setSize(7*text.length(), 60);
-		d.show();
+		dialog.add(txt);
+		dialog.setResizable(false);
+		dialog.setSize(7*text.length(), 60);
+		dialog.show();
+		dialog.setAlwaysOnTop(true);
 	}
 	public void run() {
 		//Create a panel and add components to it.

@@ -35,6 +35,7 @@ public abstract class Entity implements Serializable {
 	public void remove() {
 		this.isDead = true;
 		this.model.draw = false;
+		this.model.setModel("nil");
 		Render.render();
 	}
 	public void renderInfo() {

@@ -11,7 +11,7 @@ public class Wall extends Block {
 
 	@Override
 	public void construct() {
-			this.drawthing.img = ImageContainer.images.get("wall");	
+			this.drawthing.img = "wall";	
 			solid = true;
 	}
 	

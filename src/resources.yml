@@ -66,6 +66,7 @@ images:
     - {file: /img/entities/vehicle/smallpauka/red.png, name: smallpauka_red}
     - {file: /img/entities/buildings/mainframe/red.png, name: mainframe_red}
     - {file: /img/entities/buildings/mainframe/blue.png, name: mainframe_blue}
+    - {file: /img/entities/null.png, name: nil}
 sounds:
     - {file: soos, name: weapon/bullet/fire_1}
     - {file: soos, name: explosion/small_1}

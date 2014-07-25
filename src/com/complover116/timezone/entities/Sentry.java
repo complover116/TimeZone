@@ -22,7 +22,7 @@ public class Sentry extends EntityBuildable {
 	public static String UnbuiltImage = "sentry_1_unbuilt";
 	@Override
 	public void construct() {
-		this.model.img = ImageContainer.images.get("sentry_1");
+		this.model.img = "sentry_1";
 		
 	}
 	public Sentry(int team) {

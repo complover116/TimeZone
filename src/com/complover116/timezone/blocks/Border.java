@@ -11,7 +11,7 @@ public class Border extends Block {
 
 	@Override
 	public void construct() {
-			this.drawthing.img = ImageContainer.images.get("border");	
+			this.drawthing.img = "border";	
 			solid = true;
 	}
 	

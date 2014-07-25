@@ -16,7 +16,11 @@ public class TeamData implements Serializable {
 	public Territory zone;
 	public String dataname = "neutral";
 	
-	public static BufferedImage getTeamImage(String name, int team) {
-		return ImageContainer.images.get(name+"_"+CurGame.c.teams[team].dataname);
+	public static String getTeamImage(String name, int team) {
+		if(team == 0){
+		return name+"_blue";
+		} else {
+			return name+"_blue";
+		}
 	}
 }

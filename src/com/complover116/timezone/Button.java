@@ -9,8 +9,8 @@ public abstract class Button {
 	public void setPos(int x, int y) {
 		model.x = x;
 		model.y = y;
-		int width = model.img.getWidth();
-		int height = model.img.getHeight();
-		collision = new Rectangle((int)model.x,(int)model.y,width,height);
+		//int width = model.img.getWidth();
+		//int height = model.img.getHeight();
+		//collision = new Rectangle((int)model.x,(int)model.y,width,height);
 	}
 }

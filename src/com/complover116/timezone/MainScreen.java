@@ -48,7 +48,7 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 	  AffineTransform rt = AffineTransform.getRotateInstance(Math.toRadians(objects.get(ser).rot),objects.get(ser).rotX,objects.get(ser).rotY);
 	  AffineTransform tr = AffineTransform.getTranslateInstance(objects.get(ser).x, objects.get(ser).y);
 	  tr.concatenate(rt);
-	  g2d.drawImage(objects.get(ser).img, tr, this);
+	  g2d.drawImage(ImageContainer.images.get((objects.get(ser).img)), tr, this);
 	  }
       } catch (Exception e) {
     	  
@@ -91,6 +91,9 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 			  g2d.setFont(new Font("TimesRoman", Font.PLAIN, 30)); 
 			  g2d.setColor(new Color(0,255,0,255));
 			  	g2d.drawString("LOADING", width/2, height/2);
+			  	g2d.setFont(new Font("TimesRoman", Font.PLAIN, 20)); 
+				  g2d.setColor(new Color(0,255,0,255));
+				  	g2d.drawString(CurGame.loadStep, width/2 - 100, height/2 + 30);
 			  	System.out.println("XX");
 			  }
 		  for(int i = 0; i < indepobjects.size(); i++){
@@ -101,7 +104,7 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 			  AffineTransform rt = AffineTransform.getRotateInstance(Math.toRadians(indepobjects.get(i).rot),indepobjects.get(i).rotX,indepobjects.get(i).rotY);
 			  AffineTransform tr = AffineTransform.getTranslateInstance(indepobjects.get(i).x, indepobjects.get(i).y);
 			  tr.concatenate(rt);
-			  g2d.drawImage(indepobjects.get(i).img, tr, this);
+			  g2d.drawImage(ImageContainer.images.get(indepobjects.get(i).img), tr, this);
 			  }
 			  }catch(Exception e) {
 				  
@@ -128,14 +131,6 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 	@Override
 	public void mousePressed(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		if(arg0.isShiftDown()) {
-			for(int i = 0; i < CurGame.c.terra.entities.size(); i++) {
-				if(arg0.getX() > CurGame.c.terra.entities.get(i).model.x&&arg0.getY() > CurGame.c.terra.entities.get(i).model.y&&arg0.getX() < CurGame.c.terra.entities.get(i).model.x+CurGame.c.terra.entities.get(i).model.img.getWidth()&&arg0.getY() < CurGame.c.terra.entities.get(i).model.y+CurGame.c.terra.entities.get(i).model.img.getHeight())
-				{
-					CurGame.c.terra.entities.get(i).drawInfo = true;
-				}
-			}
-		}
 		
 	}
 
@@ -160,10 +155,20 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 		}
 		} else if(CurGame.c.status > 0&&CurGame.c.status < 5&&!arg0.isShiftDown()) {
 			if(arg0.getKeyCode() == 27){
-				SaveGameHandler.savegame();
+				try {
+					SaveGameHandler.savegame();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 			if(arg0.getKeyCode() == 192){
-				SaveGameHandler.loadGame();
+				try {
+					SaveGameHandler.loadGame();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 			if(arg0.getKeyCode() == 87){
 				CurGame.c.scrollingY = -1;

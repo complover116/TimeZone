@@ -12,6 +12,9 @@ public class Pos {
 	public double x;
 	public double y;
 	
+	public Pos() {
+		
+	}
 	public Pos(double X, double Y) {
 		x = X;
 		y = Y;

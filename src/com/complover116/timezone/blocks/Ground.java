@@ -13,11 +13,11 @@ public class Ground extends Block {
 	public void construct() {
 		double random = Math.random();
 		if(random < 0.33) {
-			this.drawthing.img = ImageContainer.images.get("ground_1");
+			this.drawthing.img = "ground_1";
 		} else if(random < 0.66) {
-			this.drawthing.img = ImageContainer.images.get("ground_2");
+			this.drawthing.img = "ground_2";
 		} else {
-			this.drawthing.img = ImageContainer.images.get("ground_3");
+			this.drawthing.img = "ground_3";
 		}
 		
 	}

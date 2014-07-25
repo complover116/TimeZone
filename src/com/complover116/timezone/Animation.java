@@ -5,6 +5,9 @@ public class Animation {
 	public int length;
 	public int frametime;
 	public int next;
+	public Animation() {
+		
+	}
 	public Animation(String nam, int len, int frtm, int nxt) {
 		name = nam;
 		length = len;

@@ -8,7 +8,7 @@ public abstract class Effect extends Entity {
 	 * 
 	 */
 	private static final long serialVersionUID = -3127095234521147226L;
-	public ArrayList<BufferedImage> frames;
+	public ArrayList<String> frames;
 	int framenum;
 	int curframe = -1;
 	public int frametime;
@@ -18,7 +18,7 @@ public abstract class Effect extends Entity {
 		this.model.rotX = 8.5;
 		this.model.rotY = 8.5;
 		this.frametime = 1;
-		frames = new ArrayList<BufferedImage>();
+		frames = new ArrayList<String>();
 		framenum = loadFrames();
 		this.model.img = frames.get(0);
 	}

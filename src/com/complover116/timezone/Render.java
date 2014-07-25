@@ -34,7 +34,7 @@ public class Render {
 		MainScreen.objects.add(CurGame.c.terra.preview.model);
 		//RENDER THE CURRENT TEAM
 		DrawThing logo = new DrawThing();
-		logo.img = ImageContainer.images.get(CurGame.c.teams[CurGame.c.controllingTeam].dataname+"_logo");
+		logo.img = CurGame.c.teams[CurGame.c.controllingTeam].dataname+"_logo";
 		logo.x = MainScreen.width - 64;
 		logo.y = 0;
 		MainScreen.indepobjects.add(logo);

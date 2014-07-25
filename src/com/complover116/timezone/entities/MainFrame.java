@@ -17,6 +17,9 @@ public class MainFrame extends EntityHurtable {
 		// TODO Auto-generated method stub
 
 	}
+	public MainFrame() {
+		
+	}
 	public MainFrame(int tm) {
 		this.team = (byte) tm;
 	}

@@ -47,6 +47,9 @@ public class BlockBuildTool extends Tool {
 		this.collideX2 = 16;
 		this.collideY2 = 16;
 	}
+	public BlockBuildTool() {
+		
+	}
 	public BlockBuildTool(Block bttc, byte team, int mh, String unbuiltimg, int cst){
 		btc = bttc;
 		owner = team;

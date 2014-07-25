@@ -27,6 +27,8 @@ public class ImageContainer {
 		ArrayList<HashMap<String,String>> imgs = test.get("images");
 		ArrayList<HashMap<String,String>> sonds = test.get("sounds");
 		for(int i = 0; i < imgs.size(); i++) {
+			CurGame.loadStep = imgs.get(i).get("file");
+			GUI.redraw();
 			InputStream is = GUI.class.getResourceAsStream(imgs.get(i).get("file"));
 			BufferedImage img = null;
 			try {
@@ -43,6 +45,8 @@ public class ImageContainer {
 		}
 		for(int i = 0; i < sonds.size(); i++) {
 			String file = "/sound/"+sonds.get(i).get("name")+".wav";
+			CurGame.loadStep = file;
+			GUI.redraw();
 			URL is = GUI.class.getResource(file);
 			
 			

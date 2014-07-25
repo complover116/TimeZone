@@ -143,7 +143,6 @@ public class WorldTicker {
 				CurGame.c.teams[CurGame.c.terra.owner].dismetal -= Math.ceil(((double)CurGame.c.teams[CurGame.c.terra.owner].dismetal - (double)CurGame.c.teams[CurGame.c.terra.owner].metal)/100);
 				SoundHandler.playSound("effects/timetick");
 			}
-			}
 			if(CurGame.c.status == -11) {
 				if(waitedTicks == 0){
 				}
@@ -167,6 +166,7 @@ public class WorldTicker {
 			}
 			
 			Render.render();
+			}
 			try {
 				Thread.sleep(10);
 			} catch (InterruptedException e) {

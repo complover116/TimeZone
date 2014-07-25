@@ -11,6 +11,9 @@ public class AnimationSet {
 	public int curFrameTime = 0;
 	public ArrayList<Animation> animations = new ArrayList<Animation>();
 	
+	public AnimationSet() {
+		
+	}
 	public AnimationSet(String name, int teamd) {
 		setname = name;
 		team = (byte) teamd;
