@@ -27,5 +27,4 @@ public class CurGame implements Serializable{
 	public double scrollingX = 0;
 	public double scrollingY = 0;
 	public Duration time;
-	public String saveName = "current";
 }

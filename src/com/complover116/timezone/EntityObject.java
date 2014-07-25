@@ -15,8 +15,8 @@ public abstract class EntityObject extends Entity {
 	public boolean checkBlockCollision(int blockX, int blockY) {
 		Rectangle2D.Double rec = new Rectangle2D.Double(this.model.x, this.model.y, this.collideX2,this.collideY2);
 		Rectangle2D.Double rec2 = new Rectangle2D.Double(blockX*16, blockY*16, 16, 16);
-		MainScreen.shapes.add(new ShapeModel(rec, new Color(0, 255,0), false));
-		MainScreen.shapes.add(new ShapeModel(rec2, new Color(0, 0,255), false));
+		//MainScreen.shapes.add(new ShapeModel(rec, new Color(0, 255,0), false));
+		//MainScreen.shapes.add(new ShapeModel(rec2, new Color(0, 0,255), false));
 		return rec.intersects(rec2);
 	}
 	public boolean checkCollision(EntityObject e) {
@@ -42,7 +42,7 @@ public abstract class EntityObject extends Entity {
 		rec2.addPoint(eX2, eY1);
 		rec2.addPoint(eX2, eY2);
 		rec2.addPoint(eX1, eY2);*/
-		Rectangle2D.Double rec = new Rectangle2D.Double(this.model.x, this.model.y, this.collideX2,this.collideY2);
+		Rectangle2D.Double rec = new Rectangle2D.Double(this.model.x+this.collideX, this.model.y+this.collideY, this.collideX2,this.collideY2);
 		Rectangle2D.Double rec2 = new Rectangle2D.Double(e.model.x, e.model.y, e.collideX2, e.collideY2);
 		
 		return rec.intersects(rec2);

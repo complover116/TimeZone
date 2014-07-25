@@ -31,7 +31,7 @@ public class BaseVehicle extends EntityControllable {
 		this.collideX2 = 14;
 		this.collideY2 = 14;
 		this.health = 100;
-		this.readName = "Sentry vehicle";
+		this.readName = "Basic Vehicle";
 	}
 	@Override
 	public void onDeath() {

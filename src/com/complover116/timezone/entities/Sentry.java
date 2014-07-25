@@ -1,15 +1,18 @@
 package com.complover116.timezone.entities;
 
+import java.util.ArrayList;
+
 import com.complover116.timezone.Animation;
 import com.complover116.timezone.AnimationSet;
 import com.complover116.timezone.CurGame;
 import com.complover116.timezone.Entity;
 import com.complover116.timezone.EntityBuildable;
 import com.complover116.timezone.EntityHurtable;
-import com.complover116.timezone.ImageContainer;
+import com.complover116.timezone.Mountable;
+import com.complover116.timezone.Order;
 import com.complover116.timezone.SoundHandler;
 
-public class Sentry extends EntityBuildable {
+public class Sentry extends EntityBuildable implements Mountable {
 	/**
 	 * 
 	 */
@@ -19,7 +22,7 @@ public class Sentry extends EntityBuildable {
 	int initrot = 0;
 	int time;
 	Entity target;
-	public static String UnbuiltImage = "sentry_1_unbuilt";
+	MountPoint mountedTo = null;
 	@Override
 	public void construct() {
 		this.model.img = "sentry_1";
@@ -32,11 +35,12 @@ public class Sentry extends EntityBuildable {
 		this.team = (byte) team;
 		anim = new AnimationSet("sentry_1", team);
 		anim.animations.add(new Animation("off", 1, 1, -1));
-		anim.animations.add(new Animation("toggle", 6, 8, 2));
+		anim.animations.add(new Animation("open", 6, 8, 3));
+		anim.animations.add(new Animation("close", 6, 8, 0));
 		anim.animations.add(new Animation("on", 1, 1, -1));
-		anim.animations.add(new Animation("alert", 1, 10, 2));
-		anim.animations.add(new Animation("shoot", 3, 8, 2));
-		anim.animations.add(new Animation("unbuilt", 3, 8, 2));
+		anim.animations.add(new Animation("alert", 1, 10, 3));
+		anim.animations.add(new Animation("shoot", 3, 8, 3));
+		anim.animations.add(new Animation("unbuilt", 3, 8, -1));
 		this.model.setModel(anim.getFrame());
 		this.model.rotX = 7.5;
 		this.model.rotY = 15.5;
@@ -45,7 +49,7 @@ public class Sentry extends EntityBuildable {
 		this.collideX2 = 16;
 		this.collideY2 = 16;
 		this.mmaxhealth = 20;
-		this.readName = "Sentry gun";
+		this.readName = "Basic Sentry Gun";
 	}
 	public Sentry() {
 		this.team = 0;
@@ -54,12 +58,50 @@ public class Sentry extends EntityBuildable {
 	@Override
 	public void Think() {
 		time++;
-		if(this.anim.curAnim == 5){
-			
-		}else {
 		anim.animTick();
 		this.model.setModel(anim.getFrame());
-		
+		if(this.orders.size() > 0) {
+			if(this.anim.curAnim == 0) {
+			Order curorder = this.orders.get(0);
+			switch(curorder.type) {
+			case 1:
+				if(this.getPos().SentryLOM(curorder.pos)) {
+					this.setPos(this.getPos().add2((curorder.pos.sub(this.getPos())).normal()));
+					if(this.getPos().distance(curorder.pos) < 2) {
+						this.setPos(curorder.pos);
+						this.orders.remove(0);
+						System.out.println("Order executed successfully");
+						for(Entity ent:CurGame.c.terra.entities) {
+							if(ent instanceof MountPoint) {
+								if(((MountPoint)ent).checkCollision(this)) {
+									((MountPoint)ent).mountedEnt = this;
+									this.setPos(((MountPoint)ent).getPos());
+									this.onMount();
+									this.mountedTo = ((MountPoint)ent);
+								}
+							}
+						}
+					}
+				} else {
+					this.orders.remove(0);
+					System.out.println("Impossible order");
+				}
+			break;
+			default:
+				this.orders.remove(0);
+				System.out.println("Invalid order");
+			break;
+			}
+		} else {
+			if(this.anim.curAnim > 2) {
+				this.onUnMount();
+				this.mountedTo.mountedEnt = null;
+			}
+		}
+		}
+		if(this.anim.curAnim < 3){
+			
+		}else {
 		checkForTargets();
 		if (target == null) {
 			if (turningright) {
@@ -181,6 +223,14 @@ public class Sentry extends EntityBuildable {
 	public void onConstructed() {
 		// TODO Auto-generated method stub
 		
+	}
+	@Override
+	public void onMount() {
+		this.anim.setAnim(1);
+	}
+	@Override
+	public void onUnMount() {
+		this.anim.setAnim(2);
 	}
 
 }

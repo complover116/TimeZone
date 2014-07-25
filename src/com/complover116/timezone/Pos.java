@@ -3,6 +3,8 @@ package com.complover116.timezone;
 import java.awt.Color;
 import java.awt.Rectangle;
 
+import com.complover116.timezone.blocks.Rail;
+
 /**
  * Class representing a 2D Vector
  * @author complover116
@@ -51,6 +53,19 @@ public class Pos {
 				return false;
 			}else {
 				//MainScreen.shapes.add(new ShapeModel(new Rectangle(posX*16,posY*16,16,16),new Color(0,255,0),false));
+			}
+		}
+		return true;
+	}
+	public boolean SentryLOM(Pos pos2) {
+		for(int i = 0; i < distance(pos2); i++) {
+			int posX = (int)(this.add2(pos2.sub(this).normal().mul(i)).x/16);
+			int posY = (int)(this.add2(pos2.sub(this).normal().mul(i)).y/16);
+			if(!(CurGame.c.terra.terrain[posX][posY] instanceof Rail)) {
+				MainScreen.shapes.add(new ShapeModel(new Rectangle(posX*16,posY*16,16,16),new Color(255,0,0),false));
+				return false;
+			}else {
+				MainScreen.shapes.add(new ShapeModel(new Rectangle(posX*16,posY*16,16,16),new Color(0,255,0),false));
 			}
 		}
 		return true;

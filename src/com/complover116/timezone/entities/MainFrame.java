@@ -35,7 +35,7 @@ public class MainFrame extends EntityHurtable {
 		this.collideY2 = 32;
 		this.mmaxhealth = 100;
 		this.health = 100;
-		this.readName = "Sentry gun";
+		this.readName = "MainFrame";
 	}
 
 	@Override

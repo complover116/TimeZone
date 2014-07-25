@@ -2,6 +2,7 @@ package com.complover116.timezone;
 
 import java.awt.Color;
 import java.awt.Rectangle;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public abstract class EntityHurtable extends EntityObject {
@@ -17,6 +18,7 @@ public abstract class EntityHurtable extends EntityObject {
 	public int displayHealth = 0;
 	public byte team;
 	public static String animname;
+	public ArrayList<Order> orders = new ArrayList<Order>();
 	/*@Override
 	public void saveStuff(HashMap hm){
 		hm.put("health", health);

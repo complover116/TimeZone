@@ -3,6 +3,7 @@ images:
     - {file: /img/terrain/ground_1.png, name: ground_1}
     - {file: /img/terrain/ground_2.png, name: ground_2}
     - {file: /img/terrain/ground_3.png, name: ground_3}
+    - {file: /img/terrain/rails/cross.png, name: ground_3}
     - {file: /img/entities/sentry_1.png, name: sentry_1}
     - {file: /img/entities/sentry_1_light1.png, name: sentry_1_light1}
     - {file: /img/entities/sentry_1_light2.png, name: sentry_1_light2}
@@ -23,11 +24,16 @@ images:
     - {file: /img/entities/notexture.png, name: notexture}
     - {file: /img/gui/blue.png, name: blue_logo}
     - {file: /img/gui/red.png, name: red_logo}
+    - {file: /img/gui/cursororder.png, name: order}
     - {file: /img/gui/cursor_blue.png, name: cursor_blue}
     - {file: /img/gui/cursor_red.png, name: cursor_red}
     - {file: /img/terrain/wall.png, name: wall}
     - {file: /img/terrain/wall_unbuilt.png, name: wall_unbuilt}
     - {file: /img/terrain/border.png, name: border}
+    - {file: /img/terrain/rails/crossing.png, name: railcross}
+    - {file: /img/terrain/rails/mountpoint1.png, name: railmount}
+    - {file: /img/terrain/rails/mountpoint1.png, name: railmount_unbuilt_red}
+    - {file: /img/terrain/rails/mountpoint1.png, name: railmount_unbuilt_blue}
     - {file: /img/gui/delete.png, name: delete}
     - {file: /img/gui/cursor2_blue.png, name: cursor2_blue}
     - {file: /img/gui/cursor2_red.png, name: cursor2_red}
@@ -45,12 +51,18 @@ images:
     - {file: /img/entities/sentry/sentry_1/shoot_3.png, name: sentry_1_shoot3_blue}
     - {file: /img/entities/sentry/sentry_1/unbuilt.png, name: sentry_1_unbuilt_blue}
     - {file: /img/entities/sentry/sentry_1/off_red.png, name: sentry_1_off_red}
-    - {file: /img/entities/sentry/sentry_1/toggle_1_red.png, name: sentry_1_toggle1_red}
-    - {file: /img/entities/sentry/sentry_1/toggle_2_red.png, name: sentry_1_toggle2_red}
-    - {file: /img/entities/sentry/sentry_1/toggle_3_red.png, name: sentry_1_toggle3_red}
-    - {file: /img/entities/sentry/sentry_1/toggle_4_red.png, name: sentry_1_toggle4_red}
-    - {file: /img/entities/sentry/sentry_1/toggle_5_red.png, name: sentry_1_toggle5_red}
-    - {file: /img/entities/sentry/sentry_1/toggle_6_red.png, name: sentry_1_toggle6_red}
+    - {file: /img/entities/sentry/sentry_1/toggle_1_red.png, name: sentry_1_open1_red}
+    - {file: /img/entities/sentry/sentry_1/toggle_2_red.png, name: sentry_1_open2_red}
+    - {file: /img/entities/sentry/sentry_1/toggle_3_red.png, name: sentry_1_open3_red}
+    - {file: /img/entities/sentry/sentry_1/toggle_4_red.png, name: sentry_1_open4_red}
+    - {file: /img/entities/sentry/sentry_1/toggle_5_red.png, name: sentry_1_open5_red}
+    - {file: /img/entities/sentry/sentry_1/toggle_6_red.png, name: sentry_1_open6_red}
+    - {file: /img/entities/sentry/sentry_1/toggle_6_red.png, name: sentry_1_close1_red}
+    - {file: /img/entities/sentry/sentry_1/toggle_5_red.png, name: sentry_1_close2_red}
+    - {file: /img/entities/sentry/sentry_1/toggle_4_red.png, name: sentry_1_close3_red}
+    - {file: /img/entities/sentry/sentry_1/toggle_3_red.png, name: sentry_1_close4_red}
+    - {file: /img/entities/sentry/sentry_1/toggle_2_red.png, name: sentry_1_close5_red}
+    - {file: /img/entities/sentry/sentry_1/toggle_1_red.png, name: sentry_1_close6_red}
     - {file: /img/entities/sentry/sentry_1/on_red.png, name: sentry_1_on_red}
     - {file: /img/entities/sentry/sentry_1/alert_red.png, name: sentry_1_alert_red}
     - {file: /img/entities/sentry/sentry_1/shoot_1_red.png, name: sentry_1_shoot1_red}
