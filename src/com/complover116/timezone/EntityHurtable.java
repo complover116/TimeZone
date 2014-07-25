@@ -2,8 +2,13 @@ package com.complover116.timezone;
 
 import java.awt.Color;
 import java.awt.Rectangle;
+import java.util.HashMap;
 
 public abstract class EntityHurtable extends EntityObject {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6917109684915505608L;
 	public AnimationSet anim;
 	public int health;
 	public int maxhealth = 100;
@@ -12,6 +17,23 @@ public abstract class EntityHurtable extends EntityObject {
 	public int displayHealth = 0;
 	public byte team;
 	public static String animname;
+	/*@Override
+	public void saveStuff(HashMap hm){
+		hm.put("health", health);
+		hm.put("team", team);
+		hm.put("curAnim", anim.curAnim);
+		//saveStuff2(hm);
+		return;
+	}*/
+	//public abstract void saveStuff2(HashMap hm);
+	public void loadStuff(HashMap hm){
+		health = (int) hm.get("health");
+		team = (byte) hm.get("team");
+		anim.curAnim = (int) hm.get("curAnim");
+	//	loadStuff2(hm);
+		return;
+	}
+	//public abstract void loadStuff2(HashMap hm);
 	public void takeDamage(Entity attacker, int damage) {
 		this.health = this.health - damage;
 		displayHealth = 400;

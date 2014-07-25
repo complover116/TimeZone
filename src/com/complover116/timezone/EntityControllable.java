@@ -5,6 +5,10 @@ import java.awt.Rectangle;
 
 
 public abstract class EntityControllable extends EntityHurtable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6226031706958380660L;
 	public double speedForward = 0;
 	public byte movDir = 0;
 	public double maxSpeed = 1;
@@ -36,12 +40,12 @@ public abstract class EntityControllable extends EntityHurtable {
 		if(turn == -1) {
 			this.model.rot += turn*maxSpeedRight;
 		}
-		for(int i = 0; i < CurGame.terra.entities.size(); i++) {
-			if(EntityHurtable.class.isInstance(CurGame.terra.entities.get(i))) {
-					if(CurGame.terra.entities.get(i)!=this){
-						if(((EntityObject)CurGame.terra.entities.get(i)).checkCollision(this)){
+		for(int i = 0; i < CurGame.c.terra.entities.size(); i++) {
+			if(EntityHurtable.class.isInstance(CurGame.c.terra.entities.get(i))) {
+					if(CurGame.c.terra.entities.get(i)!=this){
+						if(((EntityObject)CurGame.c.terra.entities.get(i)).checkCollision(this)){
 							this.speedForward = 0;
-							Pos pos2 = CurGame.terra.entities.get(i).getPos();
+							Pos pos2 = CurGame.c.terra.entities.get(i).getPos();
 							Pos pos1 = pos2.sub(this.getPos());
 							this.setPos(this.getPos().sub(pos1.normal()));
 						}
@@ -53,7 +57,7 @@ public abstract class EntityControllable extends EntityHurtable {
 			for(int y = (int)(this.getPos().y/16) - 2; y < (int)(this.getPos().y)/16 + 3; y++) {
 				if(x > -1&&y>-1&&x<100&&y<100){
 				//MainScreen.shapes.add(new ShapeModel(new Rectangle(x*16,y*16,16,16), new Color(0,255,0)));
-				if(CurGame.terra.terrain[x][y].solid) {
+				if(CurGame.c.terra.terrain[x][y].solid) {
 					//MainScreen.shapes.add(new ShapeModel(new Rectangle(x*16,y*16,16,16), new Color(0,0,255)));
 					if(this.checkBlockCollision(x, y)) {
 						MainScreen.shapes.add(new ShapeModel(new Rectangle(x*16,y*16,16,16), new Color(255,0,0), true));

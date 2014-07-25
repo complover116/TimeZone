@@ -43,7 +43,7 @@ public class Pos {
 		for(int i = 0; i < distance(pos2); i++) {
 			int posX = (int)(this.add2(pos2.sub(this).normal().mul(i)).x/16);
 			int posY = (int)(this.add2(pos2.sub(this).normal().mul(i)).y/16);
-			if(CurGame.terra.terrain[posX][posY].solid) {
+			if(CurGame.c.terra.terrain[posX][posY].solid) {
 				//MainScreen.shapes.add(new ShapeModel(new Rectangle(posX*16,posY*16,16,16),new Color(255,0,0),false));
 				return false;
 			}else {

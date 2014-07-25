@@ -64,6 +64,8 @@ images:
     - {file: /img/entities/effects/spark1_5.png, name: spark1_5}
     - {file: /img/entities/vehicle/smallpauka/blue.png, name: smallpauka_blue}
     - {file: /img/entities/vehicle/smallpauka/red.png, name: smallpauka_red}
+    - {file: /img/entities/buildings/mainframe/red.png, name: mainframe_red}
+    - {file: /img/entities/buildings/mainframe/blue.png, name: mainframe_blue}
 sounds:
     - {file: soos, name: weapon/bullet/fire_1}
     - {file: soos, name: explosion/small_1}

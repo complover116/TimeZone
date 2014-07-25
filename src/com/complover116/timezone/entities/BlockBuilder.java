@@ -3,8 +3,11 @@ import com.complover116.timezone.Block;
 import com.complover116.timezone.CurGame;
 import com.complover116.timezone.EntityHurtable;
 public class BlockBuilder extends EntityHurtable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4390913300812350489L;
 	public Block btc;
-	public int owner;
 	public int wt = 0;
 	public String unbuiltim;
 	public int cost = 1;
@@ -16,13 +19,15 @@ public class BlockBuilder extends EntityHurtable {
 		this.collideY = 0;
 		this.collideX2 = 16;
 		this.collideY2 = 16;
-		this.health = 1;
+		this.health = 0;
 		this.readName = "Wall (In construction)";
+	}
+	public BlockBuilder() {
+		
 	}
 	public BlockBuilder(Block bttc, byte team, int mh, String unbuiltimg, int cst){
 		btc = bttc;
-		owner = team;
-		this.team = (byte) owner;
+		this.team = team;
 		cost = cst;
 		this.model.setModel(unbuiltimg);
 		this.maxhealth = mh;
@@ -32,7 +37,7 @@ public class BlockBuilder extends EntityHurtable {
 	public BlockBuilder copy() {
 		BlockBuilder build = null;
 		try {
-			build = new BlockBuilder(btc.getClass().newInstance(), (byte) owner, maxhealth, unbuiltim, cost);
+			build = new BlockBuilder(btc.getClass().newInstance(), (byte) team, maxhealth, unbuiltim, cost);
 			build.setPos(this.getPos());
 			return build;
 		} catch (InstantiationException e) {
@@ -46,21 +51,21 @@ public class BlockBuilder extends EntityHurtable {
 		
 	}
 	public boolean place() {
-		CurGame.terra.regEntity(copy());
+		CurGame.c.terra.regEntity(copy());
 		return true;
 	}
 	@Override
 	public void onTick() {
 		this.displayHealth = 300;
-		if(CurGame.teams[owner].metal>0){
+		if(CurGame.c.teams[team].metal>0){
 		
 		wt++;
-		if(wt == 100){
+		if(wt == 200){
 			wt = 0;
 			this.health++;
-			CurGame.teams[owner].metal-= cost;
+			CurGame.c.teams[team].metal -= cost;
 			if(this.health==this.maxhealth) {
-				CurGame.terra.terrain[(int) (this.getPos().x/16)]
+				CurGame.c.terra.terrain[(int) (this.getPos().x/16)]
 				[(int) (this.getPos().y/16)] = btc;
 				this.remove();
 			}

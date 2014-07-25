@@ -5,6 +5,11 @@ import com.complover116.timezone.ImageContainer;
 import com.complover116.timezone.SoundHandler;
 
 public class MedExplosion1 extends Effect {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1524112459262597901L;
+
 	@Override
 	public int loadFrames() {
 		SoundHandler.playSound("explosion/med_1");

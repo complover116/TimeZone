@@ -37,23 +37,23 @@ public class AnimationSet {
 	}
 	public String getFrame() {
 		if(this.animations.get(this.curAnim).length > 1){
-		return this.setname+"_"+this.animations.get(this.curAnim).name+this.curFrame+"_"+CurGame.teams[this.team].dataname;
+		return this.setname+"_"+this.animations.get(this.curAnim).name+this.curFrame+"_"+CurGame.c.teams[this.team].dataname;
 		} else {
-			return this.setname+"_"+this.animations.get(this.curAnim).name+"_"+CurGame.teams[this.team].dataname;
+			return this.setname+"_"+this.animations.get(this.curAnim).name+"_"+CurGame.c.teams[this.team].dataname;
 		}
 	}
 	public String getFrame(int anim, int frame) {
 		if(this.animations.get(anim).length > 1){
-			return this.setname+"_"+this.animations.get(anim).name+frame+"_"+CurGame.teams[this.team].dataname;
+			return this.setname+"_"+this.animations.get(anim).name+frame+"_"+CurGame.c.teams[this.team].dataname;
 			} else {
-				return this.setname+"_"+this.animations.get(anim).name+"_"+CurGame.teams[this.team].dataname;
+				return this.setname+"_"+this.animations.get(anim).name+"_"+CurGame.c.teams[this.team].dataname;
 			}
 	}
 	public String getFrame(String anim, int frame) {
 		if(frame>0){
-			return this.setname+"_"+anim+frame+"_"+CurGame.teams[this.team].dataname;
+			return this.setname+"_"+anim+frame+"_"+CurGame.c.teams[this.team].dataname;
 			} else {
-				return this.setname+"_"+anim+"_"+CurGame.teams[this.team].dataname;
+				return this.setname+"_"+anim+"_"+CurGame.c.teams[this.team].dataname;
 			}
 	}
 }

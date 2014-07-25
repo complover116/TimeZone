@@ -3,6 +3,10 @@ package com.complover116.timezone.entities;
 import com.complover116.timezone.Entity;
 
 public class EpicBoom extends Entity {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -457560272903255732L;
 	int timepassed = 0;
 	int height;
 	int width;
@@ -10,6 +14,9 @@ public class EpicBoom extends Entity {
 	int speed;
 	@Override
 	public void construct() {
+		
+	}
+	public EpicBoom() {
 		
 	}
 	public EpicBoom(int height, int width, int time, int speed) {

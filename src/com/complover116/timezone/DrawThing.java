@@ -2,8 +2,13 @@ package com.complover116.timezone;
 
 import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;
+import java.io.Serializable;
 
-public class DrawThing {
+public class DrawThing implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3901263258568087086L;
 	public double x;
 	public double y;
 	public double rot;

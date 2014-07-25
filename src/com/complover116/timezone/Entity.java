@@ -1,10 +1,27 @@
 package com.complover116.timezone;
 
+import java.io.Serializable;
+import java.util.HashMap;
 
-public abstract class Entity {
+
+public abstract class Entity implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4756283948833607945L;
 	public DrawThing model = new DrawThing();
 	public abstract void construct();
 	public abstract void onTick();
+	public HashMap save() {
+		HashMap hm = new HashMap();
+		hm.put("pos", this.getPos());
+		hm.put("rot", this.model.rot);
+		hm.put("isdead", this.isDead);
+		//saveStuff(hm);
+		return hm;
+	}
+	//public abstract void saveStuff(HashMap hm);
+	//public abstract void loadStuff(HashMap hm);
 	public void renderStuff() {
 		
 	}
@@ -17,6 +34,8 @@ public abstract class Entity {
 	}
 	public void remove() {
 		this.isDead = true;
+		this.model.draw = false;
+		Render.render();
 	}
 	public void renderInfo() {
 		renderInfo2();

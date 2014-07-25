@@ -1,8 +1,14 @@
 package com.complover116.timezone;
 
 import java.awt.Dimension;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemListener;
 
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.RepaintManager;
 
 
@@ -14,6 +20,29 @@ public class GUI implements Runnable {
 	}
 	public static void shutDown() {
 		//ms.setVisible(false);
+	}
+	public static String getSavePath() {
+		JFileChooser fc = new JFileChooser();
+		fc.setDialogTitle("Save current game");
+		fc.showSaveDialog(ms);
+		return fc.getSelectedFile().getAbsolutePath();
+	}
+	public static void gameMenu() {
+		JDialog d = new JDialog();
+		d.setTitle("Game menu");
+		d.setResizable(false);
+		d.setSize(100, 300);
+		d.show();
+	}
+	public static void infoDialog(String title, String text) {
+		JDialog d = new JDialog();
+		d.setTitle(title);
+		JLabel txt = new JLabel();
+		txt.setText(text);
+		d.add(txt);
+		d.setResizable(false);
+		d.setSize(7*text.length(), 60);
+		d.show();
 	}
 	public void run() {
 		//Create a panel and add components to it.
@@ -36,5 +65,11 @@ public class GUI implements Runnable {
 		frame.pack();
         frame.setVisible(true);
         
+	}
+	public static String getLoadPath() {
+		JFileChooser fc = new JFileChooser();
+		fc.setDialogTitle("Load game");
+		fc.showOpenDialog(ms);
+		return fc.getSelectedFile().getAbsolutePath();
 	}
 }

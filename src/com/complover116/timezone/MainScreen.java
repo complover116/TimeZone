@@ -35,13 +35,13 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 	  width = this.getWidth();
 	  height = this.getHeight();
 	  Graphics2D g2d = (Graphics2D) g;
-	  if(CurGame.status >-1){
-	  g2d.translate(-CurGame.scrollX, -CurGame.scrollY);
+	  if(CurGame.overstat >-1){
+	  g2d.translate(-CurGame.c.scrollX, -CurGame.c.scrollY);
 	  g2d.transform(AffineTransform.getScaleInstance(1 - shear/100, 1 - shear/100));
 	  int sizebefore = objects.size();
 	  for(int ser = 0; ser < objects.size(); ser++){
       try{
-    	  //objects.get(i).x-CurGame.scrollX > width||objects.get(i).y-CurGame.scrollY > height
+    	  //objects.get(i).x-CurGame.c.scrollX > width||objects.get(i).y-CurGame.c.scrollY > height
 	  if(objects.get(ser)==null&&objects.get(ser).draw) {
 		  
 	  } else {
@@ -66,28 +66,29 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 		  }
 	  }
 	  shapes.clear();
-	  if(CurGame.terra != null){
+	  if(CurGame.c.terra != null){
 	  g2d.setColor(new Color(0,0,0,255));
 	  g2d.setFont(new Font("TimesRoman", Font.PLAIN, 30)); 
-	  g2d.drawString("Zone of team "+CurGame.terra.owner, 2, 20);
+	  g2d.drawString("Zone of team "+CurGame.c.terra.owner, 2, 20);
 	  }
-	  g2d.translate(CurGame.scrollX, CurGame.scrollY);
-	  g2d.drawString("Time left:"+Metrics.timeFromSeconds((int)CurGame.attackTime), 0, 20);
-		  if(CurGame.timespeed == 0){
+	  g2d.translate(CurGame.c.scrollX, CurGame.c.scrollY);
+	  g2d.drawString("Time left:"+Metrics.timeFromSeconds((int)CurGame.c.attackTime), 0, 20);
+		  if(CurGame.c.timespeed == 0){
 			  g2d.setColor(new Color(255,0,0,255));
 			  g2d.drawString("Time stopped", 0, 450);
 		  }else {
 			  g2d.setColor(new Color(0,255,0,255));
-			  g2d.drawString("Time speed:"+CurGame.timespeed+"%", 0, 450);
+			  g2d.drawString("Time speed:"+CurGame.c.timespeed+"%", 0, 450);
 		  }
 		  g2d.setColor(new Color(185,185,185,255));
-		  g2d.drawString("Metal:"+CurGame.teams[CurGame.terra.owner].metal, 200, 20);
-		  if(CurGame.status == 21){
+		  g2d.drawString("Metal:"+CurGame.c.teams[CurGame.c.terra.owner].dismetal, 200, 20);
+		  if(CurGame.c.status == 21){
 		  g2d.setColor(new Color(235,235,235,255));
 		  	g2d.drawString("G - Wall", 200, height - 20);
 		  }
 	  }
-		  if(CurGame.status == -5){
+		  if(CurGame.overstat == -5){
+			  g2d.setFont(new Font("TimesRoman", Font.PLAIN, 30)); 
 			  g2d.setColor(new Color(0,255,0,255));
 			  	g2d.drawString("LOADING", width/2, height/2);
 			  	System.out.println("XX");
@@ -128,10 +129,10 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 	public void mousePressed(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 		if(arg0.isShiftDown()) {
-			for(int i = 0; i < CurGame.terra.entities.size(); i++) {
-				if(arg0.getX() > CurGame.terra.entities.get(i).model.x&&arg0.getY() > CurGame.terra.entities.get(i).model.y&&arg0.getX() < CurGame.terra.entities.get(i).model.x+CurGame.terra.entities.get(i).model.img.getWidth()&&arg0.getY() < CurGame.terra.entities.get(i).model.y+CurGame.terra.entities.get(i).model.img.getHeight())
+			for(int i = 0; i < CurGame.c.terra.entities.size(); i++) {
+				if(arg0.getX() > CurGame.c.terra.entities.get(i).model.x&&arg0.getY() > CurGame.c.terra.entities.get(i).model.y&&arg0.getX() < CurGame.c.terra.entities.get(i).model.x+CurGame.c.terra.entities.get(i).model.img.getWidth()&&arg0.getY() < CurGame.c.terra.entities.get(i).model.y+CurGame.c.terra.entities.get(i).model.img.getHeight())
 				{
-					CurGame.terra.entities.get(i).drawInfo = true;
+					CurGame.c.terra.entities.get(i).drawInfo = true;
 				}
 			}
 		}
@@ -140,130 +141,133 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
-			for(int i = 0; i < CurGame.terra.entities.size(); i++) {
-					CurGame.terra.entities.get(i).drawInfo = false;
-			}
 	}
 
 	@Override
 	public void keyPressed(KeyEvent arg0) {
-		if(CurGame.status == 0){
+		if(CurGame.c.status == 0){
 		if(arg0.getKeyCode() == 87){
-			CurGame.terra.controlledEnt.movDir = 1;
+			CurGame.c.terra.controlledEnt.movDir = 1;
 		}
 		if(arg0.getKeyCode() == 83){
-			CurGame.terra.controlledEnt.movDir = -1;
+			CurGame.c.terra.controlledEnt.movDir = -1;
 		}
 		if(arg0.getKeyCode() == 68){
-			CurGame.terra.controlledEnt.turn = 1;
+			CurGame.c.terra.controlledEnt.turn = 1;
 		}
 		if(arg0.getKeyCode() == 65){
-			CurGame.terra.controlledEnt.turn = -1;
+			CurGame.c.terra.controlledEnt.turn = -1;
 		}
-		} else if(CurGame.status > 0&&CurGame.status < 5&&!arg0.isShiftDown()) {
+		} else if(CurGame.c.status > 0&&CurGame.c.status < 5&&!arg0.isShiftDown()) {
+			if(arg0.getKeyCode() == 27){
+				SaveGameHandler.savegame();
+			}
+			if(arg0.getKeyCode() == 192){
+				SaveGameHandler.loadGame();
+			}
 			if(arg0.getKeyCode() == 87){
-				CurGame.scrollingY = -1;
+				CurGame.c.scrollingY = -1;
 			}
 			if(arg0.getKeyCode() == 83){
-				CurGame.scrollingY = 1;
+				CurGame.c.scrollingY = 1;
 			}
 			if(arg0.getKeyCode() == 68){
-				CurGame.scrollingX = 1;
+				CurGame.c.scrollingX = 1;
 			}
 			if(arg0.getKeyCode() == 65){
-				CurGame.scrollingX = -1;
+				CurGame.c.scrollingX = -1;
 			}
 		}
 	}
 
 	@Override
 	public void keyReleased(KeyEvent arg0) {
-		if(CurGame.status == 0){
-		if(arg0.getKeyCode() == 87&&CurGame.terra.controlledEnt.movDir == 1){
-			CurGame.terra.controlledEnt.movDir = 0;
+		if(CurGame.c.status == 0){
+		if(arg0.getKeyCode() == 87&&CurGame.c.terra.controlledEnt.movDir == 1){
+			CurGame.c.terra.controlledEnt.movDir = 0;
 		}
-		if(arg0.getKeyCode() == 83&&CurGame.terra.controlledEnt.movDir == -1){
-			CurGame.terra.controlledEnt.movDir = 0;
+		if(arg0.getKeyCode() == 83&&CurGame.c.terra.controlledEnt.movDir == -1){
+			CurGame.c.terra.controlledEnt.movDir = 0;
 		}
-		if(arg0.getKeyCode() == 68&&CurGame.terra.controlledEnt.turn == 1){
-			CurGame.terra.controlledEnt.turn = 0;
+		if(arg0.getKeyCode() == 68&&CurGame.c.terra.controlledEnt.turn == 1){
+			CurGame.c.terra.controlledEnt.turn = 0;
 		}
-		if(arg0.getKeyCode() == 65&&CurGame.terra.controlledEnt.turn == -1){
-			CurGame.terra.controlledEnt.turn = 0;
+		if(arg0.getKeyCode() == 65&&CurGame.c.terra.controlledEnt.turn == -1){
+			CurGame.c.terra.controlledEnt.turn = 0;
 		}
-		} else if(CurGame.status > 0&&CurGame.status < 5) {
-			if(arg0.getKeyCode() == 87&&CurGame.scrollingY == -1){
-				CurGame.scrollingY = 0;
+		} else if(CurGame.c.status > 0&&CurGame.c.status < 5) {
+			if(arg0.getKeyCode() == 87&&CurGame.c.scrollingY == -1){
+				CurGame.c.scrollingY = 0;
 			}
-			if(arg0.getKeyCode() == 83&&CurGame.scrollingY == 1){
-				CurGame.scrollingY = 0;
+			if(arg0.getKeyCode() == 83&&CurGame.c.scrollingY == 1){
+				CurGame.c.scrollingY = 0;
 			}
-			if(arg0.getKeyCode() == 68&&CurGame.scrollingX == 1){
-				CurGame.scrollingX = 0;
+			if(arg0.getKeyCode() == 68&&CurGame.c.scrollingX == 1){
+				CurGame.c.scrollingX = 0;
 			}
-			if(arg0.getKeyCode() == 65&&CurGame.scrollingX == -1){
-				CurGame.scrollingX = 0;
+			if(arg0.getKeyCode() == 65&&CurGame.c.scrollingX == -1){
+				CurGame.c.scrollingX = 0;
 			}
 		}
 	}
 
 	@Override
 	public void keyTyped(KeyEvent arg0) {
-		if(CurGame.status == 21) {
+		if(CurGame.c.status == 21) {
 			if(arg0.getKeyChar() == 'g') {
-				BlockBuildTool bb = new BlockBuildTool(new Wall(), CurGame.controllingTeam, 20, "wall_unbuilt", 1);
-				bb.setPos(CurGame.terra.preview.getPos());
-				CurGame.terra.regEntity(bb);
-				CurGame.status = 2;
-				CurGame.terra.preview.tool = bb;
+				BlockBuildTool bb = new BlockBuildTool(new Wall(), CurGame.c.controllingTeam, 10, "wall_unbuilt", 1);
+				bb.setPos(CurGame.c.terra.preview.getPos());
+				CurGame.c.terra.regEntity(bb);
+				CurGame.c.status = 2;
+				CurGame.c.terra.preview.tool = bb;
 				SoundHandler.playSound("sentry/seek_1");
 			}
 			if(arg0.getKeyChar() == 'x') {
-				BlockBuildTool bb = new BlockBuildTool(new Ground(), CurGame.controllingTeam, 5, "delete", 0);
-				bb.setPos(CurGame.terra.preview.getPos());
-				CurGame.terra.regEntity(bb);
-				CurGame.status = 2;
-				CurGame.terra.preview.tool = bb;
+				BlockBuildTool bb = new BlockBuildTool(new Ground(), CurGame.c.controllingTeam, 5, "delete", 0);
+				bb.setPos(CurGame.c.terra.preview.getPos());
+				CurGame.c.terra.regEntity(bb);
+				CurGame.c.status = 2;
+				CurGame.c.terra.preview.tool = bb;
 				SoundHandler.playSound("sentry/seek_1");
 			}
 		}
-		if(CurGame.status == 22) {
+		if(CurGame.c.status == 22) {
 			if(arg0.getKeyChar() == 'g') {
-				ConstructionTool bb = new ConstructionTool(new Sentry(CurGame.controllingTeam));
-				bb.setPos(CurGame.terra.preview.getPos());
-				CurGame.terra.regEntity(bb);
-				CurGame.status = 2;
-				CurGame.terra.preview.tool = bb;
+				ConstructionTool bb = new ConstructionTool(new Sentry(CurGame.c.controllingTeam));
+				bb.setPos(CurGame.c.terra.preview.getPos());
+				CurGame.c.terra.regEntity(bb);
+				CurGame.c.status = 2;
+				CurGame.c.terra.preview.tool = bb;
 				SoundHandler.playSound("sentry/seek_1");
 			}
 		}
-		if(CurGame.status == 2) {
+		if(CurGame.c.status == 2) {
 			if(arg0.getKeyChar() == 'W') {
-				CurGame.terra.preview.model.y -= 16;
+				CurGame.c.terra.preview.model.y -= 16;
 				SoundHandler.playSound("ui/click1");
 			}
 			if(arg0.getKeyChar() == 'S') {
-				CurGame.terra.preview.model.y += 16;
+				CurGame.c.terra.preview.model.y += 16;
 				SoundHandler.playSound("ui/click1");
 			}
 			if(arg0.getKeyChar() == 'A') {
-				CurGame.terra.preview.model.x -= 16;
+				CurGame.c.terra.preview.model.x -= 16;
 				SoundHandler.playSound("ui/click1");
 			}
 			if(arg0.getKeyChar() == 'D') {
-				CurGame.terra.preview.model.x += 16;
+				CurGame.c.terra.preview.model.x += 16;
 				SoundHandler.playSound("ui/click1");
 			}
 			//char russianChars[] = {'ö','ô','û','â'};
 		}
 		if(arg0.getKeyChar() == '\n') {
-			if(CurGame.status==1) {
+			if(CurGame.c.status==1) {
 				SoundHandler.playSound("sentry/seek_1");
-				CurGame.status = 2;
+				CurGame.c.status = 2;
 			}
-			if(CurGame.status==2) {
+			if(CurGame.c.status==2) {
 				
-				if(CurGame.terra.preview.tool == null) {
+				if(CurGame.c.terra.preview.tool == null) {
 					try {
 					SoundHandler.playSound("sentry/seek_1");
 					Thread.sleep(100);
@@ -275,69 +279,82 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 				}
 				} else {
 					
-					if(CurGame.terra.preview.tool.use()) {
+					if(CurGame.c.terra.preview.tool.use()) {
 						SoundHandler.playSound("sentry/seek_1");
 					}
 				}
 			}
 		}
 		if(arg0.getKeyChar() == 'q') {
-			if(CurGame.status == 0&&CurGame.terra.controlledEnt != null) {
-				CurGame.terra.controlledEnt.fire1();
+			if(CurGame.c.status == 0&&CurGame.c.terra.controlledEnt != null) {
+				CurGame.c.terra.controlledEnt.fire1();
 			}
 		}
 		if(arg0.getKeyChar() == 'b') {
-			if(CurGame.status==2) {
+			if(CurGame.c.status==2) {
 				SoundHandler.playSound("sentry/seek_1");
-				if(CurGame.terra.preview.tool == null) {
-					CurGame.terra.preview.model.img = TeamData.getTeamImage("cursor2", CurGame.terra.owner);
-				CurGame.status = 21;
+				if(CurGame.c.terra.preview.tool == null) {
+					CurGame.c.terra.preview.model.img = TeamData.getTeamImage("cursor2", CurGame.c.terra.owner);
+				CurGame.c.status = 21;
 				} else {
-					CurGame.terra.preview.tool.remove();
-					CurGame.terra.preview.tool = null;
-					CurGame.terra.preview.model.img = TeamData.getTeamImage("cursor", CurGame.terra.owner);
+					CurGame.c.terra.preview.tool.remove();
+					CurGame.c.terra.preview.tool = null;
+					CurGame.c.terra.preview.model.img = TeamData.getTeamImage("cursor", CurGame.c.terra.owner);
 				}
 			}
 		}
+		if(arg0.getKeyChar() == 'x') {
+			if(CurGame.c.status==2) {
+				for(Entity ent:CurGame.c.terra.entities) {
+					if(ent instanceof EntityHurtable) {
+						if(((EntityHurtable)ent).team == CurGame.c.controllingTeam&&((EntityHurtable)ent).checkCollision(CurGame.c.terra.preview)) {
+							((EntityHurtable)ent).isDead = true;
+							((EntityHurtable)ent).onDeath();
+							((EntityHurtable)ent).remove();
+						}
+					}
+			}
+		}
+			}
 		if(arg0.getKeyChar() == 'c') {
-			if(CurGame.status==2) {
+			if(CurGame.c.status==2) {
 				SoundHandler.playSound("sentry/seek_1");
-				if(CurGame.terra.preview.tool == null) {
-					CurGame.terra.preview.model.img = TeamData.getTeamImage("cursor2", CurGame.terra.owner);
-				CurGame.status = 22;
+				if(CurGame.c.terra.preview.tool == null) {
+					CurGame.c.terra.preview.model.img = TeamData.getTeamImage("cursor2", CurGame.c.terra.owner);
+				CurGame.c.status = 22;
 				} else {
-					CurGame.terra.preview.tool.remove();
-					CurGame.terra.preview.tool = null;
-					CurGame.terra.preview.model.img = TeamData.getTeamImage("cursor", CurGame.terra.owner);
+					CurGame.c.terra.preview.tool.remove();
+					CurGame.c.terra.preview.tool = null;
+					CurGame.c.terra.preview.model.img = TeamData.getTeamImage("cursor", CurGame.c.terra.owner);
 				}
 			}
 		}
 		if(arg0.getKeyChar() == ' ') {
 			
-			if(CurGame.status==0) {
+			if(CurGame.c.status==0) {
 				if(!arg0.isShiftDown()) {
-				CurGame.gamego = false;
+				CurGame.c.gamego = false;
 				} else {
-					CurGame.status = 10;
+					CurGame.c.status = 10;
 					WorldTicker.randomflag = false;
 				}
 			}
-			if(CurGame.status==1) {
-				CurGame.gamego = true;
-				CurGame.status = 0;
+			if(CurGame.c.status==1) {
+				CurGame.c.gamego = true;
+				CurGame.c.status = 0;
 			}
-			if(CurGame.status == 2) {
+			if(CurGame.c.status == 2) {
 				SoundHandler.playSound("sentry/seek_1");
-				if(CurGame.terra.preview.tool!= null)
-				CurGame.terra.preview.tool.remove();
-				CurGame.terra.preview.tool = null;
-				CurGame.terra.preview.model.img = TeamData.getTeamImage("cursor", CurGame.terra.owner);
-				if(CurGame.terra.owner == 0){
-					CurGame.controllingTeam = 1;
+				if(CurGame.c.terra.preview.tool!= null)
+				CurGame.c.terra.preview.tool.remove();
+				CurGame.c.terra.preview.tool = null;
+				CurGame.c.terra.preview.model.img = TeamData.getTeamImage("cursor", CurGame.c.terra.owner);
+				if(CurGame.c.terra.owner == 0){
+					CurGame.c.controllingTeam = 1;
 				} else {
-					CurGame.controllingTeam = 0;
+					CurGame.c.controllingTeam = 0;
 				}
-				CurGame.status = 1;
+				CurGame.c.status = 1;
 			}
 		}
 	}

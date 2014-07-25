@@ -4,6 +4,10 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public abstract class Effect extends Entity {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3127095234521147226L;
 	public ArrayList<BufferedImage> frames;
 	int framenum;
 	int curframe = -1;

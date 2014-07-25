@@ -5,6 +5,11 @@ import com.complover116.timezone.ImageContainer;
 import com.complover116.timezone.SoundHandler;
 
 public class SmallExplosion1 extends Effect {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6487986027599226375L;
+
 	@Override
 	public int loadFrames() {
 		SoundHandler.playSound("explosion/small_1");

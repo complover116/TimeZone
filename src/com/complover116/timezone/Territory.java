@@ -1,20 +1,28 @@
 package com.complover116.timezone;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import com.complover116.timezone.blocks.Border;
 import com.complover116.timezone.blocks.Ground;
-import com.complover116.timezone.blocks.Test;
 import com.complover116.timezone.entities.BaseVehicle;
+import com.complover116.timezone.entities.MainFrame;
 import com.complover116.timezone.entities.Preview;
-import com.complover116.timezone.entities.Sentry;
 
-public class Territory {
+public class Territory implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1046606549993722053L;
 	public Block[][] terrain = new Block[100][100];
 	public ArrayList<Entity> entities = new ArrayList<Entity>();
 	public EntityControllable controlledEnt;
 	public Preview preview;
 	public int owner;
+	public boolean firstround = true;
+	public Territory() {
+		
+	}
 	public Territory(int own) {
 		owner = own;
 		System.out.println("Territory of team "+owner+" is now preparing");
@@ -39,19 +47,23 @@ public class Territory {
 		for(int i = 0; i < 100; i ++) {
 			terrain[99][i] = new Border();
 		}
-		Sentry sentry2 = new Sentry(this.owner);
+		/*Sentry sentry2 = new Sentry(this.owner);
 		sentry2.model.x = 256;
 		sentry2.model.y = 256;
-		entities.add(sentry2);
+		entities.add(sentry2);*/
 		byte tm;
 		if(this.owner == 0) {
 			tm = 1;
 		} else {
 			tm = 0;
 		}
+		MainFrame mf = new MainFrame(this.owner);
+		mf.model.x = 1024;
+		mf.model.y = 1024;
+		entities.add(mf);
 		BaseVehicle bv = new BaseVehicle(tm);
-		bv.model.x = 20;
-		bv.model.y = 130;
+		bv.model.x = 64;
+		bv.model.y = 64;
 		entities.add(bv);
 		controlledEnt = bv;
 		Preview pv = new Preview();

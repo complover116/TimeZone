@@ -3,6 +3,10 @@ package com.complover116.timezone;
 import com.complover116.timezone.entities.BlockBuilder;
 
 public class BlockBuildTool extends Tool {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5375606897494007766L;
 	public Block btc;
 	public int owner;
 	public int wt = 0;
@@ -11,20 +15,20 @@ public class BlockBuildTool extends Tool {
 	public int maxh;
 	@Override
 	public boolean use() {
-		if(CurGame.terra.terrain[(int) (this.getPos().x/16)]
+		if(CurGame.c.terra.terrain[(int) (this.getPos().x/16)]
 				[(int) (this.getPos().y/16)].getClass() == btc.getClass()) {
 			return false;
 		}
-		for(int i = 0; i < CurGame.terra.entities.size(); i++) {
-			if(EntityHurtable.class.isInstance(CurGame.terra.entities.get(i))) {
-					if(CurGame.terra.entities.get(i)!=this){
-						if(((EntityObject)CurGame.terra.entities.get(i)).checkCollision(this)){
+		for(int i = 0; i < CurGame.c.terra.entities.size(); i++) {
+			if(EntityHurtable.class.isInstance(CurGame.c.terra.entities.get(i))) {
+					if(CurGame.c.terra.entities.get(i)!=this){
+						if(((EntityObject)CurGame.c.terra.entities.get(i)).checkCollision(this)){
 							return false;
 						}
 					}
 			}
 		}
-		CurGame.terra.regEntity(copy());
+		CurGame.c.terra.regEntity(copy());
 		return true;
 	}
 

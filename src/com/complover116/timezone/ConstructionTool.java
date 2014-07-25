@@ -2,6 +2,10 @@ package com.complover116.timezone;
 
 
 public class ConstructionTool extends Tool {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1999194455222596940L;
 	int cost = 1;
 	int maxhealth = 0;
 	public EntityHurtable btc;
@@ -14,10 +18,10 @@ public class ConstructionTool extends Tool {
 	@Override
 	public boolean use() {
 		btc.setPos(this.getPos());
-		CurGame.terra.regEntity(btc);
-		CurGame.terra.preview.tool.remove();
-		CurGame.terra.preview.tool = null;
-		CurGame.terra.preview.model.img = TeamData.getTeamImage("cursor", CurGame.terra.owner);
+		CurGame.c.terra.regEntity(btc);
+		CurGame.c.terra.preview.tool.remove();
+		CurGame.c.terra.preview.tool = null;
+		CurGame.c.terra.preview.model.img = TeamData.getTeamImage("cursor", CurGame.c.terra.owner);
 		return true;
 	}
 
@@ -27,7 +31,7 @@ public class ConstructionTool extends Tool {
 
 	}
 	public boolean place() {
-		//CurGame.terra.regEntity(copy());
+		//CurGame.c.terra.regEntity(copy());
 		return true;
 	}
 

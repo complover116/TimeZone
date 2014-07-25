@@ -13,16 +13,16 @@ public class StuffLoader {
 		
 		
 		try{
-			CurGame.status = -5;
+			CurGame.c.status = -5;
 			System.out.println("=====Preparing teams=====");
-			for(int i = 0; i<CurGame.teams.length; i++) {
-				CurGame.teams[i] = new TeamData();
+			for(int i = 0; i<CurGame.c.teams.length; i++) {
+				CurGame.c.teams[i] = new TeamData();
 				
 			}
-			CurGame.teams[0].dataname = "blue";
-			CurGame.teams[1].dataname = "red";
+			CurGame.c.teams[0].dataname = "blue";
+			CurGame.c.teams[1].dataname = "red";
 			System.out.println("=====Displaying=====");
-			CurGame.status = -10;
+			CurGame.c.status = -10;
 			GUI gui = new GUI();
 			Thread uiThread = new Thread(gui, "UI Thread");
 			uiThread.start();
@@ -33,12 +33,13 @@ public class StuffLoader {
 			
 
 			System.out.println("=====Preparing zones=====");
-			CurGame.teams[0].zone = new Territory(0);
-			CurGame.teams[1].zone = new Territory(1);
-			CurGame.terra=CurGame.teams[1].zone;
-			CurGame.status = 2;
+			CurGame.c.teams[0].zone = new Territory(0);
+			CurGame.c.teams[1].zone = new Territory(1);
+			CurGame.c.terra=CurGame.c.teams[1].zone;
+			CurGame.c.status = 2;
+			CurGame.overstat = 1;
 			Render.render();
-			System.out.println("=====Launching games=====");
+			System.out.println("=====Launching game=====");
 		WorldTicker.run();
 		} catch (Exception e) {
 			e.printStackTrace();

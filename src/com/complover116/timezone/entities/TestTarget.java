@@ -6,6 +6,10 @@ import com.complover116.timezone.ImageContainer;
 import com.complover116.timezone.Pos;
 
 public class TestTarget extends EntityHurtable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8694872319058219263L;
 	int time = 0;
 	@Override
 	public void construct() {
@@ -33,6 +37,6 @@ public class TestTarget extends EntityHurtable{
 	public void onDeath() {
 		MedExplosion1 bul = new MedExplosion1();
 		bul.setPos(this.getPos());
-		CurGame.terra.regEntity(bul);
+		CurGame.c.terra.regEntity(bul);
 	}
 }

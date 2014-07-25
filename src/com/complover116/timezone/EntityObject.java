@@ -4,6 +4,10 @@ import java.awt.Color;
 import java.awt.geom.Rectangle2D;
 
 public abstract class EntityObject extends Entity {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8158355565729680761L;
 	public int collideX = 0;
 	public int collideY = 0;
 	public int collideX2;

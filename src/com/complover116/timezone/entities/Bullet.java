@@ -1,6 +1,10 @@
 package com.complover116.timezone.entities;
 import com.complover116.timezone.*;
-public class Bullet extends EntityObject{
+public class Bullet extends EntityObject {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7999239675034748667L;
 	int time;
 	double direction;
 	double speed = 8;
@@ -18,6 +22,9 @@ public class Bullet extends EntityObject{
 		SoundHandler.playSound("weapon/bullet/fire_1");
 	}
 	public void renderInfo2() {
+		
+	}
+	public Bullet() {
 		
 	}
 	public Bullet(byte team) {
@@ -38,13 +45,13 @@ public class Bullet extends EntityObject{
 			for(int y = (int)(this.getPos().y/16) - 2; y < (int)(this.getPos().y)/16 + 3; y++) {
 				if(x > -1&&y>-1&&x<100&&y<100){
 				//MainScreen.shapes.add(new ShapeModel(new Rectangle(x*16,y*16,16,16), new Color(0,255,0)));
-				if(CurGame.terra.terrain[x][y].solid) {
+				if(CurGame.c.terra.terrain[x][y].solid) {
 					//MainScreen.shapes.add(new ShapeModel(new Rectangle(x*16,y*16,16,16), new Color(0,0,255)));
 					if(this.checkBlockCollision(x, y)) {
 						this.remove();
 						SmallExplosion1 bul = new SmallExplosion1();
 						bul.setPos(this.getPos());
-						CurGame.terra.regEntity(bul);
+						CurGame.c.terra.regEntity(bul);
 						flag = true;
 						break;
 					}
@@ -53,16 +60,16 @@ public class Bullet extends EntityObject{
 			}
 			if(flag) break;
 		}
-		for(int i = 0; i < CurGame.terra.entities.size(); i++) {
-			if(EntityHurtable.class.isInstance(CurGame.terra.entities.get(i))) {
-				if(CurGame.terra.entities.get(i)!=attacker){
-					if(CurGame.terra.entities.get(i)!=this){
-						if(((EntityHurtable)CurGame.terra.entities.get(i)).checkCollision(this)&&((EntityHurtable)CurGame.terra.entities.get(i)).team != this.team){
+		for(int i = 0; i < CurGame.c.terra.entities.size(); i++) {
+			if(EntityHurtable.class.isInstance(CurGame.c.terra.entities.get(i))) {
+				if(CurGame.c.terra.entities.get(i)!=attacker){
+					if(CurGame.c.terra.entities.get(i)!=this){
+						if(((EntityHurtable)CurGame.c.terra.entities.get(i)).checkCollision(this)&&((EntityHurtable)CurGame.c.terra.entities.get(i)).team != this.team){
 							this.remove();
-							((EntityHurtable) CurGame.terra.entities.get(i)).takeDamage(attacker, 1);
+							((EntityHurtable) CurGame.c.terra.entities.get(i)).takeDamage(attacker, 1);
 							SmallExplosion1 bul = new SmallExplosion1();
 							bul.setPos(this.getPos());
-							CurGame.terra.regEntity(bul);
+							CurGame.c.terra.regEntity(bul);
 						}
 					}
 				}

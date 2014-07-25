@@ -10,6 +10,10 @@ import com.complover116.timezone.ImageContainer;
 import com.complover116.timezone.SoundHandler;
 
 public class Sentry extends EntityBuildable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2064129235871367738L;
 	boolean turningright;
 	boolean enabled;
 	int initrot = 0;
@@ -22,9 +26,9 @@ public class Sentry extends EntityBuildable {
 		
 	}
 	public Sentry(int team) {
-		this.buildinghealth = 20;
-		this.tph = 1;
-		this.costPerHealth = 100;
+		this.buildinghealth = 10;
+		this.tph = 8;
+		this.costPerHealth = 25;
 		this.team = (byte) team;
 		anim = new AnimationSet("sentry_1", team);
 		anim.animations.add(new Animation("off", 1, 1, -1));
@@ -78,21 +82,7 @@ public class Sentry extends EntityBuildable {
 			deg = Math.toDegrees(deg);
 			deg += 90;
 			
-			if (this.model.rot < deg) {
-				if(deg - this.model.rot > 180) {
-					this.model.rot -= 2;
-				}else{
-				this.model.rot += 2;
-				}
-			}
-			if (this.model.rot > deg) {
-				if(this.model.rot - deg > 180) {
-					
-					this.model.rot += 2;
-				} else {
-				this.model.rot -= 2;
-				}
-			}
+			
 			if(this.model.rot > 270) {
 				this.model.rot -= 360;
 			}
@@ -100,6 +90,21 @@ public class Sentry extends EntityBuildable {
 				this.model.rot += 360;
 			}
 			if (this.model.rot < deg + 3 && this.model.rot > deg - 3) {
+				if (this.model.rot < deg) {
+					if(deg - this.model.rot > 180) {
+						this.model.rot --;
+					}else{
+					this.model.rot ++;
+					}
+				}
+				if (this.model.rot > deg) {
+					if(this.model.rot - deg > 180) {
+						
+						this.model.rot ++;
+					} else {
+					this.model.rot --;
+					}
+				}
 				if (time >= 26) {
 					//this.model.img = ImageContainer.images.get("sentry_1");
 					time = 0;
@@ -109,13 +114,28 @@ public class Sentry extends EntityBuildable {
 					bul.attacker = this;
 					bul.setPos(this.getPos());
 					bul.direction = this.model.rot;
-					CurGame.terra.regEntity(bul);
+					CurGame.c.terra.regEntity(bul);
 					anim.setAnim(4);
 					//this.model.img = ImageContainer.images
 						//	.get("sentry_1_light3");
 
 				}
 			} else {
+				if (this.model.rot < deg) {
+					if(deg - this.model.rot > 180) {
+						this.model.rot -= 2;
+					}else{
+					this.model.rot += 2;
+					}
+				}
+				if (this.model.rot > deg) {
+					if(this.model.rot - deg > 180) {
+						
+						this.model.rot += 2;
+					} else {
+					this.model.rot -= 2;
+					}
+				}
 				if (time >= 21) {
 					//this.model.img = ImageContainer.images.get("sentry_1");
 					time = 0;
@@ -136,12 +156,12 @@ public class Sentry extends EntityBuildable {
 
 	private void checkForTargets() {
 		boolean flag = false;
-		for (int i = 0; i < CurGame.terra.entities.size(); i++) {
-			if (CurGame.terra.entities.get(i) instanceof EntityHurtable
-					&& CurGame.terra.entities.get(i).getPos()
+		for (int i = 0; i < CurGame.c.terra.entities.size(); i++) {
+			if (CurGame.c.terra.entities.get(i) instanceof EntityHurtable
+					&& CurGame.c.terra.entities.get(i).getPos()
 							.distance(this.getPos()) < 500) {
-				if (((EntityHurtable) CurGame.terra.entities.get(i)).team != this.team&&CurGame.terra.entities.get(i).getPos().LOS(this.getPos())) {
-					target = CurGame.terra.entities.get(i);
+				if (((EntityHurtable) CurGame.c.terra.entities.get(i)).team != this.team&&CurGame.c.terra.entities.get(i).getPos().LOS(this.getPos())) {
+					target = CurGame.c.terra.entities.get(i);
 					flag = true;
 				}
 			}
@@ -155,7 +175,7 @@ public class Sentry extends EntityBuildable {
 	public void onDeath() {
 		MedExplosion1 bul = new MedExplosion1();
 		bul.setPos(this.getPos());
-		CurGame.terra.regEntity(bul);
+		CurGame.c.terra.regEntity(bul);
 	}
 	@Override
 	public void onConstructed() {
