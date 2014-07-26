@@ -8,7 +8,7 @@ public class TeamData implements Serializable {
 	 */
 	private static final long serialVersionUID = 2183684954277704426L;
 	public int uranium = 100;
-	public int metal = 2000;
+	public int metal = 3500;
 	public int dismetal = 0;
 	public int disuranium = 0;
 	public int metaltick = 0;

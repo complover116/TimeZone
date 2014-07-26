@@ -219,16 +219,16 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 				}
 			}
 			if (arg0.getKeyCode() == 87) {
-				CurGame.c.scrollingY = -1;
+				CurGame.c.scrollingY = -3;
 			}
 			if (arg0.getKeyCode() == 83) {
-				CurGame.c.scrollingY = 1;
+				CurGame.c.scrollingY = 3;
 			}
 			if (arg0.getKeyCode() == 68) {
-				CurGame.c.scrollingX = 1;
+				CurGame.c.scrollingX = 3;
 			}
 			if (arg0.getKeyCode() == 65) {
-				CurGame.c.scrollingX = -1;
+				CurGame.c.scrollingX = -3;
 			}
 		}
 	}
@@ -253,16 +253,16 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 				CurGame.c.terra.controlledEnt.turn = 0;
 			}
 		} else if (CurGame.c.status > 0 && CurGame.c.status < 5) {
-			if (arg0.getKeyCode() == 87 && CurGame.c.scrollingY == -1) {
+			if (arg0.getKeyCode() == 87 && CurGame.c.scrollingY == -3) {
 				CurGame.c.scrollingY = 0;
 			}
-			if (arg0.getKeyCode() == 83 && CurGame.c.scrollingY == 1) {
+			if (arg0.getKeyCode() == 83 && CurGame.c.scrollingY == 3) {
 				CurGame.c.scrollingY = 0;
 			}
-			if (arg0.getKeyCode() == 68 && CurGame.c.scrollingX == 1) {
+			if (arg0.getKeyCode() == 68 && CurGame.c.scrollingX == 3) {
 				CurGame.c.scrollingX = 0;
 			}
-			if (arg0.getKeyCode() == 65 && CurGame.c.scrollingX == -1) {
+			if (arg0.getKeyCode() == 65 && CurGame.c.scrollingX == -3) {
 				CurGame.c.scrollingX = 0;
 			}
 		}

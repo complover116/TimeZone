@@ -1,7 +1,5 @@
 package com.complover116.timezone.entities;
 
-import com.complover116.timezone.Animation;
-import com.complover116.timezone.AnimationSet;
 import com.complover116.timezone.EntityHurtable;
 import com.complover116.timezone.TeamData;
 
@@ -27,8 +25,8 @@ public class MainFrame extends EntityHurtable {
 	public void construct() {
 		this.team = (byte) team;
 		this.model.img = TeamData.getTeamImage("mainframe", team);
-		this.model.rotX = 16;
-		this.model.rotY = 16;
+		this.model.rotX = 32;
+		this.model.rotY = 32;
 		this.collideX = 16;
 		this.collideY = 16;
 		this.collideX2 = 32;

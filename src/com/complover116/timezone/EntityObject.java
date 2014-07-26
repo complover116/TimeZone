@@ -1,6 +1,5 @@
 package com.complover116.timezone;
 
-import java.awt.Color;
 import java.awt.geom.Rectangle2D;
 
 public abstract class EntityObject extends Entity {
@@ -43,7 +42,7 @@ public abstract class EntityObject extends Entity {
 		rec2.addPoint(eX2, eY2);
 		rec2.addPoint(eX1, eY2);*/
 		Rectangle2D.Double rec = new Rectangle2D.Double(this.model.x+this.collideX, this.model.y+this.collideY, this.collideX2,this.collideY2);
-		Rectangle2D.Double rec2 = new Rectangle2D.Double(e.model.x, e.model.y, e.collideX2, e.collideY2);
+		Rectangle2D.Double rec2 = new Rectangle2D.Double(e.model.x+e.collideX, e.model.y+e.collideY, e.collideX2, e.collideY2);
 		
 		return rec.intersects(rec2);
 	}
