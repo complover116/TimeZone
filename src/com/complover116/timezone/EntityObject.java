@@ -7,8 +7,8 @@ public abstract class EntityObject extends Entity {
 	 * 
 	 */
 	private static final long serialVersionUID = 8158355565729680761L;
-	public int collideX = 0;
-	public int collideY = 0;
+	public int collideX;
+	public int collideY;
 	public int collideX2;
 	public int collideY2;
 	public boolean checkBlockCollision(int blockX, int blockY) {
