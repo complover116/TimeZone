@@ -21,9 +21,9 @@ public class RailMount extends EntityBuildable {
 		
 	}
 	public RailMount(int team) {
-		this.buildinghealth = 20;
+		this.buildinghealth = 25;
 		this.tph = 8;
-		this.costPerHealth = 2;
+		this.costPerHealth = 4;
 		this.team = (byte) team;
 		this.model.setModel("railmount");
 		this.model.rotX = 7.5;
@@ -32,7 +32,7 @@ public class RailMount extends EntityBuildable {
 		this.collideY = 0;
 		this.collideX2 = 16;
 		this.collideY2 = 16;
-		this.mmaxhealth = 20;
+		this.mmaxhealth = 30;
 		this.readName = "Static mount point";
 		anim = new AnimationSet("railmount", team);
 		CurGame.c.terra.regEntity((mountpoint));

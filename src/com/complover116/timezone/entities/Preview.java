@@ -57,6 +57,7 @@ public class Preview extends EntityObject {
 	public void updateEnt() {
 		if(!entLocked){
 			this.selent = getEnt();
+			if(this.selent != null) this.selent.displayHealth = 500;
 		}
 	}
 	@Override

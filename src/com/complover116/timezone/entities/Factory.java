@@ -26,9 +26,9 @@ public class Factory extends EntityBuildable {
 	}
 	public Factory(int tm) {
 		this.team = (byte)tm;
-		this.buildinghealth = 10;
-		this.tph = 2;
-		this.costPerHealth = 25;
+		this.buildinghealth = 50;
+		this.tph = 10;
+		this.costPerHealth = 14;
 	}
 	@Override
 	public void Think() {
@@ -69,7 +69,7 @@ public class Factory extends EntityBuildable {
 		this.collideY = 0;
 		this.collideX2 = 32;
 		this.collideY2 = 32;
-		this.mmaxhealth = 50;
+		this.mmaxhealth = 70;
 		this.readName = "Turret Factory";
 		anim = new AnimationSet("railmount", team);
 	}

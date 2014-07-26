@@ -34,7 +34,9 @@ public class MountPoint extends EntityObject {
 	}
 
 	public void destroy() {
+		if(this.mountedEnt != null){
 		this.mountedEnt.onUnMount();
+		}
 	}
 
 }

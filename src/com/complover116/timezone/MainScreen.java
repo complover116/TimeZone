@@ -425,7 +425,9 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 			}
 		}
 		if (CurGame.c.status == 2) {
-
+			if (arg0.getKeyChar() == 'p') {
+				WorldTicker.tickWorld();
+			}
 		}
 		if (arg0.getKeyChar() == 'x') {
 			if (CurGame.c.status == 2 && CurGame.c.terra.preview.selent != null) {
