@@ -19,7 +19,7 @@ public class WorldTicker {
 				CurGame.c.terra.entities.remove(i);
 			} else {
 			CurGame.c.terra.entities.get(i).onTick();
-			CurGame.c.terra.entities.get(i).renderStuff();
+			
 			}
 		}
 	}

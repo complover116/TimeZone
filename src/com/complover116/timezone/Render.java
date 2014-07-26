@@ -22,6 +22,9 @@ public class Render {
 		//RENDER THE ENTITIES
 		for(int i = 0;i < CurGame.c.terra.entities.size(); i++) {
 			MainScreen.objects.add(CurGame.c.terra.entities.get(i).model);
+			if(!CurGame.c.terra.entities.get(i).isDead) {
+			CurGame.c.terra.entities.get(i).renderStuff();
+			}
 		}
 		//RENDER THE INFO BOXES
 		for(int i = 0;i < CurGame.c.terra.entities.size(); i++) {

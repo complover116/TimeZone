@@ -65,7 +65,7 @@ public class Pos {
 				MainScreen.shapes.add(new ShapeModel(new Rectangle(posX*16,posY*16,16,16),new Color(255,0,0),false));
 				return false;
 			}else {
-				MainScreen.shapes.add(new ShapeModel(new Rectangle(posX*16,posY*16,16,16),new Color(0,255,0),false));
+				//MainScreen.shapes.add(new ShapeModel(new Rectangle(posX*16,posY*16,16,16),new Color(0,255,0),false));
 			}
 		}
 		return true;

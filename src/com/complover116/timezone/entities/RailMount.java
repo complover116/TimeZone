@@ -3,6 +3,7 @@ package com.complover116.timezone.entities;
 import com.complover116.timezone.AnimationSet;
 import com.complover116.timezone.CurGame;
 import com.complover116.timezone.EntityBuildable;
+import com.complover116.timezone.TeamData;
 
 public class RailMount extends EntityBuildable {
 
@@ -14,14 +15,14 @@ public class RailMount extends EntityBuildable {
 	boolean flag = false;
 	@Override
 	public void onConstructed() {
-		this.model.setModel("railmount");
+		this.model.setModel(TeamData.getTeamImage("railmount", team));
 	}
 	public RailMount() {
 		
 	}
 	public RailMount(int team) {
 		this.buildinghealth = 20;
-		this.tph = 1;
+		this.tph = 8;
 		this.costPerHealth = 2;
 		this.team = (byte) team;
 		this.model.setModel("railmount");
@@ -46,7 +47,7 @@ public class RailMount extends EntityBuildable {
 	@Override
 	public void onDeath() {
 		// TODO Auto-generated method stub
-		this.mountpoint.remove();
+		this.mountpoint.destroy();
 	}
 
 	@Override

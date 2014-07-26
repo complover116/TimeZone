@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 import com.complover116.timezone.blocks.Ground;
 import com.complover116.timezone.blocks.Rail;
 import com.complover116.timezone.blocks.Wall;
+import com.complover116.timezone.entities.Factory;
 import com.complover116.timezone.entities.RailMount;
 import com.complover116.timezone.entities.Sentry;
 
@@ -32,6 +33,7 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 	 */
 	private static final long serialVersionUID = -2355840993291782784L;
 
+	@Override
 	public void paintComponent(Graphics g) {
 
 		super.paintComponent(g);
@@ -100,7 +102,7 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 					+ CurGame.c.teams[CurGame.c.terra.owner].dismetal, 200, 20);
 			if (CurGame.c.status == 2) {
 				if (CurGame.c.terra.preview.selent != null) {
-					g2d.drawString(CurGame.c.terra.preview.selent.readName, 0,
+					g2d.drawString(CurGame.c.terra.preview.selent.readName, 32,
 							height - 20);
 					shapes.add(new ShapeModel(new Rectangle2D.Double(
 							CurGame.c.terra.preview.selent.model.x
@@ -110,6 +112,21 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 							CurGame.c.terra.preview.selent.collideX2,
 							CurGame.c.terra.preview.selent.collideY2),
 							new Color(0, 255, 0, 255), false));
+					if (CurGame.c.terra.preview.entSwitch < CurGame.c.terra.preview.entsAvail - 1) {
+						DrawThing leftArr = new DrawThing();
+						leftArr.setModel("echooser_right");
+						leftArr.x = 32 + (CurGame.c.terra.preview.selent.readName
+								.length() * 20);
+						leftArr.y = height - 52;
+						indepobjects.add(leftArr);
+					}
+					if (CurGame.c.terra.preview.entSwitch > 0) {
+						DrawThing leftArr = new DrawThing();
+						leftArr.setModel("echooser_left");
+						leftArr.x = 0;
+						leftArr.y = height - 52;
+						indepobjects.add(leftArr);
+					}
 				}
 			}
 		}
@@ -120,7 +137,6 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 			g2d.setFont(new Font("TimesRoman", Font.PLAIN, 20));
 			g2d.setColor(new Color(0, 255, 0, 255));
 			g2d.drawString(CurGame.loadStep, width / 2 - 100, height / 2 + 30);
-			System.out.println("XX");
 		}
 		for (int i = 0; i < indepobjects.size(); i++) {
 			try {
@@ -293,6 +309,15 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 				CurGame.c.terra.preview.tool = bb;
 				SoundHandler.playSound("sentry/seek_1");
 			}
+			if (arg0.getKeyChar() == 'f') {
+				ConstructionTool bb = new ConstructionTool(new Factory(
+						CurGame.c.controllingTeam));
+				bb.setPos(CurGame.c.terra.preview.getPos());
+				CurGame.c.terra.regEntity(bb);
+				CurGame.c.status = 2;
+				CurGame.c.terra.preview.tool = bb;
+				SoundHandler.playSound("sentry/seek_1");
+			}
 			if (arg0.getKeyChar() == 'r') {
 				ConstructionTool bb = new ConstructionTool(new RailMount(
 						CurGame.c.controllingTeam));
@@ -324,6 +349,22 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 				CurGame.c.terra.preview.updateEnt();
 				SoundHandler.playSound("ui/click1");
 			}
+			if (arg0.getKeyChar() == 'e') {
+				CurGame.c.terra.preview.entSwitch++;
+				CurGame.c.terra.preview.updateEnt();
+				SoundHandler.playSound("ui/click1");
+			}
+			if (arg0.getKeyChar() == 'q') {
+				CurGame.c.terra.preview.entSwitch--;
+				CurGame.c.terra.preview.updateEnt();
+				SoundHandler.playSound("ui/click1");
+			}
+			if (arg0.getKeyChar() == '\\') {
+				if (CurGame.c.terra.preview.tool != null) {
+					CurGame.c.terra.preview.tool.use2();
+					SoundHandler.playSound("sentry/seek_1");
+				}
+			}
 			// char russianChars[] = {'ö','ô','û','â'};
 		}
 		if (arg0.getKeyChar() == '\n') {
@@ -347,7 +388,8 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 							}
 						}
 					} else {
-						OrderTool bb = new OrderTool(CurGame.c.terra.preview.selent);
+						OrderTool bb = new OrderTool(
+								CurGame.c.terra.preview.selent);
 						bb.setPos(CurGame.c.terra.preview.getPos());
 						CurGame.c.terra.regEntity(bb);
 						CurGame.c.status = 2;
@@ -386,18 +428,9 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 
 		}
 		if (arg0.getKeyChar() == 'x') {
-			if (CurGame.c.status == 2) {
-				for (Entity ent : CurGame.c.terra.entities) {
-					if (ent instanceof EntityHurtable) {
-						if (((EntityHurtable) ent).team == CurGame.c.controllingTeam
-								&& ((EntityHurtable) ent)
-										.checkCollision(CurGame.c.terra.preview)) {
-							((EntityHurtable) ent).isDead = true;
-							((EntityHurtable) ent).onDeath();
-							((EntityHurtable) ent).remove();
-						}
-					}
-				}
+			if (CurGame.c.status == 2 && CurGame.c.terra.preview.selent != null) {
+				CurGame.c.terra.preview.selent.onDeath();
+				CurGame.c.terra.preview.selent.remove();
 			}
 		}
 		if (arg0.getKeyChar() == 'c') {

@@ -19,6 +19,7 @@ public abstract class Tool extends EntityObject {
 
 	}
 	public abstract boolean use();
+	public abstract boolean use2();
 	//@Override
 	//public void saveStuff(HashMap hm) {
 	//	return;

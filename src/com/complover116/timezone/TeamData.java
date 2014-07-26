@@ -1,6 +1,5 @@
 package com.complover116.timezone;
 
-import java.awt.image.BufferedImage;
 import java.io.Serializable;
 
 public class TeamData implements Serializable {
@@ -20,7 +19,7 @@ public class TeamData implements Serializable {
 		if(team == 0){
 		return name+"_blue";
 		} else {
-			return name+"_blue";
+			return name+"_red";
 		}
 	}
 }

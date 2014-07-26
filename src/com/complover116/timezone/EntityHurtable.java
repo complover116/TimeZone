@@ -2,6 +2,7 @@ package com.complover116.timezone;
 
 import java.awt.Color;
 import java.awt.Rectangle;
+import java.awt.geom.Line2D;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -69,6 +70,16 @@ public abstract class EntityHurtable extends EntityObject {
 			sh = new ShapeModel(rec, new Color((int) (255-((double)health/(double)maxhealth)*255),(int) (((double)health/(double)maxhealth)*255),0,displayHealth),true);
 		}
 		MainScreen.shapes.add(sh);
+		}
+		if(this.orders.size() > 0) {
+			Line2D.Double line = new Line2D.Double(this.getPos().x,this.getPos().y, this.orders.get(0).pos.x, this.orders.get(0).pos.y);
+			MainScreen.shapes.add(new ShapeModel(line, new Color(255,255,0,255), true));	
+		if(this.orders.size() > 1) {
+			for(int i = 1; i < orders.size(); i ++){
+			Line2D.Double line2 = new Line2D.Double(this.orders.get(i-1).pos.x,this.orders.get(i-1).pos.y, this.orders.get(i).pos.x, this.orders.get(i).pos.y);
+			MainScreen.shapes.add(new ShapeModel(line2, new Color(255,255,0,255), true));	
+			}
+		}
 		}
 	}
 }

@@ -1,5 +1,7 @@
 package com.complover116.timezone.entities;
 
+import java.util.ArrayList;
+
 import com.complover116.timezone.CurGame;
 import com.complover116.timezone.Entity;
 import com.complover116.timezone.EntityHurtable;
@@ -8,6 +10,7 @@ import com.complover116.timezone.Tool;
 
 public class Preview extends EntityObject {
 	public int entSwitch = 0;
+	public int entsAvail = 0;
 	public EntityHurtable selent;
 	public boolean entLocked = false;
 	/**
@@ -30,19 +33,26 @@ public class Preview extends EntityObject {
 		
 	}
 	public EntityHurtable getEnt() {
-		EntityHurtable ent2 = null;
-		double bestdist = 300;
+		ArrayList<EntityHurtable> ent2 = new ArrayList<EntityHurtable>();
 		for(Entity ent:CurGame.c.terra.entities) {
 			if(ent instanceof EntityHurtable) {
 				if(((EntityHurtable)ent).team == CurGame.c.controllingTeam&&((EntityHurtable)ent).checkCollision(CurGame.c.terra.preview)) {
-					if(ent.getPos().distance(this.getPos())<bestdist) {
-						bestdist = ent.getPos().distance(this.getPos());
-						ent2 = (EntityHurtable) ent;
-					}
+					ent2.add(((EntityHurtable)ent));
 				}
 			}
 		}
-		return ent2;
+		entsAvail = ent2.size();
+		if(entSwitch>entsAvail - 1) {
+			entSwitch = entsAvail - 1;
+		}
+		if(entSwitch<0) {
+			entSwitch = 0;
+		}
+		if(entsAvail > 0){
+		return ent2.get(entSwitch);
+		} else {
+			return null;
+		}
 	}
 	public void updateEnt() {
 		if(!entLocked){

@@ -34,5 +34,10 @@ public class ConstructionTool extends Tool {
 		//CurGame.c.terra.regEntity(copy());
 		return true;
 	}
+	@Override
+	public boolean use2() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 
 }

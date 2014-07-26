@@ -31,7 +31,7 @@ public class SaveGameHandler {
 			e.printStackTrace();
 		}
 		GUI.hideDialogs();
-		Thread.sleep(1000);
+		Thread.sleep(500);
 		GUI.infoDialog("Success", "Game successfully saved to "+path);
 		return true;
 	}
@@ -68,7 +68,7 @@ public class SaveGameHandler {
 			e.printStackTrace();
 		}
 		GUI.hideDialogs();
-		Thread.sleep(1000);
+		Thread.sleep(500);
 		GUI.infoDialog("Success", "Game successfully loaded from "+path);
 		CurGame.overstat = 1;
 		return true;

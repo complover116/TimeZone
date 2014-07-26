@@ -1,7 +1,5 @@
 package com.complover116.timezone.entities;
 
-import java.util.ArrayList;
-
 import com.complover116.timezone.Animation;
 import com.complover116.timezone.AnimationSet;
 import com.complover116.timezone.CurGame;
@@ -11,6 +9,7 @@ import com.complover116.timezone.EntityHurtable;
 import com.complover116.timezone.Mountable;
 import com.complover116.timezone.Order;
 import com.complover116.timezone.SoundHandler;
+import com.complover116.timezone.blocks.Rail;
 
 public class Sentry extends EntityBuildable implements Mountable {
 	/**
@@ -45,7 +44,7 @@ public class Sentry extends EntityBuildable implements Mountable {
 		this.model.rotX = 7.5;
 		this.model.rotY = 15.5;
 		this.collideX = 0;
-		this.collideY = 0;
+		this.collideY = 8;
 		this.collideX2 = 16;
 		this.collideY2 = 16;
 		this.mmaxhealth = 20;
@@ -57,10 +56,19 @@ public class Sentry extends EntityBuildable implements Mountable {
 	}
 	@Override
 	public void Think() {
+		if(this.mountedTo == null) {
+			if(!(CurGame.c.terra.terrain[(int)this.getPos().x/16][(int)this.getPos().y/16] instanceof Rail)) {
+				if(Math.random()*10 > 9) {
+				this.takeDamage(null, 1);
+				}
+			}
+		}
 		time++;
 		anim.animTick();
 		this.model.setModel(anim.getFrame());
 		if(this.orders.size() > 0) {
+			
+			
 			if(this.anim.curAnim == 0) {
 			Order curorder = this.orders.get(0);
 			switch(curorder.type) {
@@ -95,7 +103,9 @@ public class Sentry extends EntityBuildable implements Mountable {
 		} else {
 			if(this.anim.curAnim > 2) {
 				this.onUnMount();
+				if(this.mountedTo != null) {
 				this.mountedTo.mountedEnt = null;
+				}
 			}
 		}
 		}
@@ -231,6 +241,7 @@ public class Sentry extends EntityBuildable implements Mountable {
 	@Override
 	public void onUnMount() {
 		this.anim.setAnim(2);
+		this.mountedTo = null;
 	}
 
 }

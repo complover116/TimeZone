@@ -13,10 +13,10 @@ public class MountPoint extends EntityObject {
 	public void construct() {
 		this.model.rotX = 7.5;
 		this.model.rotY = 7.5;
-		this.collideX = 0;
-		this.collideY = 0;
-		this.collideX2 = 16;
-		this.collideY2 = 16;
+		this.collideX = 5;
+		this.collideY = 5;
+		this.collideX2 = 6;
+		this.collideY2 = 6;
 		this.model.setModel("nil");
 	}
 
@@ -31,6 +31,10 @@ public class MountPoint extends EntityObject {
 	public void renderInfo2() {
 		// TODO Auto-generated method stub
 
+	}
+
+	public void destroy() {
+		this.mountedEnt.onUnMount();
 	}
 
 }

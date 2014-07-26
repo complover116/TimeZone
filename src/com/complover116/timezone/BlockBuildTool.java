@@ -74,4 +74,10 @@ public class BlockBuildTool extends Tool {
 		}
 		return build;
 }
+
+	@Override
+	public boolean use2() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

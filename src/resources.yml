@@ -3,7 +3,6 @@ images:
     - {file: /img/terrain/ground_1.png, name: ground_1}
     - {file: /img/terrain/ground_2.png, name: ground_2}
     - {file: /img/terrain/ground_3.png, name: ground_3}
-    - {file: /img/terrain/rails/cross.png, name: ground_3}
     - {file: /img/entities/sentry_1.png, name: sentry_1}
     - {file: /img/entities/sentry_1_light1.png, name: sentry_1_light1}
     - {file: /img/entities/sentry_1_light2.png, name: sentry_1_light2}
@@ -27,12 +26,15 @@ images:
     - {file: /img/gui/cursororder.png, name: order}
     - {file: /img/gui/cursor_blue.png, name: cursor_blue}
     - {file: /img/gui/cursor_red.png, name: cursor_red}
+    - {file: /img/gui/echooser_right.png, name: echooser_right}
+    - {file: /img/gui/echooser_left.png, name: echooser_left}
     - {file: /img/terrain/wall.png, name: wall}
     - {file: /img/terrain/wall_unbuilt.png, name: wall_unbuilt}
     - {file: /img/terrain/border.png, name: border}
     - {file: /img/terrain/rails/crossing.png, name: railcross}
-    - {file: /img/terrain/rails/mountpoint1.png, name: railmount}
-    - {file: /img/terrain/rails/mountpoint1.png, name: railmount_unbuilt_red}
+    - {file: /img/terrain/rails/mountpoint2.png, name: railmount_red}
+    - {file: /img/terrain/rails/mountpoint1.png, name: railmount_blue}
+    - {file: /img/terrain/rails/mountpoint2.png, name: railmount_unbuilt_red}
     - {file: /img/terrain/rails/mountpoint1.png, name: railmount_unbuilt_blue}
     - {file: /img/gui/delete.png, name: delete}
     - {file: /img/gui/cursor2_blue.png, name: cursor2_blue}
@@ -78,6 +80,8 @@ images:
     - {file: /img/entities/vehicle/smallpauka/red.png, name: smallpauka_red}
     - {file: /img/entities/buildings/mainframe/red.png, name: mainframe_red}
     - {file: /img/entities/buildings/mainframe/blue.png, name: mainframe_blue}
+    - {file: /img/entities/buildings/factory/red.png, name: factory_red}
+    - {file: /img/entities/buildings/factory/blue.png, name: factory_blue}
     - {file: /img/entities/null.png, name: nil}
 sounds:
     - {file: soos, name: weapon/bullet/fire_1}
