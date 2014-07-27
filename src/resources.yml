@@ -78,11 +78,18 @@ images:
     - {file: /img/entities/effects/spark1_5.png, name: spark1_5}
     - {file: /img/entities/vehicle/smallpauka/blue.png, name: smallpauka_blue}
     - {file: /img/entities/vehicle/smallpauka/red.png, name: smallpauka_red}
+    - {file: /img/entities/vehicle/smallpauka/blue.png, name: smallpauka_unbuilt_blue}
+    - {file: /img/entities/vehicle/smallpauka/red.png, name: smallpauka_unbuilt_red}
+    - {file: /img/entities/vehicle/medpauka/blue.png, name: medpauka_blue}
+    - {file: /img/entities/vehicle/medpauka/red.png, name: medpauka_red}
     - {file: /img/entities/buildings/mainframe/red.png, name: mainframe_red}
     - {file: /img/entities/buildings/mainframe/blue.png, name: mainframe_blue}
     - {file: /img/entities/buildings/factory/red.png, name: factory_red}
     - {file: /img/entities/buildings/factory/blue.png, name: factory_blue}
+    - {file: /img/entities/buildings/unitfactory/red.png, name: unitfactory_red}
+    - {file: /img/entities/buildings/unitfactory/blue.png, name: unitfactory_blue}
     - {file: /img/entities/null.png, name: nil}
+    - {file: /img/entities/teleporter.png, name: teleporter}
 sounds:
     - {file: soos, name: weapon/bullet/fire_1}
     - {file: soos, name: explosion/small_1}

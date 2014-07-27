@@ -25,7 +25,6 @@ public class RailMount extends EntityBuildable {
 		this.tph = 8;
 		this.costPerHealth = 4;
 		this.team = (byte) team;
-		this.model.setModel("railmount");
 		this.model.rotX = 7.5;
 		this.model.rotY = 7.5;
 		this.collideX = 0;

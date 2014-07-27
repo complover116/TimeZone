@@ -36,6 +36,8 @@ public class StuffLoader {
 			CurGame.c.teams[0].zone = new Territory(0);
 			CurGame.c.teams[1].zone = new Territory(1);
 			CurGame.c.terra=CurGame.c.teams[1].zone;
+			System.out.println("=====Shutting down the default ui thread=====");
+			uiThread.stop();
 			CurGame.c.status = 2;
 			CurGame.overstat = 1;
 			Render.render();

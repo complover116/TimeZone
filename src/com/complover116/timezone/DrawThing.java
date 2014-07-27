@@ -1,7 +1,5 @@
 package com.complover116.timezone;
 
-import java.awt.image.BufferedImage;
-import java.awt.image.WritableRaster;
 import java.io.Serializable;
 
 public class DrawThing implements Serializable {
@@ -14,6 +12,7 @@ public class DrawThing implements Serializable {
 	public double rot;
 	public double rotX;
 	public double rotY;
+	public boolean onTop;
 	public boolean draw = true;
 	public String img;
 	public double[] getPointPos(int X, int Y) {

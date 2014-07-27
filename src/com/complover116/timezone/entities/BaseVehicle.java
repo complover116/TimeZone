@@ -1,5 +1,8 @@
 package com.complover116.timezone.entities;
-import com.complover116.timezone.*;
+import com.complover116.timezone.AnimationSet;
+import com.complover116.timezone.CurGame;
+import com.complover116.timezone.EntityControllable;
+import com.complover116.timezone.TeamData;
 public class BaseVehicle extends EntityControllable {
 
 	/**
@@ -9,7 +12,7 @@ public class BaseVehicle extends EntityControllable {
 	private int firedelay;
 
 	@Override
-	public void think() {
+	public void Think2() {
 		if(firedelay>0) {
 			firedelay--;
 		}
@@ -21,9 +24,15 @@ public class BaseVehicle extends EntityControllable {
 	public BaseVehicle(byte team) {
 		this.team = team;
 		this.model.img = TeamData.getTeamImage("smallpauka", this.team);
+		this.anim = new AnimationSet("smallpauka", this.team);
+		this.health = 0;
+		this.mmaxhealth = 20;
 	}
 	@Override
 	public void construct() {
+		this.buildinghealth = 10;
+		this.tph = 1;
+		this.costPerHealth = 25;
 		this.model.rotX = 8.5;
 		this.model.rotY = 11;
 		this.collideX = 2;
@@ -38,7 +47,7 @@ public class BaseVehicle extends EntityControllable {
 		MedExplosion1 bul = new MedExplosion1();
 		bul.setPos(this.getPos());
 		CurGame.c.terra.regEntity(bul);
-		BaseVehicle bu = new BaseVehicle(this.team);
+		/*SentryVehicle1 bu = new SentryVehicle1(this.team);
 		bu.setPos(new Pos(64,64));
 		CurGame.c.terra.regEntity(bu);
 		CurGame.c.terra.controlledEnt = bu;
@@ -48,7 +57,7 @@ public class BaseVehicle extends EntityControllable {
 		}else {
 			tm = 0;
 		}
-		CurGame.c.teams[tm].metal += 250;
+		CurGame.c.teams[tm].metal += 250;*/
 	}
 
 	@Override
@@ -60,5 +69,10 @@ public class BaseVehicle extends EntityControllable {
 		CurGame.c.terra.regEntity(bul);
 		this.firedelay += 20;
 		}
+	}
+	@Override
+	public void onConstructed() {
+		// TODO Auto-generated method stub
+		this.model.img = TeamData.getTeamImage("smallpauka", this.team);
 	}
 }

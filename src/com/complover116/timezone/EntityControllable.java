@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Rectangle;
 
 
-public abstract class EntityControllable extends EntityHurtable {
+public abstract class EntityControllable extends EntityBuildable {
 	/**
 	 * 
 	 */
@@ -17,12 +17,53 @@ public abstract class EntityControllable extends EntityHurtable {
 	public double maxSpeedRight = 1;
 	public byte turn = 0;
 	@Override
-	public void onTick() {
+	public void Think() {
+if(this.orders.size() > 0) {
+			Order curorder = this.orders.get(0);
+			switch(curorder.type) {
+				default:
+					
+					double deltaX = this.orders.get(0).pos.x - this.getPos().x;
+					double deltaY = this.orders.get(0).pos.y - this.getPos().y;
+					double deg = Math.atan2(deltaY, deltaX);
+					deg = Math.toDegrees(deg);
+					deg += 90;
+					if(this.model.rot > 270) {
+						this.model.rot -= 360;
+					}
+					if(this.model.rot < -90) {
+						this.model.rot += 360;
+					}
+					if (this.model.rot < deg + 3 && this.model.rot > deg - 3) {
+								this.movDir = 1;
+						}
+						if (this.model.rot < deg) {
+							if(deg - this.model.rot > 180) {
+								this.model.rot -= maxSpeedRight;
+							}else{
+								this.model.rot += maxSpeedRight;
+							}
+						}
+						if (this.model.rot > deg) {
+							if(this.model.rot - deg > 180) {
+								
+								this.model.rot += maxSpeedRight;
+							} else {
+								this.model.rot -= maxSpeedRight;
+							}
+						}
+					if(curorder.pos.distance(this.getPos())<10) {
+						this.movDir = 0;
+						this.orders.remove(0);
+					}
+				break;
+			}
+}
 		processMovement();
-		think();
+		Think2();
 	}
 	
-	public abstract void think();
+	public abstract void Think2();
 	public abstract void fire1();
 	public void processMovement() {
 		if(movDir == 0) {
@@ -40,7 +81,7 @@ public abstract class EntityControllable extends EntityHurtable {
 		if(turn == -1) {
 			this.model.rot += turn*maxSpeedRight;
 		}
-		for(int i = 0; i < CurGame.c.terra.entities.size(); i++) {
+		/*for(int i = 0; i < CurGame.c.terra.entities.size(); i++) {
 			if(EntityHurtable.class.isInstance(CurGame.c.terra.entities.get(i))) {
 					if(CurGame.c.terra.entities.get(i)!=this){
 						if(((EntityObject)CurGame.c.terra.entities.get(i)).checkCollision(this)){
@@ -51,7 +92,7 @@ public abstract class EntityControllable extends EntityHurtable {
 						}
 					}
 			}
-		}
+		}*/
 		boolean flag = false;
 		for(int x = (int)(this.getPos().x/16) - 2; x < (int)(this.getPos().x)/16 + 3; x++) {
 			for(int y = (int)(this.getPos().y/16) - 2; y < (int)(this.getPos().y)/16 + 3; y++) {

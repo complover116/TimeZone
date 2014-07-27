@@ -1,4 +1,5 @@
 package com.complover116.timezone.entities;
+import com.complover116.timezone.AnimationSet;
 import com.complover116.timezone.CurGame;
 import com.complover116.timezone.EntityControllable;
 import com.complover116.timezone.Pos;
@@ -12,7 +13,7 @@ public class SentryVehicle1 extends EntityControllable {
 	private int firedelay;
 	public MountPoint mountpoint= new MountPoint();
 	@Override
-	public void think() {
+	public void Think2() {
 		if(firedelay>0) {
 			firedelay--;
 		}
@@ -25,9 +26,16 @@ public class SentryVehicle1 extends EntityControllable {
 	public SentryVehicle1(byte team) {
 		this.team = team;
 		this.model.img = TeamData.getTeamImage("medpauka", this.team);
+		CurGame.c.terra.regEntity((mountpoint));
+		this.health = 0;
+		this.mmaxhealth = 40;
+		this.anim = new AnimationSet("smallpauka", this.team);
 	}
 	@Override
 	public void construct() {
+		this.buildinghealth = 10;
+		this.tph = 2;
+		this.costPerHealth = 25;
 		this.model.rotX = 8.5;
 		this.model.rotY = 11;
 		this.collideX = 2;
@@ -36,6 +44,7 @@ public class SentryVehicle1 extends EntityControllable {
 		this.collideY2 = 14;
 		this.health = 100;
 		this.readName = "Sentry-mounted Vehicle";
+		
 	}
 	@Override
 	public void onDeath() {
@@ -65,5 +74,15 @@ public class SentryVehicle1 extends EntityControllable {
 		CurGame.c.terra.regEntity(bul);
 		this.firedelay += 20;
 		}
+	}
+	@Override
+	public void onConstructed() {
+		// TODO Auto-generated method stub
+		this.model.img = TeamData.getTeamImage("medpauka", this.team);
+	}
+	@Override
+	public void Think() {
+		// TODO Auto-generated method stub
+		
 	}
 }

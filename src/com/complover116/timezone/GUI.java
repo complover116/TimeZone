@@ -7,7 +7,6 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.RepaintManager;
-import javax.swing.filechooser.FileFilter;
 
 
 public class GUI implements Runnable {
@@ -59,15 +58,12 @@ public class GUI implements Runnable {
 	    ms.setMinimumSize(new Dimension(100,100));
 	    ms.setSize(1000, 1000);
         ms.requestFocusInWindow();
-        RepaintManager rmg = RepaintManager.currentManager(ms);
-        rmg.markCompletelyClean(ms);
         ms.setIgnoreRepaint(true);
 		frame.add(ms);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+		RepaintManager.setCurrentManager(new NoRepaint());
 		frame.pack();
         frame.setVisible(true);
-        
 	}
 	public static String getLoadPath() {
 		JFileChooser fc = new JFileChooser();

@@ -15,12 +15,14 @@ public class WorldTicker {
 		//TICKING ENTITIES
 		MainScreen.shapes.clear();
 		for(int i = 0; i < CurGame.c.terra.entities.size(); i++) {
+			if(CurGame.c.terra.entities.get(i)!= null){
 			if(CurGame.c.terra.entities.get(i).isDead) {
 				CurGame.c.terra.entities.remove(i);
 			} else {
 			CurGame.c.terra.entities.get(i).onTick();
 			
 			}
+		}
 		}
 	}
 	public static void run() {
@@ -70,11 +72,14 @@ public class WorldTicker {
 				
 			}
 			if(CurGame.c.status == 0){
-			
+			if(CurGame.c.terra.controlledEnt != null) {
 			if((CurGame.c.terra.controlledEnt.isDead||CurGame.c.attackTime < 0.01||CurGame.c.terra.firstround)&&CurGame.c.timespeed==100){
 				CurGame.c.status = 10;
 				CurGame.c.terra.firstround = false;
 				randomflag = false;
+			}
+			} else {
+				
 			}
 			if(CurGame.c.gamego == false && CurGame.c.timespeed > 0){
 				CurGame.c.timespeed --;
@@ -121,9 +126,10 @@ public class WorldTicker {
 			} else {
 				waitedTicks++;
 			}
-			
+			if(CurGame.c.terra.controlledEnt != null) {
 			CurGame.c.scrollX = CurGame.c.terra.controlledEnt.getPos().x - MainScreen.width/2;
 			CurGame.c.scrollY = CurGame.c.terra.controlledEnt.getPos().y - MainScreen.height/2;
+			}
 			}
 			if(CurGame.c.status > 0&&CurGame.c.status < 5) {
 				CurGame.c.scrollX += CurGame.c.scrollingX;

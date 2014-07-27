@@ -10,6 +10,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
@@ -20,6 +21,7 @@ import com.complover116.timezone.blocks.Wall;
 import com.complover116.timezone.entities.Factory;
 import com.complover116.timezone.entities.RailMount;
 import com.complover116.timezone.entities.Sentry;
+import com.complover116.timezone.entities.UnitFactory;
 
 public class MainScreen extends JPanel implements MouseListener, KeyListener {
 	public static volatile ArrayList<DrawThing> objects = new ArrayList<DrawThing>();
@@ -40,16 +42,17 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 		width = this.getWidth();
 		height = this.getHeight();
 		Graphics2D g2d = (Graphics2D) g;
+		
 		if (CurGame.overstat > -1) {
 			g2d.translate(-CurGame.c.scrollX, -CurGame.c.scrollY);
 			g2d.transform(AffineTransform.getScaleInstance(1 - shear / 100,
 					1 - shear / 100));
-			int sizebefore = objects.size();
+			synchronized(objects){
 			for (int ser = 0; ser < objects.size(); ser++) {
 				try {
 					// objects.get(i).x-CurGame.c.scrollX >
 					// width||objects.get(i).y-CurGame.c.scrollY > height
-					if (objects.get(ser) == null && objects.get(ser).draw) {
+					if (objects.get(ser) == null && !objects.get(ser).onTop) {
 
 					} else {
 						AffineTransform rt = AffineTransform.getRotateInstance(
@@ -59,8 +62,39 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 								.getTranslateInstance(objects.get(ser).x,
 										objects.get(ser).y);
 						tr.concatenate(rt);
-						g2d.drawImage(ImageContainer.images.get((objects
-								.get(ser).img)), tr, this);
+						BufferedImage img = ImageContainer.images.get(objects
+								.get(ser).img);
+						if(img == null) {
+							System.err.println("No texture could be found for "+objects.get(ser).img);
+							img = ImageContainer.images.get("notexture");
+						}
+						g2d.drawImage(img, tr, this);
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			for (int ser = 0; ser < objects.size(); ser++) {
+				try {
+					// objects.get(i).x-CurGame.c.scrollX >
+					// width||objects.get(i).y-CurGame.c.scrollY > height
+					if (objects.get(ser) == null && objects.get(ser).onTop) {
+
+					} else {
+						AffineTransform rt = AffineTransform.getRotateInstance(
+								Math.toRadians(objects.get(ser).rot),
+								objects.get(ser).rotX, objects.get(ser).rotY);
+						AffineTransform tr = AffineTransform
+								.getTranslateInstance(objects.get(ser).x,
+										objects.get(ser).y);
+						tr.concatenate(rt);
+						BufferedImage img = ImageContainer.images.get(objects
+								.get(ser).img);
+						if(img == null) {
+							System.err.println("No texture could be found for "+objects.get(ser).img);
+							img = ImageContainer.images.get("notexture");
+						}
+						g2d.drawImage(img, tr, this);
 					}
 				} catch (Exception e) {
 
@@ -130,6 +164,7 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 				}
 			}
 		}
+		}
 		if (CurGame.overstat == -5) {
 			g2d.setFont(new Font("TimesRoman", Font.PLAIN, 30));
 			g2d.setColor(new Color(0, 255, 0, 255));
@@ -140,19 +175,15 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 		}
 		for (int i = 0; i < indepobjects.size(); i++) {
 			try {
-				if (false) {
-
-				} else {
-					AffineTransform rt = AffineTransform.getRotateInstance(
-							Math.toRadians(indepobjects.get(i).rot),
-							indepobjects.get(i).rotX, indepobjects.get(i).rotY);
-					AffineTransform tr = AffineTransform.getTranslateInstance(
-							indepobjects.get(i).x, indepobjects.get(i).y);
-					tr.concatenate(rt);
-					g2d.drawImage(
-							ImageContainer.images.get(indepobjects.get(i).img),
-							tr, this);
-				}
+				AffineTransform rt = AffineTransform.getRotateInstance(
+						Math.toRadians(indepobjects.get(i).rot),
+						indepobjects.get(i).rotX, indepobjects.get(i).rotY);
+				AffineTransform tr = AffineTransform.getTranslateInstance(
+						indepobjects.get(i).x, indepobjects.get(i).y);
+				tr.concatenate(rt);
+				g2d.drawImage(
+						ImageContainer.images.get(indepobjects.get(i).img),
+						tr, this);
 			} catch (Exception e) {
 
 			}
@@ -299,6 +330,23 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 				SoundHandler.playSound("sentry/seek_1");
 			}
 		}
+		if (arg0.getKeyChar() == 'g') {
+			if (CurGame.c.status == 1) {
+				if(CurGame.c.terra.preview.selent != null) {
+					if(CurGame.c.terra.preview.selent instanceof EntityControllable) {
+						CurGame.c.terra.controlledEnt = (EntityControllable) CurGame.c.terra.preview.selent;
+						try{SoundHandler.playSound("ui/click1");
+						Thread.sleep(300);
+						SoundHandler.playSound("ui/click1");
+						Thread.sleep(300);
+						SoundHandler.playSound("ui/click1");
+						Thread.sleep(300);}catch (InterruptedException e) {
+							
+						}
+					}
+				}
+			}
+		}
 		if (CurGame.c.status == 22) {
 			if (arg0.getKeyChar() == 'g') {
 				ConstructionTool bb = new ConstructionTool(new Sentry(
@@ -318,6 +366,15 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 				CurGame.c.terra.preview.tool = bb;
 				SoundHandler.playSound("sentry/seek_1");
 			}
+			if (arg0.getKeyChar() == 'u') {
+				ConstructionTool bb = new ConstructionTool(new UnitFactory(
+						CurGame.c.controllingTeam));
+				bb.setPos(CurGame.c.terra.preview.getPos());
+				CurGame.c.terra.regEntity(bb);
+				CurGame.c.status = 2;
+				CurGame.c.terra.preview.tool = bb;
+				SoundHandler.playSound("sentry/seek_1");
+			}
 			if (arg0.getKeyChar() == 'r') {
 				ConstructionTool bb = new ConstructionTool(new RailMount(
 						CurGame.c.controllingTeam));
@@ -328,7 +385,7 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 				SoundHandler.playSound("sentry/seek_1");
 			}
 		}
-		if (CurGame.c.status == 2) {
+		if (CurGame.c.status > 0) {
 			if (arg0.getKeyChar() == 'W') {
 				CurGame.c.terra.preview.model.y -= 16;
 				CurGame.c.terra.preview.updateEnt();
@@ -368,11 +425,7 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 			// char russianChars[] = {'ö','ô','û','â'};
 		}
 		if (arg0.getKeyChar() == '\n') {
-			if (CurGame.c.status == 1) {
-				SoundHandler.playSound("sentry/seek_1");
-				CurGame.c.status = 2;
-			}
-			if (CurGame.c.status == 2) {
+			if (CurGame.c.status > 0) {
 
 				if (CurGame.c.terra.preview.tool == null) {
 					if (CurGame.c.terra.preview.selent == null) {
@@ -410,18 +463,24 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 			}
 		}
 		if (arg0.getKeyChar() == 'b') {
+			
 			if (CurGame.c.status == 2) {
 				SoundHandler.playSound("sentry/seek_1");
 				if (CurGame.c.terra.preview.tool == null) {
 					CurGame.c.terra.preview.model.img = TeamData.getTeamImage(
-							"cursor2", CurGame.c.terra.owner);
+							"cursor2", CurGame.c.controllingTeam);
 					CurGame.c.status = 21;
 				} else {
 					CurGame.c.terra.preview.tool.remove();
 					CurGame.c.terra.preview.tool = null;
 					CurGame.c.terra.preview.model.img = TeamData.getTeamImage(
-							"cursor", CurGame.c.terra.owner);
+							"cursor", CurGame.c.controllingTeam);
 				}
+			}
+			if (CurGame.c.status == 1) {
+				CurGame.c.status = 2;
+				SoundHandler.playSound("sentry/seek_1");
+				CurGame.c.controllingTeam = (byte) CurGame.c.terra.owner;
 			}
 		}
 		if (CurGame.c.status == 2) {
@@ -446,7 +505,7 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 					CurGame.c.terra.preview.tool.remove();
 					CurGame.c.terra.preview.tool = null;
 					CurGame.c.terra.preview.model.img = TeamData.getTeamImage(
-							"cursor", CurGame.c.terra.owner);
+							"cursor", CurGame.c.controllingTeam);
 				}
 			}
 		}
@@ -469,13 +528,14 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 				if (CurGame.c.terra.preview.tool != null)
 					CurGame.c.terra.preview.tool.remove();
 				CurGame.c.terra.preview.tool = null;
-				CurGame.c.terra.preview.model.img = TeamData.getTeamImage(
-						"cursor", CurGame.c.terra.owner);
+				
 				if (CurGame.c.terra.owner == 0) {
 					CurGame.c.controllingTeam = 1;
 				} else {
 					CurGame.c.controllingTeam = 0;
 				}
+				CurGame.c.terra.preview.model.img = TeamData.getTeamImage(
+						"cursor", CurGame.c.controllingTeam);
 				CurGame.c.status = 1;
 			}
 		}

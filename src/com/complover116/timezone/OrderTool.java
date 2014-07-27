@@ -31,6 +31,12 @@ public class OrderTool extends Tool {
 				curorder.pos = this.getPos();
 				this.envokeOn.orders.add(curorder);
 		}
+		if(envokeOn instanceof EntityControllable) {
+			curorder = new Order();
+			curorder.type = 1;
+			curorder.pos = this.getPos();
+			this.envokeOn.orders.add(curorder);
+		}
 		if(envokeOn instanceof Factory) {
 			curorder = new Order();
 			curorder.type = 1;
@@ -79,10 +85,19 @@ public class OrderTool extends Tool {
 	}
 	@Override
 	public boolean use2() {
+		if(envokeOn instanceof EntityControllable||this.envokeOn instanceof Sentry) {
 		if(this.status == 0) {
 			if(this.envokeOn.orders.size() > 0) {
 				this.envokeOn.orders.remove(this.envokeOn.orders.size() - 1);
 			}
+		}
+		}
+		if(envokeOn instanceof Factory) {
+			curorder = new Order();
+			curorder.type = 2;
+			curorder.pos = envokeOn.getPos();
+			this.status = 1;
+			this.curorder.addorders = new ArrayList<Order>();
 		}
 		if(this.status == 1) {
 			this.status = 0;

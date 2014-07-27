@@ -43,6 +43,7 @@ public class Sentry extends EntityBuildable implements Mountable {
 		this.model.setModel(anim.getFrame());
 		this.model.rotX = 7.5;
 		this.model.rotY = 15.5;
+		this.model.onTop = true;
 		this.collideX = 0;
 		this.collideY = 8;
 		this.collideX2 = 16;
@@ -62,6 +63,8 @@ public class Sentry extends EntityBuildable implements Mountable {
 				this.takeDamage(null, 1);
 				}
 			}
+		} else {
+			this.setPos(this.mountedTo.getPos());
 		}
 		time++;
 		anim.animTick();
@@ -81,7 +84,9 @@ public class Sentry extends EntityBuildable implements Mountable {
 						System.out.println("Order executed successfully");
 						for(Entity ent:CurGame.c.terra.entities) {
 							if(ent instanceof MountPoint) {
+								System.out.println("MP EXISTS");
 								if(((MountPoint)ent).checkCollision(this)) {
+									System.out.println("MP COLLIDES");
 									((MountPoint)ent).mountedEnt = this;
 									this.setPos(((MountPoint)ent).getPos());
 									this.onMount();

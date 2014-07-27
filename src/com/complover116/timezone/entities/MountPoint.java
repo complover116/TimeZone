@@ -13,11 +13,11 @@ public class MountPoint extends EntityObject {
 	public void construct() {
 		this.model.rotX = 7.5;
 		this.model.rotY = 7.5;
-		this.collideX = 5;
-		this.collideY = 5;
-		this.collideX2 = 6;
-		this.collideY2 = 6;
-		this.model.setModel("nil");
+		this.collideX = 7;
+		this.collideY = 7;
+		this.collideX2 = 1;
+		this.collideY2 = 1;
+		this.model.setModel("railmount_blue");
 	}
 
 	@Override
