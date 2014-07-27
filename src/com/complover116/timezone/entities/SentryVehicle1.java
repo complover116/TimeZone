@@ -29,7 +29,7 @@ public class SentryVehicle1 extends EntityControllable {
 		CurGame.c.terra.regEntity((mountpoint));
 		this.health = 0;
 		this.mmaxhealth = 40;
-		this.anim = new AnimationSet("smallpauka", this.team);
+		this.anim = new AnimationSet("medpauka", this.team);
 	}
 	@Override
 	public void construct() {
@@ -38,10 +38,10 @@ public class SentryVehicle1 extends EntityControllable {
 		this.costPerHealth = 25;
 		this.model.rotX = 8.5;
 		this.model.rotY = 11;
-		this.collideX = 2;
+		this.collideX = 6;
 		this.collideY = 2;
-		this.collideX2 = 14;
-		this.collideY2 = 14;
+		this.collideX2 = 19;
+		this.collideY2 = 25;
 		this.health = 100;
 		this.readName = "Sentry-mounted Vehicle";
 		

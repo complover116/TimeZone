@@ -5,6 +5,7 @@ import java.awt.geom.Rectangle2D;
 
 public class Render {
 	public static void render() {
+		MainScreen.shapes.clear();
 		//RENDER THE TERRAIN
 		synchronized(MainScreen.objects){
 		MainScreen.objects.clear();
@@ -48,6 +49,7 @@ public class Render {
 		MainScreen.indepobjects.add(logo);
 		//CALL THE REDRAW
 		GUI.redraw();
+		
 		}
 	}
 }

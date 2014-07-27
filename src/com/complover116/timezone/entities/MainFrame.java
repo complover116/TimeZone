@@ -27,8 +27,8 @@ public class MainFrame extends EntityHurtable {
 		this.model.img = TeamData.getTeamImage("mainframe", team);
 		this.model.rotX = 32;
 		this.model.rotY = 32;
-		this.collideX = 16;
-		this.collideY = 16;
+		this.collideX = 0;
+		this.collideY = 0;
 		this.collideX2 = 32;
 		this.collideY2 = 32;
 		this.mmaxhealth = 100;

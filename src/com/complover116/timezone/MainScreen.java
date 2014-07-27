@@ -111,7 +111,7 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 
 				}
 			}
-			shapes.clear();
+			
 			if (CurGame.c.terra != null) {
 				g2d.setColor(new Color(0, 0, 0, 255));
 				g2d.setFont(new Font("TimesRoman", Font.PLAIN, 30));
@@ -480,6 +480,8 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 			if (CurGame.c.status == 1) {
 				CurGame.c.status = 2;
 				SoundHandler.playSound("sentry/seek_1");
+				CurGame.c.terra.preview.model.img = TeamData.getTeamImage(
+						"cursor", CurGame.c.controllingTeam);
 				CurGame.c.controllingTeam = (byte) CurGame.c.terra.owner;
 			}
 		}

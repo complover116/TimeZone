@@ -3,6 +3,8 @@ package com.complover116.timezone;
 import java.awt.Color;
 import java.awt.Rectangle;
 
+import com.complover116.timezone.entities.Sentry;
+
 
 public abstract class EntityControllable extends EntityBuildable {
 	/**
@@ -81,18 +83,20 @@ if(this.orders.size() > 0) {
 		if(turn == -1) {
 			this.model.rot += turn*maxSpeedRight;
 		}
-		/*for(int i = 0; i < CurGame.c.terra.entities.size(); i++) {
+		for(int i = 0; i < CurGame.c.terra.entities.size(); i++) {
 			if(EntityHurtable.class.isInstance(CurGame.c.terra.entities.get(i))) {
 					if(CurGame.c.terra.entities.get(i)!=this){
 						if(((EntityObject)CurGame.c.terra.entities.get(i)).checkCollision(this)){
+							if(!(CurGame.c.terra.entities.get(i) instanceof Sentry)){
 							this.speedForward = 0;
 							Pos pos2 = CurGame.c.terra.entities.get(i).getPos();
 							Pos pos1 = pos2.sub(this.getPos());
 							this.setPos(this.getPos().sub(pos1.normal()));
+							}
 						}
 					}
 			}
-		}*/
+		}
 		boolean flag = false;
 		for(int x = (int)(this.getPos().x/16) - 2; x < (int)(this.getPos().x)/16 + 3; x++) {
 			for(int y = (int)(this.getPos().y/16) - 2; y < (int)(this.getPos().y)/16 + 3; y++) {

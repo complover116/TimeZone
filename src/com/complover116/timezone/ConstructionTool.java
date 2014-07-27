@@ -15,6 +15,9 @@ public class ConstructionTool extends Tool {
 		this.model.rotY = bttc.model.rotY;
 		btc = bttc;
 	}
+	public ConstructionTool() {
+		
+	}
 	@Override
 	public boolean use() {
 		btc.setPos(this.getPos());

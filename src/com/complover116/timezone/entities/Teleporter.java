@@ -1,6 +1,7 @@
 package com.complover116.timezone.entities;
 
 import com.complover116.timezone.CurGame;
+import com.complover116.timezone.EntityControllable;
 import com.complover116.timezone.EntityHurtable;
 import com.complover116.timezone.EntityObject;
 import com.complover116.timezone.Pos;
@@ -47,6 +48,9 @@ public class Teleporter extends EntityObject {
 						e.model.rot -= 360;
 					}
 					e.orders.clear();
+					if(e instanceof EntityControllable) {
+						((EntityControllable) e).movDir = 0;
+					}
 					CurGame.c.teams[tm].zone.regEntity(e);
 					CurGame.c.terra.delEnt(e);
 					for(int j = 0; j < 10; j ++) {

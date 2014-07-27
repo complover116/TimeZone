@@ -12,6 +12,9 @@ public class UnitFactory extends Factory {
 		this.tph = 1;
 		this.costPerHealth = 10;
 	}
+	public UnitFactory() {
+		
+	}
 	@Override
 	public void onConstructed() {
 		// TODO Auto-generated method stub
@@ -23,7 +26,12 @@ public class UnitFactory extends Factory {
 		// TODO Auto-generated method stub
 		if(this.orders.size()>0) {
 			System.out.println("Order Received");
-			EntityBuildable etb = new BaseVehicle(this.team);
+			EntityBuildable etb;
+			if(true) {
+			etb = new BaseVehicle(this.team);
+			} else {
+				etb = new SentryVehicle1(this.team);
+			}
 			this.addJob(etb, this.orders.get(0).addorders);
 			this.orders.remove(0);
 		}
