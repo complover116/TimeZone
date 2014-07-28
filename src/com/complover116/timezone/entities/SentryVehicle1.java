@@ -39,8 +39,8 @@ public class SentryVehicle1 extends EntityControllable {
 		this.model.rotY = 15.5;
 		this.collideX = 5;
 		this.collideY = 5;
-		this.collideX2 = 27;
-		this.collideY2 = 27;
+		this.collideX2 = 22;
+		this.collideY2 = 22;
 		this.health = 100;
 		this.readName = "Sentry-mounted Vehicle";
 		

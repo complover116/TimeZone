@@ -107,7 +107,7 @@ public class Sentry extends EntityBuildable {
 			if(this.anim.curAnim > 2) {
 				this.onUnMount();
 				if(this.mountedTo != null) {
-				this.mountedTo.mountedEnt = null;
+					this.mountedTo.mountedEnt = null;
 				}
 			}
 		}
@@ -244,7 +244,7 @@ public class Sentry extends EntityBuildable {
 	}
 	public void onUnMount() {
 		this.anim.setAnim(2);
-		this.mountedTo.mountedEnt = null;
+
 		this.mountedTo = null;
 	}
 
