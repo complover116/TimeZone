@@ -71,7 +71,7 @@ public class WorldTicker {
 				
 			}
 			if(CurGame.c.status == 0){
-				if(CurGame.c.attackTime < 0.01){
+				if(CurGame.c.attackTime < 0.01&&CurGame.c.timespeed==100){
 					CurGame.c.status = 10;
 					CurGame.c.terra.firstround = false;
 					randomflag = false;
