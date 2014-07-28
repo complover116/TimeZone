@@ -54,7 +54,7 @@ public abstract class EntityHurtable extends EntityObject {
 	public abstract void onDeath();
 	@Override
 	public void renderStuff(){
-		if(displayHealth > 0){
+		if(displayHealth > 0&&this.health>0&&this.health<=this.maxhealth){
 		displayHealth --;
 		Rectangle rec1 = new Rectangle((int)this.model.x, (int)this.model.y - 5, (int)this.model.rotX*2, 3);
 		if(displayHealth > 255){

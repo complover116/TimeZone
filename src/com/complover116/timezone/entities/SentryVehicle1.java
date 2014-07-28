@@ -47,7 +47,7 @@ public class SentryVehicle1 extends EntityControllable {
 	}
 	@Override
 	public void onDeath() {
-		MedExplosion1 bul = new MedExplosion1();
+		MultiExplosion bul = new MultiExplosion();
 		bul.setPos(this.getPos());
 		CurGame.c.terra.regEntity(bul);
 		this.mountpoints.get(0).destroy();
