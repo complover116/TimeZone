@@ -72,11 +72,11 @@ public class WorldTicker {
 			}
 			if(CurGame.c.status == 0){
 			if(CurGame.c.terra.controlledEnt != null) {
-			/*if((CurGame.c.terra.controlledEnt.isDead||CurGame.c.attackTime < 0.01||CurGame.c.terra.firstround)&&CurGame.c.timespeed==100){
+			if(CurGame.c.attackTime < 0.01){
 				CurGame.c.status = 10;
 				CurGame.c.terra.firstround = false;
 				randomflag = false;
-			}*/
+			}
 			} else {
 				
 			}
