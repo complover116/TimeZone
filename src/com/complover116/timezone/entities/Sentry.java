@@ -6,12 +6,11 @@ import com.complover116.timezone.CurGame;
 import com.complover116.timezone.Entity;
 import com.complover116.timezone.EntityBuildable;
 import com.complover116.timezone.EntityHurtable;
-import com.complover116.timezone.Mountable;
 import com.complover116.timezone.Order;
 import com.complover116.timezone.SoundHandler;
 import com.complover116.timezone.blocks.Rail;
 
-public class Sentry extends EntityBuildable implements Mountable {
+public class Sentry extends EntityBuildable {
 	/**
 	 * 
 	 */
@@ -89,8 +88,7 @@ public class Sentry extends EntityBuildable implements Mountable {
 									System.out.println("MP COLLIDES");
 									((MountPoint)ent).mountedEnt = this;
 									this.setPos(((MountPoint)ent).getPos());
-									this.onMount();
-									this.mountedTo = ((MountPoint)ent);
+									this.onMount((MountPoint)ent);
 								}
 							}
 						}
@@ -239,13 +237,14 @@ public class Sentry extends EntityBuildable implements Mountable {
 		// TODO Auto-generated method stub
 		
 	}
-	@Override
-	public void onMount() {
+	public void onMount(MountPoint mp) {
 		this.anim.setAnim(1);
+		mp.mountedEnt = this;
+		this.mountedTo = mp;
 	}
-	@Override
 	public void onUnMount() {
 		this.anim.setAnim(2);
+		this.mountedTo.mountedEnt = null;
 		this.mountedTo = null;
 	}
 

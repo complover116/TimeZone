@@ -13,7 +13,6 @@ public class WorldTicker {
 		}
 		CurGame.c.attackTime -= 0.01;
 		//TICKING ENTITIES
-		MainScreen.shapes.clear();
 		for(int i = 0; i < CurGame.c.terra.entities.size(); i++) {
 			if(CurGame.c.terra.entities.get(i)!= null){
 			if(CurGame.c.terra.entities.get(i).isDead) {

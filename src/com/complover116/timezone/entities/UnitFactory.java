@@ -9,8 +9,8 @@ public class UnitFactory extends Factory {
 	public UnitFactory(byte controllingTeam) {
 		this.team = controllingTeam;
 		this.buildinghealth = 50;
-		this.tph = 1;
-		this.costPerHealth = 10;
+		this.tph = 10;
+		this.costPerHealth = 14;
 	}
 	public UnitFactory() {
 		
@@ -25,9 +25,9 @@ public class UnitFactory extends Factory {
 	public void Think() {
 		// TODO Auto-generated method stub
 		if(this.orders.size()>0) {
-			System.out.println("Order Received");
+			System.out.println("Order Received: "+this.orders.get(0).addorders.size());
 			EntityBuildable etb;
-			if(true) {
+			if(this.orders.get(0).type == 1) {
 			etb = new BaseVehicle(this.team);
 			} else {
 				etb = new SentryVehicle1(this.team);

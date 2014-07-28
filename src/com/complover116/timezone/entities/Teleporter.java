@@ -28,42 +28,44 @@ public class Teleporter extends EntityObject {
 	public void onTick() {
 		// TODO Auto-generated method stub
 		for(int i = 0; i < CurGame.c.terra.entities.size();i++) {
-			if(CurGame.c.terra.entities.get(i) instanceof EntityHurtable){
-				EntityHurtable e = (EntityHurtable)CurGame.c.terra.entities.get(i);
+			if(CurGame.c.terra.entities.get(i) instanceof EntityControllable){
+				EntityControllable e = (EntityControllable)CurGame.c.terra.entities.get(i);
 				if(e.checkCollision(this)) {
-					byte tm;
-					if(CurGame.c.terra.owner == 0) {
-						tm = 1;
-					} else {
-						tm = 0;
-					}
-					for(int j = 0; j < 10; j ++) {
-					Spark1 spark = new Spark1();
-					spark.setPos(e.getPos().add(new Pos(Math.random()*16 - 8,Math.random()*16 - 8)));
-					CurGame.c.terra.regEntity(spark);
-					}
-					e.setPos(new Pos(64+Math.random()*32,64+Math.random()*32));
-					e.model.rot += 180;
-					if(e.model.rot > 360) {
-						e.model.rot -= 360;
-					}
-					e.orders.clear();
-					if(e instanceof EntityControllable) {
-						((EntityControllable) e).movDir = 0;
-					}
-					CurGame.c.teams[tm].zone.regEntity(e);
-					CurGame.c.terra.delEnt(e);
-					for(int j = 0; j < 10; j ++) {
-						Spark1 spark = new Spark1();
-						spark.setPos(e.getPos().add(new Pos(Math.random()*16 - 8,Math.random()*16 - 8)));
-						CurGame.c.teams[tm].zone.regEntity(spark);
-					}
-					
+					e.Teleport();
 				}
 			}
 		}
 	}
-
+	public static void tpEnt(EntityObject e, Pos gp) {
+		byte tm;
+		if(CurGame.c.terra.owner == 0) {
+			tm = 1;
+		} else {
+			tm = 0;
+		}
+		for(int j = 0; j < 10; j ++) {
+		Spark1 spark = new Spark1();
+		spark.setPos(e.getPos().add(new Pos(Math.random()*16 - 8,Math.random()*16 - 8)));
+		CurGame.c.terra.regEntity(spark);
+		}
+		e.setPos(new Pos(64+Math.random()*128,64+Math.random()*128));
+		e.model.rot += 180;
+		if(e.model.rot > 360) {
+			e.model.rot -= 360;
+		}
+		if(e instanceof EntityHurtable)
+		((EntityHurtable) e).orders.clear();
+		if(e instanceof EntityControllable) {
+			((EntityControllable) e).movDir = 0;
+		}
+		CurGame.c.teams[tm].zone.regEntity(e);
+		CurGame.c.terra.delEnt(e);
+		for(int j = 0; j < 10; j ++) {
+			Spark1 spark = new Spark1();
+			spark.setPos(e.getPos().add(gp));
+			CurGame.c.teams[tm].zone.regEntity(spark);
+		}
+	}
 	@Override
 	public void renderInfo2() {
 		// TODO Auto-generated method stub

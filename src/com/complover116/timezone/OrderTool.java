@@ -39,12 +39,15 @@ public class OrderTool extends Tool {
 		}
 		if(envokeOn instanceof Factory) {
 			curorder = new Order();
+			if(this.getPos().x > this.envokeOn.getPos().x) {
 			curorder.type = 1;
+			} else {
+				curorder.type = 2;
+			}
 			curorder.pos = envokeOn.getPos();
 			this.status = 1;
 			this.curorder.addorders = new ArrayList<Order>();
 		}
-		return true;
 		} else if(this.status == 1) {
 			Order order = new Order();
 			order.type = 1;
@@ -91,13 +94,6 @@ public class OrderTool extends Tool {
 				this.envokeOn.orders.remove(this.envokeOn.orders.size() - 1);
 			}
 		}
-		}
-		if(envokeOn instanceof Factory) {
-			curorder = new Order();
-			curorder.type = 2;
-			curorder.pos = envokeOn.getPos();
-			this.status = 1;
-			this.curorder.addorders = new ArrayList<Order>();
 		}
 		if(this.status == 1) {
 			this.status = 0;

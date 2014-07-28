@@ -26,13 +26,13 @@ public class BaseVehicle extends EntityControllable {
 		this.model.img = TeamData.getTeamImage("smallpauka", this.team);
 		this.anim = new AnimationSet("smallpauka", this.team);
 		this.health = 0;
-		this.mmaxhealth = 20;
+		this.mmaxhealth = 40;
 	}
 	@Override
 	public void construct() {
 		this.buildinghealth = 10;
-		this.tph = 1;
-		this.costPerHealth = 25;
+		this.tph = 8;
+		this.costPerHealth = 18;
 		this.model.rotX = 8.5;
 		this.model.rotY = 11;
 		this.collideX = 2;

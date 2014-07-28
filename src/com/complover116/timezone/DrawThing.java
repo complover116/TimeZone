@@ -13,6 +13,7 @@ public class DrawThing implements Serializable {
 	public double rotX;
 	public double rotY;
 	public boolean onTop;
+	public boolean independent;
 	public boolean draw = true;
 	public String img;
 	public double[] getPointPos(int X, int Y) {
@@ -22,6 +23,12 @@ public class DrawThing implements Serializable {
 	}
 	public DrawThing() {
 		setModel("pingas");
+	}
+	public DrawThing(String model, double x, double y, boolean indep) {
+		setModel(model);
+		this.x = x;
+		this.y = y;
+		this.independent = indep;
 	}
 	public void setModel(String name) {
 		img = name;

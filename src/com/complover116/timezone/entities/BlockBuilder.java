@@ -82,7 +82,9 @@ public class BlockBuilder extends EntityHurtable {
 	@Override
 	public void onDeath() {
 		// TODO Auto-generated method stub
-		
+		MedExplosion1 bul = new MedExplosion1();
+		bul.setPos(this.getPos());
+		CurGame.c.terra.regEntity(bul);
 	}
 
 }

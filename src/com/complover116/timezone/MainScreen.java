@@ -25,7 +25,6 @@ import com.complover116.timezone.entities.UnitFactory;
 
 public class MainScreen extends JPanel implements MouseListener, KeyListener {
 	public static volatile ArrayList<DrawThing> objects = new ArrayList<DrawThing>();
-	public static ArrayList<DrawThing> indepobjects = new ArrayList<DrawThing>();
 	public static ArrayList<ShapeModel> shapes = new ArrayList<ShapeModel>();
 	public static int width = 0;
 	public static int height = 0;
@@ -47,12 +46,43 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 			g2d.translate(-CurGame.c.scrollX, -CurGame.c.scrollY);
 			g2d.transform(AffineTransform.getScaleInstance(1 - shear / 100,
 					1 - shear / 100));
+			if (CurGame.c.status == 2) {
+				if (CurGame.c.terra.preview.selent != null) {
+					g2d.drawString(CurGame.c.terra.preview.selent.readName, 32,
+							height - 20);
+					shapes.add(new ShapeModel(new Rectangle2D.Double(
+							CurGame.c.terra.preview.selent.model.x
+									+ CurGame.c.terra.preview.selent.collideX,
+							CurGame.c.terra.preview.selent.model.y
+									+ CurGame.c.terra.preview.selent.collideY,
+							CurGame.c.terra.preview.selent.collideX2,
+							CurGame.c.terra.preview.selent.collideY2),
+							new Color(0, 255, 0, 255), false));
+					if (CurGame.c.terra.preview.entSwitch < CurGame.c.terra.preview.entsAvail - 1) {
+						DrawThing leftArr = new DrawThing();
+						leftArr.setModel("echooser_right");
+						leftArr.x = 32 + (CurGame.c.terra.preview.selent.readName
+								.length() * 20);
+						leftArr.y = height - 52;
+						leftArr.independent = true;
+						objects.add(leftArr);
+					}
+					if (CurGame.c.terra.preview.entSwitch > 0) {
+						DrawThing leftArr = new DrawThing();
+						leftArr.setModel("echooser_left");
+						leftArr.x = 0;
+						leftArr.y = height - 52;
+						leftArr.independent = true;
+						objects.add(leftArr);
+					}
+				}
+			}
 			synchronized(objects){
 			for (int ser = 0; ser < objects.size(); ser++) {
 				try {
 					// objects.get(i).x-CurGame.c.scrollX >
 					// width||objects.get(i).y-CurGame.c.scrollY > height
-					if (objects.get(ser) == null && !objects.get(ser).onTop) {
+					if (objects.get(ser) == null || objects.get(ser).onTop || objects.get(ser).independent) {
 
 					} else {
 						AffineTransform rt = AffineTransform.getRotateInstance(
@@ -78,9 +108,12 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 				try {
 					// objects.get(i).x-CurGame.c.scrollX >
 					// width||objects.get(i).y-CurGame.c.scrollY > height
-					if (objects.get(ser) == null && objects.get(ser).onTop) {
+					if (objects.get(ser) == null || (!objects.get(ser).onTop&&!objects.get(ser).independent)) {
 
 					} else {
+						if(objects.get(ser).independent) {
+							g2d.translate(CurGame.c.scrollX, CurGame.c.scrollY);
+						}
 						AffineTransform rt = AffineTransform.getRotateInstance(
 								Math.toRadians(objects.get(ser).rot),
 								objects.get(ser).rotX, objects.get(ser).rotY);
@@ -95,12 +128,17 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 							img = ImageContainer.images.get("notexture");
 						}
 						g2d.drawImage(img, tr, this);
+						if(objects.get(ser).independent) {
+							g2d.translate(-CurGame.c.scrollX, -CurGame.c.scrollY);
+						}
 					}
 				} catch (Exception e) {
 
 				}
 			}
+			}
 			g2d.setColor(new Color(255, 0, 0, 255));
+			synchronized(shapes){
 			for (int i = 0; i < shapes.size(); i++) {
 				try {
 					g2d.setColor(shapes.get(i).color);
@@ -108,10 +146,10 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 						g2d.fill(shapes.get(i).shape);
 					g2d.draw(shapes.get(i).shape);
 				} catch (Exception e) {
-
+					e.printStackTrace();
 				}
 			}
-			
+			}
 			if (CurGame.c.terra != null) {
 				g2d.setColor(new Color(0, 0, 0, 255));
 				g2d.setFont(new Font("TimesRoman", Font.PLAIN, 30));
@@ -134,36 +172,7 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 			g2d.setColor(new Color(185, 185, 185, 255));
 			g2d.drawString("Metal:"
 					+ CurGame.c.teams[CurGame.c.terra.owner].dismetal, 200, 20);
-			if (CurGame.c.status == 2) {
-				if (CurGame.c.terra.preview.selent != null) {
-					g2d.drawString(CurGame.c.terra.preview.selent.readName, 32,
-							height - 20);
-					shapes.add(new ShapeModel(new Rectangle2D.Double(
-							CurGame.c.terra.preview.selent.model.x
-									+ CurGame.c.terra.preview.selent.collideX,
-							CurGame.c.terra.preview.selent.model.y
-									+ CurGame.c.terra.preview.selent.collideY,
-							CurGame.c.terra.preview.selent.collideX2,
-							CurGame.c.terra.preview.selent.collideY2),
-							new Color(0, 255, 0, 255), false));
-					if (CurGame.c.terra.preview.entSwitch < CurGame.c.terra.preview.entsAvail - 1) {
-						DrawThing leftArr = new DrawThing();
-						leftArr.setModel("echooser_right");
-						leftArr.x = 32 + (CurGame.c.terra.preview.selent.readName
-								.length() * 20);
-						leftArr.y = height - 52;
-						indepobjects.add(leftArr);
-					}
-					if (CurGame.c.terra.preview.entSwitch > 0) {
-						DrawThing leftArr = new DrawThing();
-						leftArr.setModel("echooser_left");
-						leftArr.x = 0;
-						leftArr.y = height - 52;
-						indepobjects.add(leftArr);
-					}
-				}
-			}
-		}
+			
 		}
 		if (CurGame.overstat == -5) {
 			g2d.setFont(new Font("TimesRoman", Font.PLAIN, 30));
@@ -172,21 +181,6 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 			g2d.setFont(new Font("TimesRoman", Font.PLAIN, 20));
 			g2d.setColor(new Color(0, 255, 0, 255));
 			g2d.drawString(CurGame.loadStep, width / 2 - 100, height / 2 + 30);
-		}
-		for (int i = 0; i < indepobjects.size(); i++) {
-			try {
-				AffineTransform rt = AffineTransform.getRotateInstance(
-						Math.toRadians(indepobjects.get(i).rot),
-						indepobjects.get(i).rotX, indepobjects.get(i).rotY);
-				AffineTransform tr = AffineTransform.getTranslateInstance(
-						indepobjects.get(i).x, indepobjects.get(i).y);
-				tr.concatenate(rt);
-				g2d.drawImage(
-						ImageContainer.images.get(indepobjects.get(i).img),
-						tr, this);
-			} catch (Exception e) {
-
-			}
 		}
 	}
 
@@ -480,9 +474,10 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 			if (CurGame.c.status == 1) {
 				CurGame.c.status = 2;
 				SoundHandler.playSound("sentry/seek_1");
+				CurGame.c.controllingTeam = (byte) CurGame.c.terra.owner;
 				CurGame.c.terra.preview.model.img = TeamData.getTeamImage(
 						"cursor", CurGame.c.controllingTeam);
-				CurGame.c.controllingTeam = (byte) CurGame.c.terra.owner;
+				
 			}
 		}
 		if (CurGame.c.status == 2) {

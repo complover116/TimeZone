@@ -7,6 +7,7 @@ import com.complover116.timezone.CurGame;
 import com.complover116.timezone.EntityBuildable;
 import com.complover116.timezone.FactoryJob;
 import com.complover116.timezone.Order;
+import com.complover116.timezone.Pos;
 import com.complover116.timezone.TeamData;
 
 public class Factory extends EntityBuildable {
@@ -56,7 +57,9 @@ public class Factory extends EntityBuildable {
 	@Override
 	public void onDeath() {
 		// TODO Auto-generated method stub
-
+		MultiExplosion ex = new MultiExplosion();
+		ex.setPos(this.getPos().add(new Pos(Math.random()*40 - 24,Math.random()*40 - 24)));
+		CurGame.c.terra.regEntity(ex);
 	}
 
 	@Override

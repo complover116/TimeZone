@@ -3,6 +3,7 @@ images:
     - {file: /img/terrain/ground_1.png, name: ground_1}
     - {file: /img/terrain/ground_2.png, name: ground_2}
     - {file: /img/terrain/ground_3.png, name: ground_3}
+    - {file: /img/terrain/teleportzone.png, name: teleportzone}
     - {file: /img/entities/sentry_1.png, name: sentry_1}
     - {file: /img/entities/sentry_1_light1.png, name: sentry_1_light1}
     - {file: /img/entities/sentry_1_light2.png, name: sentry_1_light2}
@@ -20,6 +21,11 @@ images:
     - {file: /img/entities/effects/medexplosion1_3.png, name: medexplosion1_3}
     - {file: /img/entities/effects/medexplosion1_4.png, name: medexplosion1_4}
     - {file: /img/entities/effects/medexplosion1_5.png, name: medexplosion1_5}
+    - {file: /img/entities/effects/bigexplosion1_1.png, name: bigexplosion1_1}
+    - {file: /img/entities/effects/bigexplosion1_2.png, name: bigexplosion1_2}
+    - {file: /img/entities/effects/bigexplosion1_3.png, name: bigexplosion1_3}
+    - {file: /img/entities/effects/bigexplosion1_4.png, name: bigexplosion1_4}
+    - {file: /img/entities/effects/bigexplosion1_5.png, name: bigexplosion1_5}
     - {file: /img/entities/notexture.png, name: notexture}
     - {file: /img/gui/blue.png, name: blue_logo}
     - {file: /img/gui/red.png, name: red_logo}
@@ -94,6 +100,7 @@ sounds:
     - {file: soos, name: weapon/bullet/fire_1}
     - {file: soos, name: explosion/small_1}
     - {file: soos, name: explosion/med_1}
+    - {file: soos, name: explosion/big_1}
     - {file: soos, name: sentry/alert_1}
     - {file: soos, name: effects/timetick}
     - {file: soos, name: sentry/seek_1}

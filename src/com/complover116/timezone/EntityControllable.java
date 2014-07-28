@@ -1,9 +1,10 @@
 package com.complover116.timezone;
 
-import java.awt.Color;
-import java.awt.Rectangle;
+import java.util.ArrayList;
 
+import com.complover116.timezone.entities.MountPoint;
 import com.complover116.timezone.entities.Sentry;
+import com.complover116.timezone.entities.Teleporter;
 
 
 public abstract class EntityControllable extends EntityBuildable {
@@ -18,6 +19,17 @@ public abstract class EntityControllable extends EntityBuildable {
 	public double speedRight = 0;
 	public double maxSpeedRight = 1;
 	public byte turn = 0;
+	public ArrayList<MountPoint> mountpoints = new ArrayList<MountPoint>();
+	public void Teleport() {
+		Pos pos = new Pos(Math.random()*16 - 8,Math.random()*16 - 8);
+		Teleporter.tpEnt(this, pos);
+		for(int i = 0; i < mountpoints.size(); i ++) {
+			Teleporter.tpEnt(mountpoints.get(i), pos);
+			if(mountpoints.get(i).mountedEnt != null){
+				Teleporter.tpEnt(mountpoints.get(i).mountedEnt, pos);
+			}
+		}
+	}
 	@Override
 	public void Think() {
 if(this.orders.size() > 0) {
@@ -105,7 +117,7 @@ if(this.orders.size() > 0) {
 				if(CurGame.c.terra.terrain[x][y].solid) {
 					//MainScreen.shapes.add(new ShapeModel(new Rectangle(x*16,y*16,16,16), new Color(0,0,255)));
 					if(this.checkBlockCollision(x, y)) {
-						MainScreen.shapes.add(new ShapeModel(new Rectangle(x*16,y*16,16,16), new Color(255,0,0), true));
+						//MainScreen.shapes.add(new ShapeModel(new Rectangle(x*16,y*16,16,16), new Color(255,0,0), true));
 						
 						this.speedForward = -Math.signum(speedForward);
 						flag = true;

@@ -25,6 +25,7 @@ public class MountPoint extends EntityObject {
 		
 	}
 	public void mountedTick() {
+		
 	}
 
 	@Override
@@ -37,6 +38,7 @@ public class MountPoint extends EntityObject {
 		if(this.mountedEnt != null){
 		this.mountedEnt.onUnMount();
 		}
+		this.remove();
 	}
 
 }
