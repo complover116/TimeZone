@@ -71,15 +71,11 @@ public class WorldTicker {
 				
 			}
 			if(CurGame.c.status == 0){
-			if(CurGame.c.terra.controlledEnt != null) {
-			if(CurGame.c.attackTime < 0.01){
-				CurGame.c.status = 10;
-				CurGame.c.terra.firstround = false;
-				randomflag = false;
-			}
-			} else {
-				
-			}
+				if(CurGame.c.attackTime < 0.01){
+					CurGame.c.status = 10;
+					CurGame.c.terra.firstround = false;
+					randomflag = false;
+				}
 			if(CurGame.c.gamego == false && CurGame.c.timespeed > 0){
 				CurGame.c.timespeed --;
 				if(CurGame.c.timespeed == 99)SoundHandler.playSound("effects/attackend");
