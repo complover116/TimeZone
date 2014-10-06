@@ -1,7 +1,6 @@
 package com.complover116.timezone;
 
 import java.io.Serializable;
-import java.util.HashMap;
 
 
 public abstract class Entity implements Serializable {
@@ -12,14 +11,6 @@ public abstract class Entity implements Serializable {
 	public DrawThing model = new DrawThing();
 	public abstract void construct();
 	public abstract void onTick();
-	public HashMap save() {
-		HashMap hm = new HashMap();
-		hm.put("pos", this.getPos());
-		hm.put("rot", this.model.rot);
-		hm.put("isdead", this.isDead);
-		//saveStuff(hm);
-		return hm;
-	}
 	//public abstract void saveStuff(HashMap hm);
 	//public abstract void loadStuff(HashMap hm);
 	public void renderStuff() {

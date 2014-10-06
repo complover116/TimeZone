@@ -18,6 +18,8 @@ public abstract class EntityControllable extends EntityBuildable {
 	public double speedPlus = 0.05;
 	public double speedRight = 0;
 	public double maxSpeedRight = 1;
+	public Pathfinding pf;
+	public Path p2;
 	public byte turn = 0;
 	public ArrayList<MountPoint> mountpoints = new ArrayList<MountPoint>();
 	public void Teleport() {
@@ -32,51 +34,76 @@ public abstract class EntityControllable extends EntityBuildable {
 	}
 	@Override
 	public void Think() {
-if(this.orders.size() > 0) {
+		if(this.p2!= null)if(this.p2.path.size() > 0)  {
+			double deltaX = this.p2.path.get(0).x - this.getPos().x;
+			double deltaY = this.p2.path.get(0).y - this.getPos().y;
+			double deg = Math.atan2(deltaY, deltaX);
+			deg = Math.toDegrees(deg);
+			deg += 90;
+			if(this.model.rot > 270) {
+				this.model.rot -= 360;
+			}
+			if(this.model.rot < -90) {
+				this.model.rot += 360;
+			}
+			if (this.model.rot < deg + 1&&this.model.rot > deg - 1) {
+						this.movDir = 1;
+						this.maxSpeedRight = 0.1;
+				} else {
+					this.movDir = 0;
+					this.maxSpeedRight = 1;
+				}
+				if (this.model.rot < deg) {
+					if(deg - this.model.rot > 180) {
+						this.model.rot -= maxSpeedRight;
+					}else{
+						this.model.rot += maxSpeedRight;
+					}
+				}
+				if (this.model.rot > deg) {
+					if(this.model.rot - deg > 180) {
+						
+						this.model.rot += maxSpeedRight;
+					} else {
+						this.model.rot -= maxSpeedRight;
+					}
+				}
+			if(this.p2.path.get(0).distance(this.getPos())<10) {
+				this.movDir = 0;
+				this.p2.path.remove(0);
+			}
+		} else {
+			if(this.orders.size()>0){
+			this.orders.remove(0);
+			}
+		}
+		if(this.orders.size() > 0) {
 			Order curorder = this.orders.get(0);
 			switch(curorder.type) {
+			case 2:
+					pf = new Pathfinding((int)this.getPos().x/16,(int)this.getPos().y/16, (int)curorder.pos.x/16,(int)curorder.pos.y/16);
+					Path p = null;
+					while(p == null) {
+						p = pf.tick();
+					}
+					if(p.valid){
+						p2 = p;
+					}
+			break;
 				default:
 					
-					double deltaX = this.orders.get(0).pos.x - this.getPos().x;
-					double deltaY = this.orders.get(0).pos.y - this.getPos().y;
-					double deg = Math.atan2(deltaY, deltaX);
-					deg = Math.toDegrees(deg);
-					deg += 90;
-					if(this.model.rot > 270) {
-						this.model.rot -= 360;
-					}
-					if(this.model.rot < -90) {
-						this.model.rot += 360;
-					}
-					if (this.model.rot < deg + 3 && this.model.rot > deg - 3) {
-								this.movDir = 1;
-						}
-						if (this.model.rot < deg) {
-							if(deg - this.model.rot > 180) {
-								this.model.rot -= maxSpeedRight;
-							}else{
-								this.model.rot += maxSpeedRight;
-							}
-						}
-						if (this.model.rot > deg) {
-							if(this.model.rot - deg > 180) {
-								
-								this.model.rot += maxSpeedRight;
-							} else {
-								this.model.rot -= maxSpeedRight;
-							}
-						}
-					if(curorder.pos.distance(this.getPos())<10) {
-						this.movDir = 0;
-						this.orders.remove(0);
-					}
+					
 				break;
 			}
 }
 		processMovement();
 		Think2();
 	}
-	
+	public void renderShapyStuff() {
+		if(this.p2!= null) {
+		this.p2.render();
+		}
+	}
 	public abstract void Think2();
 	public abstract void fire1();
 	public void processMovement() {
@@ -136,4 +163,5 @@ if(this.orders.size() > 0) {
 		this.setPos(new Pos(newX, newY));
 		
 	}
+	
 }

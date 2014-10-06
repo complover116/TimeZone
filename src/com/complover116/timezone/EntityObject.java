@@ -12,7 +12,7 @@ public abstract class EntityObject extends Entity {
 	public int collideX2;
 	public int collideY2;
 	public boolean checkBlockCollision(int blockX, int blockY) {
-		Rectangle2D.Double rec = new Rectangle2D.Double(this.model.x, this.model.y, this.collideX2,this.collideY2);
+		Rectangle2D.Double rec = new Rectangle2D.Double(this.model.x+this.collideX, this.model.y+this.collideY, this.collideX2,this.collideY2);
 		Rectangle2D.Double rec2 = new Rectangle2D.Double(blockX*16, blockY*16, 16, 16);
 		//MainScreen.shapes.add(new ShapeModel(rec, new Color(0, 255,0), false));
 		//MainScreen.shapes.add(new ShapeModel(rec2, new Color(0, 0,255), false));

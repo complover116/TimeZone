@@ -295,10 +295,13 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 
 	@Override
 	public void keyTyped(KeyEvent arg0) {
+		if (arg0.getKeyChar() == ']') {
+			//Render.path = null;
+		}
 		if (CurGame.c.status == 21) {
 			if (arg0.getKeyChar() == 'g') {
 				BlockBuildTool bb = new BlockBuildTool(new Wall(),
-						CurGame.c.controllingTeam, 10, "wall_unbuilt", 1);
+						CurGame.c.controllingTeam, 2, "wall_unbuilt", 1);
 				bb.setPos(CurGame.c.terra.preview.getPos());
 				CurGame.c.terra.regEntity(bb);
 				CurGame.c.status = 2;

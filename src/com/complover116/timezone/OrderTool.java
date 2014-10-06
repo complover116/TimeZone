@@ -33,7 +33,7 @@ public class OrderTool extends Tool {
 		}
 		if(envokeOn instanceof EntityControllable) {
 			curorder = new Order();
-			curorder.type = 1;
+			curorder.type = 2;
 			curorder.pos = this.getPos();
 			this.envokeOn.orders.add(curorder);
 		}

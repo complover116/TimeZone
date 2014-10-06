@@ -3,7 +3,6 @@ package com.complover116.timezone;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.PrintWriter;
 
 import org.yaml.snakeyaml.Yaml;
@@ -26,9 +25,6 @@ public class SaveGameHandler {
 			Thread.sleep(1000);
 			GUI.infoDialog("Failure", "Game could not be saved to "+path+", the file could not be opened.");
 			return false;
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 		GUI.hideDialogs();
 		Thread.sleep(500);

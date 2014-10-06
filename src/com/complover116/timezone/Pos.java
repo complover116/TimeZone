@@ -18,6 +18,10 @@ public class Pos {
 		x = X;
 		y = Y;
 	}
+	public Pos(double X, double Y, boolean f) {
+		x = X*16+8;
+		y = Y*16+8;
+	}
 	public double distance(Pos pos2) {
 		double deltaX = pos2.x - this.x;
 		double deltaY = pos2.y - this.y;

@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Rectangle;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public abstract class EntityHurtable extends EntityObject {
 	/**
@@ -29,13 +28,6 @@ public abstract class EntityHurtable extends EntityObject {
 		return;
 	}*/
 	//public abstract void saveStuff2(HashMap hm);
-	public void loadStuff(HashMap hm){
-		health = (int) hm.get("health");
-		team = (byte) hm.get("team");
-		anim.curAnim = (int) hm.get("curAnim");
-	//	loadStuff2(hm);
-		return;
-	}
 	//public abstract void loadStuff2(HashMap hm);
 	public void takeDamage(Entity attacker, int damage) {
 		this.health = this.health - damage;
@@ -52,6 +44,9 @@ public abstract class EntityHurtable extends EntityObject {
 		System.out.print("Instantiation skipped");
 	}
 	public abstract void onDeath();
+	public void renderShapyStuff(){
+		
+	}
 	@Override
 	public void renderStuff(){
 		if(displayHealth > 0&&this.health>0&&this.health<=this.maxhealth){
@@ -81,5 +76,6 @@ public abstract class EntityHurtable extends EntityObject {
 			}
 		}
 		}
+		renderShapyStuff();
 	}
 }

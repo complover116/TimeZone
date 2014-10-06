@@ -7,6 +7,7 @@ import com.complover116.timezone.Entity;
 import com.complover116.timezone.EntityBuildable;
 import com.complover116.timezone.EntityHurtable;
 import com.complover116.timezone.Order;
+import com.complover116.timezone.Path;
 import com.complover116.timezone.SoundHandler;
 import com.complover116.timezone.blocks.Rail;
 
@@ -21,6 +22,7 @@ public class Sentry extends EntityBuildable {
 	int time;
 	Entity target;
 	MountPoint mountedTo = null;
+	Path p2;
 	@Override
 	public void construct() {
 		this.model.img = "sentry_1";
@@ -68,7 +70,7 @@ public class Sentry extends EntityBuildable {
 		time++;
 		anim.animTick();
 		this.model.setModel(anim.getFrame());
-		if(this.orders.size() > 0) {
+		if(this.p2!=null&&this.p2.path.size()>0) {
 			
 			
 			if(this.anim.curAnim == 0) {

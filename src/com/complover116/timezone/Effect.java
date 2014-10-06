@@ -1,6 +1,5 @@
 package com.complover116.timezone;
 
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public abstract class Effect extends Entity {

@@ -8,7 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.RepaintManager;
 
-
+@SuppressWarnings("deprecation")
 public class GUI implements Runnable {
 	public static MainScreen ms;
 	public static JDialog dialog;

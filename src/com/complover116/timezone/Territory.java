@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import com.complover116.timezone.blocks.Border;
 import com.complover116.timezone.blocks.Ground;
 import com.complover116.timezone.blocks.TeleportZone;
+import com.complover116.timezone.entities.BaseVehicle;
 import com.complover116.timezone.entities.MainFrame;
 import com.complover116.timezone.entities.Preview;
 import com.complover116.timezone.entities.Teleporter;
@@ -74,7 +75,7 @@ public class Territory implements Serializable{
 		tp.model.x = 16;
 		tp.model.y = 16;
 		entities.add(tp);
-		/*BaseVehicle bv = new BaseVehicle(tm);
+		BaseVehicle bv = new BaseVehicle(tm);
 		bv.model.x = 64;
 		bv.model.y = 64;
 		entities.add(bv);
@@ -82,7 +83,7 @@ public class Territory implements Serializable{
 		BaseVehicle bv2 = new BaseVehicle((byte) this.owner);
 		bv2.model.x = 128;
 		bv2.model.y = 128;
-		entities.add(bv2);*/
+		entities.add(bv2);
 		Preview pv = new Preview();
 		pv.model.x = 16;
 		pv.model.y = 16;
