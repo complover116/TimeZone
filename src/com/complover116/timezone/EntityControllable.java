@@ -79,7 +79,7 @@ public abstract class EntityControllable extends EntityBuildable {
 		if(this.orders.size() > 0) {
 			Order curorder = this.orders.get(0);
 			switch(curorder.type) {
-			case 2:
+			case 1:
 					pf = new Pathfinding((int)this.getPos().x/16,(int)this.getPos().y/16, (int)curorder.pos.x/16,(int)curorder.pos.y/16);
 					Path p = null;
 					while(p == null) {

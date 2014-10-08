@@ -1,0 +1,4 @@
+v0.4.2-InDev
+Removed pathfinding traces
+Added changelog
+Fixed not being able to add orders to unbuilt vehicles

@@ -20,9 +20,9 @@ public class Pathfinding {
 	public Path tick() {
 		counter++;
 		if(!finish) {
-			if(counter%100 == 0) {
+			/*if(counter%100 == 0) {
 				System.out.println("openn:"+opennodes.size()+" n:"+nodes.size());
-			}
+			}*/
 		tnodes.clear();
 		PathNode curnode = getBestNode();
 		if(curnode == null||nodes.size()>Config.maxPathLength) {
