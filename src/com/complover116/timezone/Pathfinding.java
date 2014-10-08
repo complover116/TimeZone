@@ -130,6 +130,9 @@ public class Pathfinding {
 			MainScreen.shapes.add(new ShapeModel(new Rectangle(tnodes.get(i).x*16+4,tnodes.get(i).y*16+4, 12, 12), new Color(0,255,0,255), true));
 		}
 	}
+	public Pathfinding() {
+		
+	}
 	public Pathfinding(int xz, int yz, int x2z, int y2z) {
 		x = xz;
 		y = yz;

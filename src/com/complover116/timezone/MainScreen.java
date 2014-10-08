@@ -161,6 +161,10 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 							+ Metrics
 									.timeFromSeconds((int) CurGame.c.attackTime),
 					0, 20);
+			g2d.drawString(
+					"TICK TIME:"
+							+ WorldTicker.ttmillis+"ms",
+					0, 40);
 			if (CurGame.c.timespeed == 0) {
 				g2d.setColor(new Color(255, 0, 0, 255));
 				g2d.drawString("Time stopped", 0, 450);

@@ -17,7 +17,7 @@ public abstract class EntityControllable extends EntityBuildable {
 	public double maxSpeed = 1;
 	public double speedPlus = 0.05;
 	public double speedRight = 0;
-	public double maxSpeedRight = 1;
+	public double maxSpeedRight = 3;
 	public Pathfinding pf;
 	public Path p2;
 	public byte turn = 0;
@@ -34,7 +34,8 @@ public abstract class EntityControllable extends EntityBuildable {
 	}
 	@Override
 	public void Think() {
-		if(this.p2!= null)if(this.p2.path.size() > 0)  {
+		if(this.p2!= null)
+			if(this.p2.path.size() > 0)  {
 			double deltaX = this.p2.path.get(0).x - this.getPos().x;
 			double deltaY = this.p2.path.get(0).y - this.getPos().y;
 			double deg = Math.atan2(deltaY, deltaX);
@@ -46,12 +47,10 @@ public abstract class EntityControllable extends EntityBuildable {
 			if(this.model.rot < -90) {
 				this.model.rot += 360;
 			}
-			if (this.model.rot < deg + 1&&this.model.rot > deg - 1) {
+			if (this.model.rot < deg + maxSpeedRight&&this.model.rot > deg - maxSpeedRight) {
 						this.movDir = 1;
-						this.maxSpeedRight = 0.1;
 				} else {
 					this.movDir = 0;
-					this.maxSpeedRight = 1;
 				}
 				if (this.model.rot < deg) {
 					if(deg - this.model.rot > 180) {
@@ -73,7 +72,7 @@ public abstract class EntityControllable extends EntityBuildable {
 				this.p2.path.remove(0);
 			}
 		} else {
-			if(this.orders.size()>0){
+			if(this.orders.size()>0&&this.orders.get(0).pos.distance(this.getPos())<10){
 			this.orders.remove(0);
 			}
 		}

@@ -5,6 +5,7 @@ package com.complover116.timezone;
 public class WorldTicker {
 	public static int waitedTicks = 0;
 	public static boolean randomflag = false;
+	public static int ttmillis = 0;
 	public static void tickWorld() {
 		CurGame.c.teams[CurGame.c.terra.owner].metaltick++;
 		if(CurGame.c.teams[CurGame.c.terra.owner].metaltick > 35) {
@@ -33,6 +34,7 @@ public class WorldTicker {
 			e1.printStackTrace();
 		}
 		while(true) {
+			long tickstart = System.nanoTime();
 			if(CurGame.overstat > 0){
 			if(CurGame.c.status == 10){
 				if(CurGame.c.attackTime > 0) {
@@ -168,8 +170,11 @@ public class WorldTicker {
 			
 			Render.render();
 			}
+			long ticktime = System.nanoTime() - tickstart;
+			ttmillis = (int) (ticktime/1000000);
 			try {
-				Thread.sleep(10);
+				if(ttmillis < 10)
+				Thread.sleep(10-ttmillis);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
