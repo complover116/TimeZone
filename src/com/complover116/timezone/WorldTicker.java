@@ -12,7 +12,7 @@ public class WorldTicker {
 			CurGame.c.teams[CurGame.c.terra.owner].metaltick = 0;
 			CurGame.c.teams[CurGame.c.terra.owner].metal++;
 		}
-		CurGame.c.attackTime -= 0.01;
+		CurGame.c.attackTime -= 0.02;
 		//TICKING ENTITIES
 		for(int i = 0; i < CurGame.c.terra.entities.size(); i++) {
 			if(CurGame.c.terra.entities.get(i)!= null){
@@ -39,7 +39,7 @@ public class WorldTicker {
 			if(CurGame.c.status == 10){
 				if(CurGame.c.attackTime > 0) {
 				if(CurGame.c.timespeed < 5000) {
-					CurGame.c.timespeed +=50;
+					CurGame.c.timespeed +=100;
 					if(CurGame.c.timespeed == 500)SoundHandler.playSound("effects/attackhsgo");
 					if(CurGame.c.timespeed < 500)
 					SoundHandler.playSound("effects/timetick");
@@ -54,9 +54,9 @@ public class WorldTicker {
 					}
 					if(CurGame.c.timespeed > 0) {
 					if(CurGame.c.timespeed > 100) {
-						CurGame.c.timespeed -=50;
+						CurGame.c.timespeed -=100;
 					} else {
-						CurGame.c.timespeed -=1;
+						CurGame.c.timespeed -=2;
 					}
 						if(CurGame.c.timespeed < 500)
 						SoundHandler.playSound("effects/timetick");
@@ -79,14 +79,14 @@ public class WorldTicker {
 					randomflag = false;
 				}
 			if(CurGame.c.gamego == false && CurGame.c.timespeed > 0){
-				CurGame.c.timespeed --;
+				CurGame.c.timespeed -=2;
 				if(CurGame.c.timespeed == 99)SoundHandler.playSound("effects/attackend");
 				
 				if(CurGame.c.timespeed < 50)
 				SoundHandler.playSound("effects/timetick");
 			}
 			if(CurGame.c.gamego == true && CurGame.c.timespeed < 100) {
-				CurGame.c.timespeed ++;
+				CurGame.c.timespeed +=2;
 				if(CurGame.c.timespeed == 1)SoundHandler.playSound("effects/attackgo");
 				if(CurGame.c.timespeed < 50)
 				SoundHandler.playSound("effects/timetick");
@@ -139,11 +139,11 @@ public class WorldTicker {
 				}
 			}
 			if(CurGame.c.teams[CurGame.c.terra.owner].dismetal < CurGame.c.teams[CurGame.c.terra.owner].metal) {
-				CurGame.c.teams[CurGame.c.terra.owner].dismetal += Math.ceil(((double)CurGame.c.teams[CurGame.c.terra.owner].metal - (double)CurGame.c.teams[CurGame.c.terra.owner].dismetal)/100);
+				CurGame.c.teams[CurGame.c.terra.owner].dismetal += Math.ceil(((double)CurGame.c.teams[CurGame.c.terra.owner].metal - (double)CurGame.c.teams[CurGame.c.terra.owner].dismetal)/10);
 				SoundHandler.playSound("effects/timetick");
 			}
 			if(CurGame.c.teams[CurGame.c.terra.owner].dismetal > CurGame.c.teams[CurGame.c.terra.owner].metal) {
-				CurGame.c.teams[CurGame.c.terra.owner].dismetal -= Math.ceil(((double)CurGame.c.teams[CurGame.c.terra.owner].dismetal - (double)CurGame.c.teams[CurGame.c.terra.owner].metal)/100);
+				CurGame.c.teams[CurGame.c.terra.owner].dismetal -= Math.ceil(((double)CurGame.c.teams[CurGame.c.terra.owner].dismetal - (double)CurGame.c.teams[CurGame.c.terra.owner].metal)/10);
 				SoundHandler.playSound("effects/timetick");
 			}
 			if(CurGame.c.status == -11) {
@@ -173,8 +173,8 @@ public class WorldTicker {
 			long ticktime = System.nanoTime() - tickstart;
 			ttmillis = (int) (ticktime/1000000);
 			try {
-				if(ttmillis < 10)
-				Thread.sleep(10-ttmillis);
+				if(ttmillis < 20)
+				Thread.sleep(20-ttmillis);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

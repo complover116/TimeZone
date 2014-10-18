@@ -7,6 +7,7 @@ import java.util.ArrayList;
 public class Path {
 	public ArrayList<Pos> path = new ArrayList<Pos>();
 	public boolean valid = true;
+	public boolean sentry;
 	public ArrayList<Order> toOrders(int type) {
 		ArrayList<Order> orders = new ArrayList<Order>();
 		for(int i = 0; i < path.size(); i++){
@@ -23,6 +24,13 @@ public class Path {
 		}
 	}
 	public boolean isStillValid() {
+		if(sentry){
+			for(int i = 1; i < path.size(); i ++) {
+				if(!path.get(i-1).SentryLOM(path.get(i))) {
+					return false;
+				}
+			}
+		} else
 		for(int i = 1; i < path.size(); i ++) {
 			if(!path.get(i-1).LOS(path.get(i))) {
 				return false;

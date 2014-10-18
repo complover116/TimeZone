@@ -1,3 +1,9 @@
+v0.4.4
+Added sentry pathfinding
+Decreased the tick rate from 100 tps to 50 tps - now faster and more stable, although a bit more jittery
+Fixed sentry animations
+Doubled sentry accuracy
+
 v0.4.3
 Removed unneeded java.util.time.Duration variable from CurGame.java
 Added error message for sound loading failure

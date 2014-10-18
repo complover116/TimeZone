@@ -6,8 +6,8 @@ import com.complover116.timezone.CurGame;
 import com.complover116.timezone.Entity;
 import com.complover116.timezone.EntityBuildable;
 import com.complover116.timezone.EntityHurtable;
-import com.complover116.timezone.Order;
 import com.complover116.timezone.Path;
+import com.complover116.timezone.Pathfinding;
 import com.complover116.timezone.SoundHandler;
 import com.complover116.timezone.blocks.Rail;
 
@@ -74,15 +74,11 @@ public class Sentry extends EntityBuildable {
 			
 			
 			if(this.anim.curAnim == 0) {
-			Order curorder = this.orders.get(0);
-			switch(curorder.type) {
-			case 1:
-				if(this.getPos().SentryLOM(curorder.pos)) {
-					this.setPos(this.getPos().add2((curorder.pos.sub(this.getPos())).normal()));
-					if(this.getPos().distance(curorder.pos) < 2) {
-						this.setPos(curorder.pos);
-						this.orders.remove(0);
-						System.out.println("Order executed successfully");
+					this.setPos(this.getPos().add2((this.p2.path.get(0).sub(this.getPos())).normal()));
+					if(this.getPos().distance(this.p2.path.get(0)) < 2) {
+						this.setPos(this.p2.path.get(0));
+						this.p2.path.remove(0);
+						//System.out.println("Order executed successfully");
 						for(Entity ent:CurGame.c.terra.entities) {
 							if(ent instanceof MountPoint) {
 								System.out.println("MP EXISTS");
@@ -95,16 +91,6 @@ public class Sentry extends EntityBuildable {
 							}
 						}
 					}
-				} else {
-					this.orders.remove(0);
-					System.out.println("Impossible order");
-				}
-			break;
-			default:
-				this.orders.remove(0);
-				System.out.println("Invalid order");
-			break;
-			}
 		} else {
 			if(this.anim.curAnim > 2) {
 				this.onUnMount();
@@ -113,6 +99,21 @@ public class Sentry extends EntityBuildable {
 				}
 			}
 		}
+		} else {
+			if(this.orders.size()>0){
+			//PATHFINDING GOES HERE
+			Pathfinding pf = new Pathfinding((int)this.getPos().x/16,(int)this.getPos().y/16, (int)this.orders.get(0).pos.x/16,(int)this.orders.get(0).pos.y/16,true);
+			Path p = null;
+			while(p == null) {
+				p = pf.tick();
+			}
+			if(p.valid){
+				p2 = p;
+			} else {
+				System.out.println("Pathfinding failed!");
+			}
+			this.orders.remove(0);
+			}
 		}
 		if(this.anim.curAnim < 3){
 			
@@ -120,13 +121,13 @@ public class Sentry extends EntityBuildable {
 		checkForTargets();
 		if (target == null) {
 			if (turningright) {
-				this.model.rot += 0.5;
+				this.model.rot += 1;
 				if (this.model.rot > 180+this.initrot) {
 					this.turningright = false;
 					SoundHandler.playSound("sentry/seek_1");
 				}
 			} else {
-				this.model.rot -= 0.5;
+				this.model.rot -= 1;
 				if (this.model.rot < 0+this.initrot) {
 					this.turningright = true;
 					SoundHandler.playSound("sentry/seek_1");
@@ -157,9 +158,9 @@ public class Sentry extends EntityBuildable {
 				if (this.model.rot > deg) {
 					if(this.model.rot - deg > 180) {
 						
-						this.model.rot ++;
+						this.model.rot += 0.5;
 					} else {
-					this.model.rot --;
+					this.model.rot -= 0.5;
 					}
 				}
 				if (time >= 26) {
@@ -172,7 +173,7 @@ public class Sentry extends EntityBuildable {
 					bul.setPos(this.getPos());
 					bul.direction = this.model.rot;
 					CurGame.c.terra.regEntity(bul);
-					anim.setAnim(4);
+					anim.setAnim(5);
 					//this.model.img = ImageContainer.images
 						//	.get("sentry_1_light3");
 
@@ -180,17 +181,17 @@ public class Sentry extends EntityBuildable {
 			} else {
 				if (this.model.rot < deg) {
 					if(deg - this.model.rot > 180) {
-						this.model.rot -= 2;
+						this.model.rot -= 3;
 					}else{
-					this.model.rot += 2;
+					this.model.rot += 3;
 					}
 				}
 				if (this.model.rot > deg) {
 					if(this.model.rot - deg > 180) {
 						
-						this.model.rot += 2;
+						this.model.rot += 3;
 					} else {
-					this.model.rot -= 2;
+					this.model.rot -= 3;
 					}
 				}
 				if (time >= 21) {
@@ -198,7 +199,7 @@ public class Sentry extends EntityBuildable {
 					time = 0;
 				}
 				if (time == 20) {
-					anim.setAnim(3);
+					anim.setAnim(4);
 					//this.model.img = ImageContainer.images
 					//		.get("sentry_1_light2");
 					SoundHandler.playSound("sentry/alert_1");
@@ -238,6 +239,12 @@ public class Sentry extends EntityBuildable {
 	public void onConstructed() {
 		// TODO Auto-generated method stub
 		
+	}
+	@Override
+	public void renderShapyStuff(){
+		if(this.p2!= null){
+			this.p2.render();
+		}
 	}
 	public void onMount(MountPoint mp) {
 		this.anim.setAnim(1);

@@ -14,16 +14,17 @@ public abstract class EntityControllable extends EntityBuildable {
 	private static final long serialVersionUID = 6226031706958380660L;
 	public double speedForward = 0;
 	public byte movDir = 0;
-	public double maxSpeed = 1;
-	public double speedPlus = 0.05;
+	public double maxSpeed = 2;
+	public double speedPlus = 0.1;
 	public double speedRight = 0;
-	public double maxSpeedRight = 3;
+	public double maxSpeedRight = 6;
 	public Pathfinding pf;
 	public Path p2;
 	public byte turn = 0;
 	public ArrayList<MountPoint> mountpoints = new ArrayList<MountPoint>();
 	public void Teleport() {
 		Pos pos = new Pos(Math.random()*16 - 8,Math.random()*16 - 8);
+		this.p2 = null;
 		Teleporter.tpEnt(this, pos);
 		for(int i = 0; i < mountpoints.size(); i ++) {
 			Teleporter.tpEnt(mountpoints.get(i), pos);

@@ -7,7 +7,7 @@ public class Bullet extends EntityObject {
 	private static final long serialVersionUID = 7999239675034748667L;
 	int time;
 	double direction;
-	double speed = 8;
+	double speed = 16;
 	byte team;
 	Entity attacker;
 	@Override

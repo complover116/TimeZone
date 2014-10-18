@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
+import com.complover116.timezone.blocks.Rail;
+
 
 
 public class Pathfinding {
@@ -17,6 +19,7 @@ public class Pathfinding {
 	ArrayList<PathNode> tnodes = new ArrayList<PathNode>();
 	int counter = 0;
 	boolean finish = false;
+	boolean sentry;
 	public Path tick() {
 		counter++;
 		if(!finish) {
@@ -42,7 +45,13 @@ public class Pathfinding {
 		tnodes.add(new PathNode(curnode.x-1,curnode.y+1,curnode.weight + 1));*/
 		for(int i = 3; i > -1; i--) {
 			try{
-			if(CurGame.c.terra.terrain[tnodes.get(i).x][tnodes.get(i).y].solid) {
+			boolean impassable;
+			if(sentry) {
+				impassable = !(CurGame.c.terra.terrain[tnodes.get(i).x][tnodes.get(i).y] instanceof Rail);
+			}else {
+				impassable = CurGame.c.terra.terrain[tnodes.get(i).x][tnodes.get(i).y].solid;
+			}
+			if(impassable) {
 				tnodes.remove(i);
 			} else if(tnodes.size()>i){
 			boolean flag = true;
@@ -95,6 +104,7 @@ public class Pathfinding {
 				curnode = nodes.get(besti);
 				if(curnode.x == x2&&curnode.y == y2) break;
 			}
+			path.sentry = sentry;
 			return path;
 		}
 	}
@@ -133,12 +143,15 @@ public class Pathfinding {
 	public Pathfinding() {
 		
 	}
-	public Pathfinding(int xz, int yz, int x2z, int y2z) {
+	public Pathfinding(int xz, int yz, int x2z, int y2z, boolean sentry) {
 		x = xz;
 		y = yz;
 		x2 = x2z;
 		y2 = y2z;
 		opennodes.add(new PathNode(x2,y2,0));
-		
+		this.sentry = sentry;
+	}
+	public Pathfinding(int xz, int yz, int x2z, int y2z){
+		this(xz, yz, x2z, y2z, false);
 	}
 }
