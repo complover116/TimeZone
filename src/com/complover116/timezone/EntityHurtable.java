@@ -32,7 +32,7 @@ public abstract class EntityHurtable extends EntityObject {
 	public void takeDamage(Entity attacker, int damage) {
 		this.health = this.health - damage;
 		displayHealth = 400;
-		if(this.health < 0){
+		if(this.health <= 0){
 			this.onDeath();
 			this.remove();
 		}

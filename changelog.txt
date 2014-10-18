@@ -1,3 +1,14 @@
+v0.4.6-InDev
+TODO:Optimise sentry's target finding code
+TODO:Fix collisions on controlled entities
+TODO:Allow attacking team to destroy their entities
+TODO:Add lag notices
+
+v0.4.5
+Incredibly optimised pathfinding for controllable entities
+Fixed mainframe's health set to 10 on spawn
+Fixed not dying if health is exactly 0
+
 v0.4.4
 Added sentry pathfinding
 Decreased the tick rate from 100 tps to 50 tps - now faster and more stable, although a bit more jittery

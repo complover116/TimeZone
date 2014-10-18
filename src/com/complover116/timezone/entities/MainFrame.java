@@ -50,8 +50,8 @@ public class MainFrame extends EntityHurtable {
 		this.collideY = 0;
 		this.collideX2 = 32;
 		this.collideY2 = 32;
+		this.health = 100;
 		this.mmaxhealth = 10;
-		this.health = 10;
 		this.readName = "MainFrame";
 		pf = new Pathfinding(2,2, 64,64);
 	}
