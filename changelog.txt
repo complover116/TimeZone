@@ -1,4 +1,9 @@
-v0.4.2-InDev
+v0.4.3
+Removed unneeded java.util.time.Duration variable from CurGame.java
+Added error message for sound loading failure
+Fixed same error message being printed in the console every tick
+ 
+v0.4.2
 Removed pathfinding traces
 Added changelog
 Fixed not being able to add orders to unbuilt vehicles

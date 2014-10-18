@@ -7,7 +7,7 @@ public class SoundHandler {
 	public static boolean playSound(String filename) {
 			Clip cl = ImageContainer.sounds.get(filename);
 			if(cl == null){
-				System.err.println("Sound "+filename+" is not loaded");
+				Printer.errorOnce("Sound "+filename+" is not loaded");
 			}else{
 			cl.setMicrosecondPosition(0);
 			cl.start();

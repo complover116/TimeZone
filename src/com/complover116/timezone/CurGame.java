@@ -1,7 +1,6 @@
 package com.complover116.timezone;
 
 import java.io.Serializable;
-import java.time.Duration;
 
 public class CurGame implements Serializable{
 	/**
@@ -26,5 +25,4 @@ public class CurGame implements Serializable{
 	public double scrollY = 0;
 	public double scrollingX = 0;
 	public double scrollingY = 0;
-	public Duration time;
 }

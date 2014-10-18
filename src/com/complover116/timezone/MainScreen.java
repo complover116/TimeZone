@@ -95,7 +95,7 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 						BufferedImage img = ImageContainer.images.get(objects
 								.get(ser).img);
 						if(img == null) {
-							System.err.println("No texture could be found for "+objects.get(ser).img);
+							Printer.errorOnce("No texture could be found for "+objects.get(ser).img);
 							img = ImageContainer.images.get("notexture");
 						}
 						g2d.drawImage(img, tr, this);
@@ -423,7 +423,7 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 					SoundHandler.playSound("sentry/seek_1");
 				}
 			}
-			// char russianChars[] = {'ö','ô','û','â'};
+			// char russianChars[] = {'ï¿½','ï¿½','ï¿½','ï¿½'};
 		}
 		if (arg0.getKeyChar() == '\n') {
 			if (CurGame.c.status > 0) {

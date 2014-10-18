@@ -1,6 +1,7 @@
 package com.complover116.timezone;
 
 import java.awt.Dimension;
+import java.awt.Toolkit;
 
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
@@ -55,8 +56,10 @@ public class GUI implements Runnable {
 		ms.addMouseListener(ms);
 	    ms.addKeyListener(ms);
 	    ms.setFocusable(true);
-	    ms.setMinimumSize(new Dimension(100,100));
-	    ms.setSize(1000, 1000);
+	    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	    double width = screenSize.getWidth();
+	    double height = screenSize.getHeight();
+	    ms.setPreferredSize(new Dimension((int)width,(int)height));
         ms.requestFocusInWindow();
         ms.setIgnoreRepaint(true);
 		frame.add(ms);
