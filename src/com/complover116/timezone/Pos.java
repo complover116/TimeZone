@@ -20,8 +20,18 @@ public class Pos {
 		y = Y;
 	}
 	public Pos(double X, double Y, boolean f) {
-		x = X*16+8;
-		y = Y*16+8;
+		if(f){
+			x = X*16+8;
+			y = Y*16+8;
+		} else {
+			x = ((int)(X/16))*16+7.5;
+			y = ((int)(Y/16))*16+7.5;
+		}
+	}
+	public Pos snap() {
+		return new Pos(
+		((int)(x/16))*16+8,
+		((int)(y/16))*16+8);
 	}
 	public double distance(Pos pos2) {
 		double deltaX = pos2.x - this.x;

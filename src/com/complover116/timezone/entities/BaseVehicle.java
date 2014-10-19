@@ -35,10 +35,10 @@ public class BaseVehicle extends EntityControllable {
 		this.costPerHealth = 18;
 		this.model.rotX = 8.5;
 		this.model.rotY = 11;
-		this.collideX = 4;
-		this.collideY = 4;
-		this.collideX2 = 8;
-		this.collideY2 = 8;
+		this.collideX = 2;
+		this.collideY = 2;
+		this.collideX2 = 12;
+		this.collideY2 = 12;
 		this.health = 100;
 		this.readName = "Basic Vehicle";
 	}

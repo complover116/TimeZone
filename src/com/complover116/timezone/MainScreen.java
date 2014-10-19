@@ -196,14 +196,14 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 	public void mouseClicked(MouseEvent arg0) {
 		
 			if(CurGame.c.status == GameState.DEFENDERS_CONTROL||CurGame.c.status == GameState.ATTACKERS_CONTROL){
-				CurGame.c.terra.preview.setPos(new Pos(((int)(arg0.getX()/16))*16,((int)(arg0.getY()/16))*16).toWorld());
+				CurGame.c.terra.preview.setPos(new Pos(arg0.getX(),arg0.getY()).toWorld().snap());
 				if(arg0.getButton() == 1) {
 				if(CurGame.c.terra.preview.tool == null){
 				for(int i = 0; i < CurGame.c.terra.entities.size(); i ++) {
 				if(CurGame.c.terra.entities.get(i) instanceof EntityHurtable && ((EntityHurtable) CurGame.c.terra.entities.get(i)).team == CurGame.c.controllingTeam) {
 					EntityHurtable ent = (EntityHurtable) CurGame.c.terra.entities.get(i);
-					if(ent.checkCollision(new Pos(arg0.getX(),arg0.getY()).toWorld())){
-						CurGame.c.terra.preview.selent = ent;
+					if(ent.checkCollision(CurGame.c.terra.preview)){
+						CurGame.c.terra.preview.updateEnt();
 						OrderTool bb = new OrderTool(
 								CurGame.c.terra.preview.selent);
 						bb.setPos(CurGame.c.terra.preview.getPos());

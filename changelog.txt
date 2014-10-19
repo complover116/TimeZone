@@ -1,7 +1,7 @@
 v0.5.0 - The UI update
 CurGame.c.status is now a new enum
 Mouse control added (partially)
-TODO:New UI and overlay
+TODO:New UI and overlay ~
 No more block classes or package - all blocks are now a single enum = >
 Significantly decreased saving and loading times, as well as save file size
 
