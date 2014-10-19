@@ -6,6 +6,7 @@ import com.complover116.timezone.CurGame;
 import com.complover116.timezone.Entity;
 import com.complover116.timezone.EntityHurtable;
 import com.complover116.timezone.EntityObject;
+import com.complover116.timezone.Pos;
 import com.complover116.timezone.Tool;
 
 public class Preview extends EntityObject {
@@ -65,5 +66,9 @@ public class Preview extends EntityObject {
 		// TODO Auto-generated method stub
 
 	}
-
+	@Override
+	public void setPos(Pos pos) {
+		super.setPos(pos);
+		if(tool!= null)tool.setPos(pos);
+	}
 }

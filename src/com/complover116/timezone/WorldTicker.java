@@ -41,7 +41,7 @@ public class WorldTicker {
 		while(true) {
 			long tickstart = System.nanoTime();
 			if(CurGame.overstat > 0){
-			if(CurGame.c.status == 10){
+			if(CurGame.c.status == GameState.FAST_FORWARD){
 				if(CurGame.c.attackTime > 0) {
 				if(CurGame.c.timespeed < 5000) {
 					CurGame.c.timespeed +=100;
@@ -71,15 +71,15 @@ public class WorldTicker {
 						} else {
 							CurGame.c.teamtoload = 0;
 						}
-						CurGame.c.status = -10;
+						CurGame.c.status = GameState.TERRITORY_LOAD_DELAY;
 					}
 				}
 				
 				
 			}
-			if(CurGame.c.status == 0){
+			if(CurGame.c.status == GameState.TIME_GOES){
 				if(CurGame.c.attackTime < 0.01&&CurGame.c.timespeed==100){
-					CurGame.c.status = 10;
+					CurGame.c.status = GameState.FAST_FORWARD;
 					CurGame.c.terra.firstround = false;
 					randomflag = false;
 				}
@@ -108,7 +108,7 @@ public class WorldTicker {
 									if(CurGame.c.timespeed < 5) {
 										CurGame.c.TPS = 20;
 										if(CurGame.c.timespeed < 1) {
-											CurGame.c.status = 1;
+											CurGame.c.status = GameState.ATTACKERS_CONTROL;
 										}
 									} else {
 										CurGame.c.TPS = 10;
@@ -133,15 +133,12 @@ public class WorldTicker {
 			CurGame.c.scrollY = CurGame.c.terra.controlledEnt.getPos().y - MainScreen.height/2;
 			}
 			}
-			if(CurGame.c.status > 0&&CurGame.c.status < 5) {
+			if(CurGame.c.status == GameState.ATTACKERS_CONTROL||CurGame.c.status == GameState.DEFENDERS_CONTROL) {
 				CurGame.c.scrollX += CurGame.c.scrollingX;
 				CurGame.c.scrollY += CurGame.c.scrollingY;
 			}
-			if(CurGame.c.status == 2){
+			if(CurGame.c.status == GameState.DEFENDERS_CONTROL){
 				CurGame.c.controllingTeam = (byte) CurGame.c.terra.owner;
-				if(CurGame.c.terra.preview.tool != null){
-				CurGame.c.terra.preview.tool.setPos(CurGame.c.terra.preview.getPos());
-				}
 			}
 			if(CurGame.c.teams[CurGame.c.terra.owner].dismetal < CurGame.c.teams[CurGame.c.terra.owner].metal) {
 				CurGame.c.teams[CurGame.c.terra.owner].dismetal += Math.ceil(((double)CurGame.c.teams[CurGame.c.terra.owner].metal - (double)CurGame.c.teams[CurGame.c.terra.owner].dismetal)/10);
@@ -151,23 +148,23 @@ public class WorldTicker {
 				CurGame.c.teams[CurGame.c.terra.owner].dismetal -= Math.ceil(((double)CurGame.c.teams[CurGame.c.terra.owner].dismetal - (double)CurGame.c.teams[CurGame.c.terra.owner].metal)/10);
 				SoundHandler.playSound("effects/timetick");
 			}
-			if(CurGame.c.status == -11) {
+			if(CurGame.c.status == GameState.TERRITORY_LOADING) {
 				if(waitedTicks == 0){
 				}
 				if(waitedTicks == 1) {
 					CurGame.c.terra = CurGame.c.teams[CurGame.c.teamtoload].zone;
 					CurGame.c.attackTime = Config.attacklength;
-					CurGame.c.status = 2;
+					CurGame.c.status = GameState.DEFENDERS_CONTROL;
 					CurGame.c.timespeed=0;
 					waitedTicks = -1;
 				}
 				waitedTicks ++;
 			}
-			if(CurGame.c.status == -10) {
+			if(CurGame.c.status == GameState.TERRITORY_LOAD_DELAY) {
 				if(waitedTicks == 0){
 				}
 				if(waitedTicks == 1) {
-					CurGame.c.status = -11;
+					CurGame.c.status = GameState.TERRITORY_LOADING;
 					waitedTicks = -1;
 				}
 				waitedTicks ++;

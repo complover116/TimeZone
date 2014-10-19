@@ -46,4 +46,10 @@ public abstract class EntityObject extends Entity {
 		
 		return rec.intersects(rec2);
 	}
+	public boolean checkCollision(Pos pos) {
+		Rectangle2D.Double rec = new Rectangle2D.Double(this.model.x+this.collideX, this.model.y+this.collideY, this.collideX2,this.collideY2);
+		Rectangle2D.Double rec2 = new Rectangle2D.Double(pos.x, pos.y, 1, 1);
+		
+		return rec.intersects(rec2);
+	}
 }

@@ -1,8 +1,5 @@
 package com.complover116.timezone;
 
-import java.awt.Color;
-import java.awt.Rectangle;
-
 import com.complover116.timezone.blocks.Rail;
 
 /**
@@ -16,6 +13,9 @@ public class Pos {
 	
 	public Pos() {
 		
+	}
+	public Pos toWorld() {
+		return this.add(new Pos(CurGame.c.scrollX,CurGame.c.scrollY));
 	}
 	public Pos(double X, double Y) {
 		x = X;

@@ -36,7 +36,7 @@ public class Render {
 			}
 		}
 		}
-		if(CurGame.c.status > 0)
+		if(CurGame.c.status == GameState.ATTACKERS_CONTROL||CurGame.c.status == GameState.DEFENDERS_CONTROL)
 		MainScreen.objects.add(CurGame.c.terra.preview.model);
 		//RENDER THE CURRENT TEAM
 		

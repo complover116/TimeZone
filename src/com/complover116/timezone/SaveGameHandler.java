@@ -60,7 +60,7 @@ public class SaveGameHandler {
 		}catch (YAMLException e) {
 			GUI.hideDialogs();
 			Thread.sleep(1000);
-			GUI.infoDialog("Failure", "Game could not be loaded from "+path+", the save file is corrupted.");
+			GUI.infoDialog("Failure", "Game could not be loaded from "+path+", the save file is corrupted. Is it of the same version?");
 			e.printStackTrace();
 		}
 		GUI.hideDialogs();

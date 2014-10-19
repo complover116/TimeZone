@@ -13,7 +13,7 @@ public class CurGame implements Serializable{
 	public double attackTime = 180;
 	public int curmenu = 0;
 	public TeamData teams[] = new TeamData[2];
-	public int status = -1;
+	public GameState status = GameState.ERROR;
 	public int teamtoload = 0;
 	public byte controllingTeam = 0;
 	public int TPS = 0;

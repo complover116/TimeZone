@@ -47,7 +47,7 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 			g2d.translate(-CurGame.c.scrollX, -CurGame.c.scrollY);
 			g2d.transform(AffineTransform.getScaleInstance(1 - shear / 100,
 					1 - shear / 100));
-			if (CurGame.c.status == 2) {
+			if (CurGame.c.status == GameState.DEFENDERS_CONTROL) {
 				if (CurGame.c.terra.preview.selent != null) {
 					g2d.drawString(CurGame.c.terra.preview.selent.readName, 32,
 							height - 20);
@@ -162,7 +162,7 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 							+ Metrics
 									.timeFromSeconds((int) CurGame.c.attackTime),
 					0, 20);
-			if(CurGame.c.status == 10) 
+			if(CurGame.c.status == GameState.FAST_FORWARD) 
 				g2d.drawString(
 						"TICK TIME:"
 								+ WorldTicker.ttmillis+"ms("+WorldTicker.ttmillis/50+")",
@@ -197,7 +197,48 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
+		
+			if(CurGame.c.status == GameState.DEFENDERS_CONTROL||CurGame.c.status == GameState.ATTACKERS_CONTROL){
+				CurGame.c.terra.preview.setPos(new Pos(((int)(arg0.getX()/16))*16,((int)(arg0.getY()/16))*16).toWorld());
+				if(arg0.getButton() == 1) {
+				if(CurGame.c.terra.preview.tool == null){
+				for(int i = 0; i < CurGame.c.terra.entities.size(); i ++) {
+				if(CurGame.c.terra.entities.get(i) instanceof EntityHurtable && ((EntityHurtable) CurGame.c.terra.entities.get(i)).team == CurGame.c.controllingTeam) {
+					EntityHurtable ent = (EntityHurtable) CurGame.c.terra.entities.get(i);
+					if(ent.checkCollision(new Pos(arg0.getX(),arg0.getY()).toWorld())){
+						CurGame.c.terra.preview.selent = ent;
+						OrderTool bb = new OrderTool(
+								CurGame.c.terra.preview.selent);
+						bb.setPos(CurGame.c.terra.preview.getPos());
+						CurGame.c.terra.regEntity(bb);
+						CurGame.c.terra.preview.tool = bb;
+						SoundHandler.playSound("sentry/seek_1");
+					}
+				}
+			}
+		} else {
 
+			if (CurGame.c.terra.preview.tool.use()) {
+				SoundHandler.playSound("sentry/seek_1");
+			}
+		}
+		}
+if(arg0.getButton() == 2) {
+	if (CurGame.c.terra.preview.tool != null)
+		CurGame.c.terra.preview.tool.remove();
+	CurGame.c.terra.preview.tool = null;
+				}
+			if(arg0.getButton() == 3) {
+				
+				if(CurGame.c.terra.preview.tool != null){
+
+					if (CurGame.c.terra.preview.tool.use2()) {
+						SoundHandler.playSound("sentry/seek_1");
+					}
+				}
+			}
+	}
+		
 	}
 
 	@Override
@@ -223,7 +264,7 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 
 	@Override
 	public void keyPressed(KeyEvent arg0) {
-		if (CurGame.c.status == 0) {
+		if (CurGame.c.status == GameState.TIME_GOES) {
 			if (arg0.getKeyCode() == 87) {
 				CurGame.c.terra.controlledEnt.movDir = 1;
 			}
@@ -236,7 +277,7 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 			if (arg0.getKeyCode() == 65) {
 				CurGame.c.terra.controlledEnt.turn = -1;
 			}
-		} else if (CurGame.c.status > 0 && CurGame.c.status < 5
+		} else if (CurGame.c.status == GameState.ATTACKERS_CONTROL||CurGame.c.status == GameState.DEFENDERS_CONTROL
 				&& !arg0.isShiftDown()) {
 			if (arg0.getKeyCode() == 27) {
 				try {
@@ -271,7 +312,7 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 
 	@Override
 	public void keyReleased(KeyEvent arg0) {
-		if (CurGame.c.status == 0) {
+		if (CurGame.c.status == GameState.TIME_GOES) {
 			if (arg0.getKeyCode() == 87
 					&& CurGame.c.terra.controlledEnt.movDir == 1) {
 				CurGame.c.terra.controlledEnt.movDir = 0;
@@ -288,7 +329,7 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 					&& CurGame.c.terra.controlledEnt.turn == -1) {
 				CurGame.c.terra.controlledEnt.turn = 0;
 			}
-		} else if (CurGame.c.status > 0 && CurGame.c.status < 5) {
+		} else if (CurGame.c.status == GameState.ATTACKERS_CONTROL||CurGame.c.status == GameState.DEFENDERS_CONTROL) {
 			if (arg0.getKeyCode() == 87 && CurGame.c.scrollingY == -6) {
 				CurGame.c.scrollingY = 0;
 			}
@@ -309,13 +350,13 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 		if (arg0.getKeyChar() == ']') {
 			//Render.path = null;
 		}
-		if (CurGame.c.status == 21) {
+		if (CurGame.c.status == GameState.BUILD_MODE) {
 			if (arg0.getKeyChar() == 'g') {
 				BlockBuildTool bb = new BlockBuildTool(new Wall(),
 						CurGame.c.controllingTeam, 2, "wall_unbuilt", 1);
 				bb.setPos(CurGame.c.terra.preview.getPos());
 				CurGame.c.terra.regEntity(bb);
-				CurGame.c.status = 2;
+				CurGame.c.status = GameState.DEFENDERS_CONTROL;
 				CurGame.c.terra.preview.tool = bb;
 				SoundHandler.playSound("sentry/seek_1");
 			}
@@ -324,7 +365,7 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 						CurGame.c.controllingTeam, 10, "railcross", 2);
 				bb.setPos(CurGame.c.terra.preview.getPos());
 				CurGame.c.terra.regEntity(bb);
-				CurGame.c.status = 2;
+				CurGame.c.status = GameState.DEFENDERS_CONTROL;
 				CurGame.c.terra.preview.tool = bb;
 				SoundHandler.playSound("sentry/seek_1");
 			}
@@ -333,13 +374,13 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 						CurGame.c.controllingTeam, 5, "delete", 0);
 				bb.setPos(CurGame.c.terra.preview.getPos());
 				CurGame.c.terra.regEntity(bb);
-				CurGame.c.status = 2;
+				CurGame.c.status = GameState.DEFENDERS_CONTROL;
 				CurGame.c.terra.preview.tool = bb;
 				SoundHandler.playSound("sentry/seek_1");
 			}
 		}
 		if (arg0.getKeyChar() == 'g') {
-			if (CurGame.c.status == 1) {
+			if (CurGame.c.status == GameState.ATTACKERS_CONTROL) {
 				if(CurGame.c.terra.preview.selent != null) {
 					if(CurGame.c.terra.preview.selent instanceof EntityControllable) {
 						CurGame.c.terra.controlledEnt = (EntityControllable) CurGame.c.terra.preview.selent;
@@ -355,13 +396,13 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 				}
 			}
 		}
-		if (CurGame.c.status == 22) {
+		if (CurGame.c.status == GameState.CONSTRUCT_MODE) {
 			if (arg0.getKeyChar() == 'g') {
 				ConstructionTool bb = new ConstructionTool(new Sentry(
 						CurGame.c.controllingTeam));
 				bb.setPos(CurGame.c.terra.preview.getPos());
 				CurGame.c.terra.regEntity(bb);
-				CurGame.c.status = 2;
+				CurGame.c.status = GameState.DEFENDERS_CONTROL;
 				CurGame.c.terra.preview.tool = bb;
 				SoundHandler.playSound("sentry/seek_1");
 			}
@@ -370,7 +411,7 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 						CurGame.c.controllingTeam));
 				bb.setPos(CurGame.c.terra.preview.getPos());
 				CurGame.c.terra.regEntity(bb);
-				CurGame.c.status = 2;
+				CurGame.c.status = GameState.DEFENDERS_CONTROL;
 				CurGame.c.terra.preview.tool = bb;
 				SoundHandler.playSound("sentry/seek_1");
 			}
@@ -379,7 +420,7 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 						CurGame.c.controllingTeam));
 				bb.setPos(CurGame.c.terra.preview.getPos());
 				CurGame.c.terra.regEntity(bb);
-				CurGame.c.status = 2;
+				CurGame.c.status = GameState.DEFENDERS_CONTROL;
 				CurGame.c.terra.preview.tool = bb;
 				SoundHandler.playSound("sentry/seek_1");
 			}
@@ -388,12 +429,12 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 						CurGame.c.controllingTeam));
 				bb.setPos(CurGame.c.terra.preview.getPos());
 				CurGame.c.terra.regEntity(bb);
-				CurGame.c.status = 2;
+				CurGame.c.status = GameState.DEFENDERS_CONTROL;
 				CurGame.c.terra.preview.tool = bb;
 				SoundHandler.playSound("sentry/seek_1");
 			}
 		}
-		if (CurGame.c.status > 0) {
+		if (CurGame.c.status == GameState.DEFENDERS_CONTROL||CurGame.c.status == GameState.ATTACKERS_CONTROL) {
 			if (arg0.getKeyChar() == 'W') {
 				CurGame.c.terra.preview.model.y -= 16;
 				CurGame.c.terra.preview.updateEnt();
@@ -431,9 +472,11 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 				}
 			}
 			// char russianChars[] = {'�','�','�','�'};
+			/// 					   ^
+			/// 					   | WTF XD 
 		}
 		if (arg0.getKeyChar() == '\n') {
-			if (CurGame.c.status > 0) {
+			if (CurGame.c.status == GameState.DEFENDERS_CONTROL||CurGame.c.status == GameState.ATTACKERS_CONTROL) {
 
 				if (CurGame.c.terra.preview.tool == null) {
 					if (CurGame.c.terra.preview.selent == null) {
@@ -453,7 +496,7 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 								CurGame.c.terra.preview.selent);
 						bb.setPos(CurGame.c.terra.preview.getPos());
 						CurGame.c.terra.regEntity(bb);
-						CurGame.c.status = 2;
+						CurGame.c.status = GameState.DEFENDERS_CONTROL;
 						CurGame.c.terra.preview.tool = bb;
 						SoundHandler.playSound("sentry/seek_1");
 					}
@@ -466,18 +509,18 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 			}
 		}
 		if (arg0.getKeyChar() == 'q') {
-			if (CurGame.c.status == 0 && CurGame.c.terra.controlledEnt != null) {
+			if (CurGame.c.status == GameState.TIME_GOES && CurGame.c.terra.controlledEnt != null) {
 				CurGame.c.terra.controlledEnt.fire1();
 			}
 		}
 		if (arg0.getKeyChar() == 'b') {
 			
-			if (CurGame.c.status == 2) {
+			if (CurGame.c.status == GameState.DEFENDERS_CONTROL) {
 				SoundHandler.playSound("sentry/seek_1");
 				if (CurGame.c.terra.preview.tool == null) {
 					CurGame.c.terra.preview.model.img = TeamData.getTeamImage(
 							"cursor2", CurGame.c.controllingTeam);
-					CurGame.c.status = 21;
+					CurGame.c.status = GameState.BUILD_MODE;
 				} else {
 					CurGame.c.terra.preview.tool.remove();
 					CurGame.c.terra.preview.tool = null;
@@ -485,8 +528,8 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 							"cursor", CurGame.c.controllingTeam);
 				}
 			}
-			if (CurGame.c.status == 1) {
-				CurGame.c.status = 2;
+			if (CurGame.c.status == GameState.ATTACKERS_CONTROL) {
+				CurGame.c.status = GameState.DEFENDERS_CONTROL;
 				SoundHandler.playSound("sentry/seek_1");
 				CurGame.c.controllingTeam = (byte) CurGame.c.terra.owner;
 				CurGame.c.terra.preview.model.img = TeamData.getTeamImage(
@@ -494,24 +537,24 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 				
 			}
 		}
-		if (CurGame.c.status == 2) {
+		if (CurGame.c.status == GameState.DEFENDERS_CONTROL) {
 			if (arg0.getKeyChar() == 'p') {
 				WorldTicker.tickWorld();
 			}
 		}
 		if (arg0.getKeyChar() == 'x') {
-			if ((CurGame.c.status == 2 || CurGame.c.status == 1) && CurGame.c.terra.preview.selent != null) {
+			if ((CurGame.c.status == GameState.DEFENDERS_CONTROL || CurGame.c.status == GameState.ATTACKERS_CONTROL) && CurGame.c.terra.preview.selent != null) {
 				CurGame.c.terra.preview.selent.onDeath();
 				CurGame.c.terra.preview.selent.remove();
 			}
 		}
 		if (arg0.getKeyChar() == 'c') {
-			if (CurGame.c.status == 2) {
+			if (CurGame.c.status == GameState.DEFENDERS_CONTROL) {
 				SoundHandler.playSound("sentry/seek_1");
 				if (CurGame.c.terra.preview.tool == null) {
 					CurGame.c.terra.preview.model.img = TeamData.getTeamImage(
 							"cursor2", CurGame.c.terra.owner);
-					CurGame.c.status = 22;
+					CurGame.c.status = GameState.CONSTRUCT_MODE;
 				} else {
 					CurGame.c.terra.preview.tool.remove();
 					CurGame.c.terra.preview.tool = null;
@@ -522,19 +565,22 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 		}
 		if (arg0.getKeyChar() == ' ') {
 
-			if (CurGame.c.status == 0) {
+			if (CurGame.c.status == GameState.TIME_GOES) {
 				if (!arg0.isShiftDown()) {
 					CurGame.c.gamego = false;
 				} else {
-					CurGame.c.status = 10;
+					CurGame.c.status = GameState.FAST_FORWARD;
 					WorldTicker.randomflag = false;
 				}
 			}
-			if (CurGame.c.status == 1) {
+			if (CurGame.c.status == GameState.ATTACKERS_CONTROL) {
+				if (CurGame.c.terra.preview.tool != null)
+					CurGame.c.terra.preview.tool.remove();
+				CurGame.c.terra.preview.tool = null;
 				CurGame.c.gamego = true;
-				CurGame.c.status = 0;
+				CurGame.c.status = GameState.TIME_GOES;
 			}
-			if (CurGame.c.status == 2) {
+			if (CurGame.c.status == GameState.DEFENDERS_CONTROL) {
 				SoundHandler.playSound("sentry/seek_1");
 				if (CurGame.c.terra.preview.tool != null)
 					CurGame.c.terra.preview.tool.remove();
@@ -547,7 +593,7 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 				}
 				CurGame.c.terra.preview.model.img = TeamData.getTeamImage(
 						"cursor", CurGame.c.controllingTeam);
-				CurGame.c.status = 1;
+				CurGame.c.status = GameState.ATTACKERS_CONTROL;
 			}
 		}
 	}
