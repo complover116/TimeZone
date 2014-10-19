@@ -36,18 +36,9 @@ public class BlockBuilder extends EntityHurtable {
 	}
 	public BlockBuilder copy() {
 		BlockBuilder build = null;
-		try {
-			build = new BlockBuilder(btc.getClass().newInstance(), (byte) team, maxhealth, unbuiltim, cost);
+			build = new BlockBuilder(btc, (byte) team, maxhealth, unbuiltim, cost);
 			build.setPos(this.getPos());
 			return build;
-		} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return build;
 		
 	}
 	public boolean place() {

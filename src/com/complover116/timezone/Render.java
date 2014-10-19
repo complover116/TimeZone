@@ -10,12 +10,9 @@ public class Render {
 		for(int i = 0; i < 100; i ++) {
 			for(int j = 0; j < 100; j ++) {
 				if(CurGame.c.terra.terrain[i][j] != null){
-					CurGame.c.terra.terrain[i][j].drawthing.x = i*16;
-					CurGame.c.terra.terrain[i][j].drawthing.y = j*16;
-				} else {
-					CurGame.c.terra.terrain[i][j].drawthing.x = i*16;
+					MainScreen.objects.add(new DrawThing(CurGame.c.terra.terrain[i][j].getImage(),i*16,j*16,false));
 				}
-				MainScreen.objects.add(CurGame.c.terra.terrain[i][j].drawthing);				
+								
 			}
 		}
 		//RENDER THE ENTITIES

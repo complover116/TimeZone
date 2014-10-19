@@ -45,7 +45,7 @@ public class Bullet extends EntityObject {
 			for(int y = (int)(this.getPos().y/16) - 2; y < (int)(this.getPos().y)/16 + 3; y++) {
 				if(x > -1&&y>-1&&x<100&&y<100){
 				//MainScreen.shapes.add(new ShapeModel(new Rectangle(x*16,y*16,16,16), new Color(0,255,0)));
-				if(CurGame.c.terra.terrain[x][y].solid) {
+				if(CurGame.c.terra.terrain[x][y].isSolid()) {
 					//MainScreen.shapes.add(new ShapeModel(new Rectangle(x*16,y*16,16,16), new Color(0,0,255)));
 					if(this.checkBlockCollision(x, y)) {
 						this.remove();

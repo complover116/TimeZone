@@ -16,7 +16,7 @@ public class BlockBuildTool extends Tool {
 	@Override
 	public boolean use() {
 		if(CurGame.c.terra.terrain[(int) (this.getPos().x/16)]
-				[(int) (this.getPos().y/16)].getClass() == btc.getClass()) {
+				[(int) (this.getPos().y/16)] == btc) {
 			return false;
 		}
 		for(int i = 0; i < CurGame.c.terra.entities.size(); i++) {
@@ -61,17 +61,8 @@ public class BlockBuildTool extends Tool {
 	}
 	public BlockBuilder copy() {
 		BlockBuilder build = null;
-		try {
-			build = new BlockBuilder(btc.getClass().newInstance(), (byte) owner, maxh, unbuiltim, cost);
+			build = new BlockBuilder(btc, (byte) owner, maxh, unbuiltim, cost);
 			build.setPos(this.getPos());
-			return build;
-		} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		return build;
 }
 

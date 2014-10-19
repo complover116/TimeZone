@@ -3,9 +3,6 @@ package com.complover116.timezone;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import com.complover116.timezone.blocks.Border;
-import com.complover116.timezone.blocks.Ground;
-import com.complover116.timezone.blocks.TeleportZone;
 import com.complover116.timezone.entities.BaseVehicle;
 import com.complover116.timezone.entities.MainFrame;
 import com.complover116.timezone.entities.Preview;
@@ -34,28 +31,28 @@ public class Territory implements Serializable{
 	public void fill() {
 		for(int i = 0; i < 100; i ++) {
 			for(int j = 0; j < 100; j ++) {
-				terrain[i][j] = new Ground();
+				terrain[i][j] = Block.GROUND;
 			}
 		}
 		for(int i = 0; i < 100; i ++) {
-				terrain[i][0] = new Border();
+				terrain[i][0] = Block.BORDER;
 		}
 		for(int i = 0; i < 100; i ++) {
-			terrain[0][i] = new Border();
+			terrain[0][i] = Block.BORDER;
 		}
 		for(int i = 0; i < 100; i ++) {
-			terrain[i][99] = new Border();
+			terrain[i][99] = Block.BORDER;
 		}
 		for(int i = 0; i < 100; i ++) {
-			terrain[99][i] = new Border();
+			terrain[99][i] = Block.BORDER;
 		}
 		for(int i = 1; i < 9; i ++) {
 			for(int j = 1; j < 9; j ++) {
-			terrain[j][i] = new TeleportZone();
+			terrain[j][i] = Block.TELEPORT_ZONE;
 			}
 		}
 		for(int i = 0; i < 100; i ++) {
-			terrain[99][i] = new Border();
+			terrain[99][i] = Block.BORDER;
 		}
 		/*Sentry sentry2 = new Sentry(this.owner);
 		sentry2.model.x = 256;

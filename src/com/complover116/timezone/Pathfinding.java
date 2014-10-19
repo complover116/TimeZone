@@ -4,8 +4,6 @@ import java.awt.Color;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
-import com.complover116.timezone.blocks.Rail;
-
 
 
 public class Pathfinding {
@@ -47,9 +45,9 @@ public class Pathfinding {
 			try{
 			boolean impassable;
 			if(sentry) {
-				impassable = !(CurGame.c.terra.terrain[tnodes.get(i).x][tnodes.get(i).y] instanceof Rail);
+				impassable = !(CurGame.c.terra.terrain[tnodes.get(i).x][tnodes.get(i).y] == Block.RAIL);
 			}else {
-				impassable = CurGame.c.terra.terrain[tnodes.get(i).x][tnodes.get(i).y].solid;
+				impassable = CurGame.c.terra.terrain[tnodes.get(i).x][tnodes.get(i).y].isSolid();
 			}
 			if(impassable) {
 				tnodes.remove(i);

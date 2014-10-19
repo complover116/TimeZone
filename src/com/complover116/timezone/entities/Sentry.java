@@ -2,6 +2,7 @@ package com.complover116.timezone.entities;
 
 import com.complover116.timezone.Animation;
 import com.complover116.timezone.AnimationSet;
+import com.complover116.timezone.Block;
 import com.complover116.timezone.CurGame;
 import com.complover116.timezone.Entity;
 import com.complover116.timezone.EntityBuildable;
@@ -9,7 +10,6 @@ import com.complover116.timezone.EntityHurtable;
 import com.complover116.timezone.Path;
 import com.complover116.timezone.Pathfinding;
 import com.complover116.timezone.SoundHandler;
-import com.complover116.timezone.blocks.Rail;
 
 public class Sentry extends EntityBuildable {
 	/**
@@ -59,7 +59,7 @@ public class Sentry extends EntityBuildable {
 	@Override
 	public void Think() {
 		if(this.mountedTo == null) {
-			if(!(CurGame.c.terra.terrain[(int)this.getPos().x/16][(int)this.getPos().y/16] instanceof Rail)) {
+			if(!(CurGame.c.terra.terrain[(int)this.getPos().x/16][(int)this.getPos().y/16] == Block.RAIL)) {
 				if(Math.random()*10 > 9) {
 				this.takeDamage(null, 1);
 				}

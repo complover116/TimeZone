@@ -15,9 +15,6 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
-import com.complover116.timezone.blocks.Ground;
-import com.complover116.timezone.blocks.Rail;
-import com.complover116.timezone.blocks.Wall;
 import com.complover116.timezone.entities.Factory;
 import com.complover116.timezone.entities.RailMount;
 import com.complover116.timezone.entities.Sentry;
@@ -352,7 +349,7 @@ if(arg0.getButton() == 2) {
 		}
 		if (CurGame.c.status == GameState.BUILD_MODE) {
 			if (arg0.getKeyChar() == 'g') {
-				BlockBuildTool bb = new BlockBuildTool(new Wall(),
+				BlockBuildTool bb = new BlockBuildTool(Block.WALL,
 						CurGame.c.controllingTeam, 2, "wall_unbuilt", 1);
 				bb.setPos(CurGame.c.terra.preview.getPos());
 				CurGame.c.terra.regEntity(bb);
@@ -361,7 +358,7 @@ if(arg0.getButton() == 2) {
 				SoundHandler.playSound("sentry/seek_1");
 			}
 			if (arg0.getKeyChar() == 'r') {
-				BlockBuildTool bb = new BlockBuildTool(new Rail(),
+				BlockBuildTool bb = new BlockBuildTool(Block.RAIL,
 						CurGame.c.controllingTeam, 10, "railcross", 2);
 				bb.setPos(CurGame.c.terra.preview.getPos());
 				CurGame.c.terra.regEntity(bb);
@@ -370,7 +367,7 @@ if(arg0.getButton() == 2) {
 				SoundHandler.playSound("sentry/seek_1");
 			}
 			if (arg0.getKeyChar() == 'x') {
-				BlockBuildTool bb = new BlockBuildTool(new Ground(),
+				BlockBuildTool bb = new BlockBuildTool(Block.GROUND,
 						CurGame.c.controllingTeam, 5, "delete", 0);
 				bb.setPos(CurGame.c.terra.preview.getPos());
 				CurGame.c.terra.regEntity(bb);
