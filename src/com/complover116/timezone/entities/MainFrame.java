@@ -23,14 +23,15 @@ public class MainFrame extends EntityHurtable {
 		this.health = this.health - damage;
 		displayHealth = 400;
 		if(this.health < 0){
+			if(!this.shouldDie)
 			this.onDeath();
-			this.health = 1;
+			this.health = 0;
 		}
 	}
 	@Override
 	public void onDeath() {
 		EpicBoom ex = new EpicBoom();
-		ex.setPos(this.getPos().sub(new Pos(10,10)));
+		ex.setPos(this.getPos());
 		CurGame.c.terra.regEntity(ex);
 		this.shouldDie = true;
 	}

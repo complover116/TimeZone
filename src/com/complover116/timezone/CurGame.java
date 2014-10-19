@@ -25,4 +25,5 @@ public class CurGame implements Serializable{
 	public double scrollY = 0;
 	public double scrollingX = 0;
 	public double scrollingY = 0;
+	
 }

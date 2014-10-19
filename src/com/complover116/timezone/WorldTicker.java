@@ -1,11 +1,14 @@
 package com.complover116.timezone;
 
+import java.util.ArrayList;
+
 
 
 public class WorldTicker {
 	public static int waitedTicks = 0;
 	public static boolean randomflag = false;
 	public static int ttmillis = 0;
+	public static ArrayList<Integer> ticktimes = new ArrayList<Integer>();
 	public static void tickWorld() {
 		CurGame.c.teams[CurGame.c.terra.owner].metaltick++;
 		if(CurGame.c.teams[CurGame.c.terra.owner].metaltick > 35) {
@@ -26,7 +29,9 @@ public class WorldTicker {
 		}
 	}
 	public static void run() {
-		
+		for(int i = 0; i < 50; i ++) {
+			ticktimes.add(0);
+		}
 		try {
 			Thread.sleep(200);
 		} catch (InterruptedException e1) {
@@ -171,10 +176,15 @@ public class WorldTicker {
 			Render.render();
 			}
 			long ticktime = System.nanoTime() - tickstart;
-			ttmillis = (int) (ticktime/1000000);
+			int ttml = (int) (ticktime/1000000);
+			ticktimes.add(ttml);
+			ticktimes.remove(0);
+			for(int i = 0; i < ticktimes.size(); i++)
+				ttmillis += ticktimes.get(i);
+			ttmillis /= ticktimes.size();
 			try {
-				if(ttmillis < 20)
-				Thread.sleep(20-ttmillis);
+				if(ttml < 20)
+				Thread.sleep(20-ttml);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

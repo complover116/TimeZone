@@ -1,8 +1,11 @@
 v0.4.6-InDev
-TODO:Optimise sentry's target finding code
-TODO:Fix collisions on controlled entities
-TODO:Allow attacking team to destroy their entities
-TODO:Add lag notices
+Optimised sentry's target finding code
+Kinda fixed collisions on controlled entities
+Allow attacking team to destroy their entities
+Removed Sentry MountPoint detection trace
+TPS is now smoothened over 1 second
+Optimised LOS calculation
+Fixed "soos failed to load" trace, now displays the correct filename
 
 v0.4.5
 Incredibly optimised pathfinding for controllable entities

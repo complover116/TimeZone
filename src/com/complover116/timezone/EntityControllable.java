@@ -1,5 +1,7 @@
 package com.complover116.timezone;
 
+import java.awt.Color;
+import java.awt.Rectangle;
 import java.util.ArrayList;
 
 import com.complover116.timezone.entities.MountPoint;
@@ -147,8 +149,22 @@ public abstract class EntityControllable extends EntityBuildable {
 					//MainScreen.shapes.add(new ShapeModel(new Rectangle(x*16,y*16,16,16), new Color(0,0,255)));
 					if(this.checkBlockCollision(x, y)) {
 						//MainScreen.shapes.add(new ShapeModel(new Rectangle(x*16,y*16,16,16), new Color(255,0,0), true));
-						
-						this.speedForward = -Math.signum(speedForward);
+						/*double deg = Math.atan2(x*16+8-this.getPos().x, y*16+8-this.getPos().y);
+						deg = Math.toDegrees(deg);
+						deg += 180;
+						System.out.println(deg);
+						if(deg<45) {
+							this.setPos(this.getPos().add2(new Pos(0,3)));
+						} else if (deg < 135) {
+							this.setPos(this.getPos().add2(new Pos(-3,0)));
+						} else if(deg< 225) {
+							this.setPos(this.getPos().add2(new Pos(0,-3)));
+						} else if (deg < 315){
+							this.setPos(this.getPos().add2(new Pos(3,0)));
+						} else {
+							this.setPos(this.getPos().add2(new Pos(0,3)));
+						}*/
+						this.speedForward = -/*Math.signum(*/speedForward/*)*/;
 						flag = true;
 						break;
 						

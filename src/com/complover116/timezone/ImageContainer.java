@@ -11,7 +11,6 @@ import javax.imageio.ImageIO;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
-import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JOptionPane;
 
 import org.yaml.snakeyaml.Yaml;
@@ -62,7 +61,7 @@ public class ImageContainer {
 				// TODO Auto-generated catch block
 				soundsFailed ++;
 				e.printStackTrace();
-				System.err.println(sonds.get(i).get("file")+" failed to load!");
+				System.err.println(sonds.get(i).get("name")+" failed to load!");
 			} 
 			
 		}

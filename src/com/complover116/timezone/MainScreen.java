@@ -29,6 +29,7 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 	public static int width = 0;
 	public static int height = 0;
 	public static double shear = 0;
+	
 	/**
 	 * 
 	 */
@@ -161,6 +162,12 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 							+ Metrics
 									.timeFromSeconds((int) CurGame.c.attackTime),
 					0, 20);
+			if(CurGame.c.status == 10) 
+				g2d.drawString(
+						"TICK TIME:"
+								+ WorldTicker.ttmillis+"ms("+WorldTicker.ttmillis/50+")",
+						0, 40);
+			else
 			g2d.drawString(
 					"TICK TIME:"
 							+ WorldTicker.ttmillis+"ms",
@@ -493,7 +500,7 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 			}
 		}
 		if (arg0.getKeyChar() == 'x') {
-			if (CurGame.c.status == 2 && CurGame.c.terra.preview.selent != null) {
+			if ((CurGame.c.status == 2 || CurGame.c.status == 1) && CurGame.c.terra.preview.selent != null) {
 				CurGame.c.terra.preview.selent.onDeath();
 				CurGame.c.terra.preview.selent.remove();
 			}

@@ -81,9 +81,9 @@ public class Sentry extends EntityBuildable {
 						//System.out.println("Order executed successfully");
 						for(Entity ent:CurGame.c.terra.entities) {
 							if(ent instanceof MountPoint) {
-								System.out.println("MP EXISTS");
+								//System.out.println("MP EXISTS");
 								if(((MountPoint)ent).checkCollision(this)) {
-									System.out.println("MP COLLIDES");
+									//System.out.println("MP COLLIDES");
 									((MountPoint)ent).mountedEnt = this;
 									this.setPos(((MountPoint)ent).getPos());
 									this.onMount((MountPoint)ent);
@@ -128,7 +128,7 @@ public class Sentry extends EntityBuildable {
 				}
 			} else {
 				this.model.rot -= 1;
-				if (this.model.rot < 0+this.initrot) {
+				if (this.model.rot < this.initrot) {
 					this.turningright = true;
 					SoundHandler.playSound("sentry/seek_1");
 				}
@@ -216,11 +216,12 @@ public class Sentry extends EntityBuildable {
 		boolean flag = false;
 		for (int i = 0; i < CurGame.c.terra.entities.size(); i++) {
 			if (CurGame.c.terra.entities.get(i) instanceof EntityHurtable
-					&& CurGame.c.terra.entities.get(i).getPos()
-							.distance(this.getPos()) < 500) {
-				if (((EntityHurtable) CurGame.c.terra.entities.get(i)).team != this.team&&CurGame.c.terra.entities.get(i).getPos().LOS(this.getPos())) {
+					&& ((EntityHurtable) CurGame.c.terra.entities.get(i)).team != this.team) {
+				if (CurGame.c.terra.entities.get(i).getPos()
+						.distance(this.getPos()) < 500&&CurGame.c.terra.entities.get(i).getPos().LOS(this.getPos())) {
 					target = CurGame.c.terra.entities.get(i);
 					flag = true;
+					break;
 				}
 			}
 		}

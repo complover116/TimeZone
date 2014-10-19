@@ -1,5 +1,8 @@
 package com.complover116.timezone;
 
+import java.awt.Color;
+import java.awt.Rectangle;
+
 import com.complover116.timezone.blocks.Rail;
 
 /**
@@ -46,9 +49,10 @@ public class Pos {
 		return new Pos(newX, newY);
 	}
 	public boolean LOS(Pos pos2) {
-		for(int i = 0; i < distance(pos2); i++) {
-			int posX = (int)(this.add2(pos2.sub(this).normal().mul(i)).x/16);
-			int posY = (int)(this.add2(pos2.sub(this).normal().mul(i)).y/16);
+		for(int i = 0; i < distance(pos2); i+=15) {
+			Pos sos = this.add2(pos2.sub(this).normal().mul(i));
+			int posX = (int)(sos.x/16);
+			int posY = (int)(sos.y/16);
 			if(CurGame.c.terra.terrain[posX][posY].solid) {
 				//MainScreen.shapes.add(new ShapeModel(new Rectangle(posX*16,posY*16,16,16),new Color(255,0,0),false));
 				return false;

@@ -15,7 +15,7 @@ public class RailMount extends EntityBuildable {
 	boolean flag = false;
 	@Override
 	public void onConstructed() {
-		this.model.setModel(TeamData.getTeamImage("railmount", team));
+		
 	}
 	public RailMount() {
 		
@@ -55,7 +55,7 @@ public class RailMount extends EntityBuildable {
 	@Override
 	public void construct() {
 		// TODO Auto-generated method stub
-
+		this.model.setModel(TeamData.getTeamImage("railmount", team));
 	}
 
 }
