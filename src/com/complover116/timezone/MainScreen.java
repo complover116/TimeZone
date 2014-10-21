@@ -41,6 +41,7 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 		Graphics2D g2d = (Graphics2D) g;
 		
 		if (CurGame.overstat > -1) {
+			
 			g2d.translate(-CurGame.c.scrollX, -CurGame.c.scrollY);
 			g2d.transform(AffineTransform.getScaleInstance(1 - shear / 100,
 					1 - shear / 100));
@@ -178,6 +179,7 @@ public class MainScreen extends JPanel implements MouseListener, KeyListener {
 						450);
 			}
 			g2d.setColor(new Color(185, 185, 185, 255));
+			UI.drawUI(g2d);
 			g2d.drawString("Metal:"
 					+ CurGame.c.teams[CurGame.c.terra.owner].dismetal, 200, 20);
 			
