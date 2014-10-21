@@ -17,7 +17,7 @@ public enum Block {
 		if(this == GROUND) return "ground_1";
 		if(this == BORDER) return "border";
 		if(this == WALL) return "wall";
-		if(this == RAIL) return "rail";
+		if(this == RAIL) return "railcross";
 		if(this == TELEPORT_ZONE) return "teleportzone";
 		return null;
 	}

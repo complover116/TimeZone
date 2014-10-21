@@ -85,14 +85,14 @@ public class WorldTicker {
 				}
 			if(CurGame.c.gamego == false && CurGame.c.timespeed > 0){
 				CurGame.c.timespeed -=2;
-				if(CurGame.c.timespeed == 99)SoundHandler.playSound("effects/attackend");
+				if(CurGame.c.timespeed == 98)SoundHandler.playSound("effects/attackend");
 				
 				if(CurGame.c.timespeed < 50)
 				SoundHandler.playSound("effects/timetick");
 			}
 			if(CurGame.c.gamego == true && CurGame.c.timespeed < 100) {
 				CurGame.c.timespeed +=2;
-				if(CurGame.c.timespeed == 1)SoundHandler.playSound("effects/attackgo");
+				if(CurGame.c.timespeed == 2)SoundHandler.playSound("effects/attackgo");
 				if(CurGame.c.timespeed < 50)
 				SoundHandler.playSound("effects/timetick");
 			}

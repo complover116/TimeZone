@@ -28,7 +28,7 @@ public class Factory extends EntityBuildable {
 	public Factory(int tm) {
 		this.team = (byte)tm;
 		this.buildinghealth = 50;
-		this.tph = 10;
+		this.tph = 1;
 		this.costPerHealth = 14;
 	}
 	@Override
