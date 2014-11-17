@@ -10,7 +10,7 @@ public class CurGame implements Serializable{
 	public static CurGame c = new CurGame();
 	public static int overstat = -5;
 	public static String loadStep = "Initializing";
-	public double attackTime = 180;
+	public double attackTime = 120;
 	public int curmenu = 0;
 	public TeamData teams[] = new TeamData[2];
 	public int status = -1;

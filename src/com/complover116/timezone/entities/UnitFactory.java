@@ -9,8 +9,8 @@ public class UnitFactory extends Factory {
 	public UnitFactory(byte controllingTeam) {
 		this.team = controllingTeam;
 		this.buildinghealth = 50;
-		this.tph = 1;
-		this.costPerHealth = 14;
+		this.tph = 60;
+		this.costPerHealth = 10;
 	}
 	public UnitFactory() {
 		

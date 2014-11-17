@@ -75,15 +75,6 @@ public class Territory implements Serializable{
 		tp.model.x = 16;
 		tp.model.y = 16;
 		entities.add(tp);
-		BaseVehicle bv = new BaseVehicle(tm);
-		bv.model.x = 64;
-		bv.model.y = 64;
-		entities.add(bv);
-		controlledEnt = bv;
-		BaseVehicle bv2 = new BaseVehicle((byte) this.owner);
-		bv2.model.x = 128;
-		bv2.model.y = 128;
-		entities.add(bv2);
 		Preview pv = new Preview();
 		pv.model.x = 16;
 		pv.model.y = 16;

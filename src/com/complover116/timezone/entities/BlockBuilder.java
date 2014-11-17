@@ -60,7 +60,7 @@ public class BlockBuilder extends EntityHurtable {
 		if(CurGame.c.teams[team].metal>0){
 		
 		wt++;
-		if(wt == 200){
+		if(wt == 100){
 			wt = 0;
 			this.health++;
 			CurGame.c.teams[team].metal -= cost;

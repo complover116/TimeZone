@@ -1,4 +1,8 @@
-v0.4.6-InDev
+v0.4.7
+Balanced costs and time
+Fixed timestopping sounds
+
+v0.4.6
 Optimised sentry's target finding code
 Kinda fixed collisions on controlled entities
 Allow attacking team to destroy their entities

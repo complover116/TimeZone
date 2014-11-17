@@ -30,9 +30,9 @@ public class BaseVehicle extends EntityControllable {
 	}
 	@Override
 	public void construct() {
-		this.buildinghealth = 10;
-		this.tph = 1;
-		this.costPerHealth = 18;
+		this.buildinghealth = 25;
+		this.tph = 40;
+		this.costPerHealth = 4;
 		this.model.rotX = 8.5;
 		this.model.rotY = 11;
 		this.collideX = 4;

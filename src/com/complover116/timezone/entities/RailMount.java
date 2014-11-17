@@ -21,9 +21,9 @@ public class RailMount extends EntityBuildable {
 		
 	}
 	public RailMount(int team) {
-		this.buildinghealth = 25;
-		this.tph = 8;
-		this.costPerHealth = 4;
+		this.buildinghealth = 50;
+		this.tph = 60;
+		this.costPerHealth = 1;
 		this.team = (byte) team;
 		this.model.rotX = 7.5;
 		this.model.rotY = 7.5;

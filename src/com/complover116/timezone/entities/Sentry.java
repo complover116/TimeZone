@@ -29,9 +29,9 @@ public class Sentry extends EntityBuildable {
 		
 	}
 	public Sentry(int team) {
-		this.buildinghealth = 10;
-		this.tph = 8;
-		this.costPerHealth = 25;
+		this.buildinghealth = 50;
+		this.tph = 20;
+		this.costPerHealth = 2;
 		this.team = (byte) team;
 		anim = new AnimationSet("sentry_1", team);
 		anim.animations.add(new Animation("off", 1, 1, -1));
