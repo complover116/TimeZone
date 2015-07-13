@@ -49,7 +49,7 @@ public class GUI implements Runnable {
 	}
 	public void run() {
 		//Create a panel and add components to it.
-		JFrame frame = new JFrame("SNAIPAR");
+		JFrame frame = new JFrame("TZ!");
 		frame.setResizable(true);
 		frame.setSize(200, 200);
 		ms = new MainScreen();
